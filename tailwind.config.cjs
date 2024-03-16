@@ -38,7 +38,7 @@ export default {
   ],
   daisyui: {
     themes: [
-      dark,
+      "dark",
       {
         remolquesenalquilergranada: {
           primary: "#63abf8",
