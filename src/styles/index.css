@@ -1,5 +1,9 @@
 @import "./tailwind.css";
 
+:root {
+  color-scheme: only light;
+}
+
 @layer base {
   [data-theme="remolquesenalquilergranada"] {
     @apply font-Poppins;
