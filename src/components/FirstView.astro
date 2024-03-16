@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import firstView from "../assets/first-view.jpg";
+import ArrowRight from "../icons/ArrowRight.astro";
+---
+
+<section
+  id="inicio"
+  class="py-9 lg:px-20 px-16 max-md:px-0 h-[calc(100vh-68px)] grid place-content-center overflow-hidden"
+>
+  <div
+    class="grid grid-cols-2 max-w-screen-xl mx-auto gap-9 max-md:grid-cols-1"
+  >
+    <div
+      class="grid place-content-center max-md:col-start-1 max-md:row-start-1 z-10 max-md:max-w-[440px]
+      max-md:mx-auto max-md:px-3 max-md:py-4 max-md:bg-white max-md:bg-opacity-30 max-md:text-center"
+    >
+      <h1 class="text-2xl font-bold">
+        <span class="max-md:bg-white max-md:px-2 max-md:py-1">
+          Alquiler de remolques</span
+        >
+      </h1><p class="text-xl pt-8 pb-14 max-md:text-lg">
+        <span class="max-md:bg-white max-md:px-2 max-md:py-1">
+          Alquila tu remolque con el mejor alquiler de remolques en Granada
+          capital.
+        </span>
+      </p>
+      <div>
+        <a class="btn btn-md btn-primary" rel="bookmark" href="/#remolques">
+          <span>Ver remolques</span>
+          <ArrowRight class="w-5 h-5 ml-1.5" />
+        </a>
+      </div>
+    </div>
+    <div
+      class="max-w-[440px] mx-auto overflow-hidden rounded-xl max-md:col-start-1 max-md:row-start-1 max-xs:rounded-none"
+    >
+      <Image src={firstView} alt="" class="aspect-4/3" />
+    </div>
+  </div>
+</section>

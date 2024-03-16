@@ -1,0 +1,227 @@
+---
+import { Image } from "astro:assets";
+import laPinta from "../assets/trailers/la-pinta.jpg";
+import laPinta2 from "../assets/trailers/la-pinta-2.jpg";
+import laPinta3 from "../assets/trailers/la-pinta-3.jpg";
+import laPinta4 from "../assets/trailers/la-pinta-4.jpg";
+import KeyboardArrowLeft from "../icons/KeyboardArrowLeft.astro";
+import KeyboardArrowRight from "../icons/KeyboardArrowRight.astro";
+
+// Descriptions should be have 50-60 words or 420 characters.
+const trailers = [
+  {
+    title: "La Pinta (Remolque ligero)",
+    description:
+      "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci?<br/>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci? </p>",
+    images: [
+      {
+        src: laPinta,
+        alt: "Foto del remolque La Pinta",
+      },
+      {
+        src: laPinta2,
+        alt: "Foto del remolque La Pinta",
+      },
+      {
+        src: laPinta3,
+        alt: "Foto del remolque La Pinta",
+      },
+      {
+        src: laPinta4,
+        alt: "Foto del remolque La Pinta",
+      },
+    ],
+    links: {
+      booking: { href: "/la-pinta#calendario", rel: "" },
+      information: {
+        href: "/la-pinta",
+        rel: "bookmark",
+      },
+    },
+    isAvailable: true,
+  },
+  {
+    title: "La Niña (Remolque ligero)",
+    description:
+      "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci?<br/>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci?</p>",
+    images: [
+      {
+        src: laPinta,
+        alt: "Foto del remolque La Pinta",
+      },
+    ],
+    links: {
+      booking: { href: "https://www.google.com/", rel: "noopener noreferrer" },
+      information: {
+        href: "https://www.google.com/",
+        rel: "noopener noreferrer",
+      },
+    },
+    isAvailable: false,
+  },
+  {
+    title: "La Santa María (Remolque ligero)",
+    description:
+      "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci?<br/>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, soluta sit animi voluptate, alias doloribus saepe suscipit nemo nesciunt, repellat aliquam modi inventore dicta quam optio id beatae debitis adipisci?</p>",
+    images: [
+      {
+        src: laPinta,
+        alt: "Foto del remolque La Pinta",
+      },
+    ],
+    links: {
+      booking: { href: "https://www.google.com/", rel: "noopener noreferrer" },
+      information: {
+        href: "https://www.google.com/",
+        rel: "noopener noreferrer",
+      },
+    },
+    isAvailable: false,
+  },
+];
+---
+
+<section id="remolques" class="py-20 sm:px-16">
+  <h2 class="xs:text-4xl text-2xl text-center mb-8">
+    Nuestra flota de remolques
+  </h2>
+  <div class="max-w-screen-lg mx-auto grid gap-8">
+    {
+      trailers.map((trailer, i) => (
+        <article
+          class:list={[
+            "sm:max-lg:max-w-[480px] max-lg:mx-auto relative grid lg:gap-8 overflow-hidden sm:rounded-xl bg-white sm:shadow sm:shadow-lg sm:border-slate-50 sm:border-[1px]",
+            i % 2 === 0
+              ? "lg:grid-cols-[calc(40%-16px),calc(60%-16px)]"
+              : "lg:grid-cols-[calc(60%-16px),calc(40%-16px)]",
+          ]}
+        >
+          {!trailer.isAvailable && (
+            <div class="z-10 bg-slate-100 h-full w-full absolute top-0 left-0 grid content-center">
+              <span class="text-green-700 text-4xl text-center underline underline-offset-8 -rotate-12">
+                Próximamente disponible
+              </span>
+            </div>
+          )}
+          <div
+            class:list={[
+              "lg:row-start-1 row-start-2 pt-6 lg:pb-8 pb-4 px-4 flex flex-col justify-between max-md:bg-slate-100",
+              i % 2 === 0 ? "lg:col-start-2 lg:pr-6" : "lg:col-start-1 lg:pl-6",
+            ]}
+          >
+            <div class="lg:prose prose-sm">
+              <h3>{trailer.title}</h3>
+              <div>
+                <Fragment set:html={trailer.description} />
+              </div>
+            </div>
+            <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2">
+              <div class="grid grid-cols-2 gap-3 max-xs:row-start-2 max-xs:w-fit">
+                <a
+                  href={trailer.links.information.href}
+                  rel={trailer.links.information.rel}
+                  class="btn btn-sm btn-secondary w-max"
+                >
+                  Más información
+                </a>
+                <a
+                  href={trailer.links.booking.href}
+                  rel={trailer.links.booking.rel}
+                  class="btn btn-sm btn-accent w-max"
+                >
+                  Realizar reserva
+                </a>
+              </div>
+              <div class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-sm">
+                <span>Permiso B</span>
+              </div>
+            </div>
+          </div>
+          <picture
+            class:list={[
+              "row-start-1 h-full bg-slate-200 overflow-hidden grid place-content-center",
+              i % 2 === 0
+                ? "lg:col-start-1 lg:rounded-tl-xl lg:rounded-bl-xl sm:max-lg:rounded-xl"
+                : "lg:col-start-2 lg:rounded-tr-xl lg:rounded-br-xl sm:max-lg:rounded-xl",
+            ]}
+          >
+            <div
+              class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
+              id={"carousel-" + i}
+              data-carousel-items={trailer.images.length}
+              data-carousel-position={0}
+              style={{ left: 0 }}
+            >
+              {trailer.images.map((image) => (
+                <Image src={image.src} alt={image.alt} class="aspect-1/1" />
+              ))}
+              <div
+                class="absolute bottom-0 w-full h-full flex justify-between items-center xs:px-3 px-2 transition-all duration-500 ease-in-out"
+                id={"carousel-controls-" + i}
+                style={{ left: 0 }}
+              >
+                <button
+                  id={"control-previous-" + i}
+                  class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:opacity-35 transition-opacity"
+                  disabled
+                >
+                  <KeyboardArrowLeft class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+                </button>
+                <button
+                  id={"control-next-" + i}
+                  class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:!opacity-35 transition-opacity"
+                >
+                  <KeyboardArrowRight class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+                </button>
+              </div>
+            </div>
+          </picture>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline defer define:vars={{ trailers }}>
+  trailers.forEach((trailer, i) => {
+    const carouselHTMLElement = document.getElementById("carousel-" + i);
+    const carouselControlsHTMLElement = document.getElementById(
+      "carousel-controls-" + i
+    );
+    let carouselPosition = Number(
+      carouselHTMLElement.getAttribute("data-carousel-position")
+    );
+    const carouselItemsLength = Number(
+      carouselHTMLElement.getAttribute("data-carousel-items")
+    );
+    document
+      .getElementById("control-previous-" + i)
+      .addEventListener("click", () => {
+        if (carouselPosition < 2)
+          document.getElementById("control-previous-" + i).disabled = true;
+        if (carouselPosition < 1) return;
+        document.getElementById("control-next-" + i).disabled = false;
+        carouselHTMLElement.style.left = (carouselPosition - 1) * -100 + "%";
+        carouselControlsHTMLElement.style.left =
+          (carouselPosition - 1) * 100 + "%";
+        carouselPosition--;
+      });
+
+    document
+      .getElementById("control-next-" + i)
+      .addEventListener("click", () => {
+        if (carouselPosition + 2 >= carouselItemsLength)
+          document.getElementById("control-next-" + i).disabled = true;
+        if (carouselPosition + 1 >= carouselItemsLength) return;
+        document.getElementById("control-previous-" + i).disabled = false;
+        carouselHTMLElement.style.left = (carouselPosition + 1) * -100 + "%";
+        carouselControlsHTMLElement.style.left =
+          (carouselPosition + 1) * 100 + "%";
+        carouselHTMLElement.setAttribute(
+          "data-carousel-position",
+          carouselPosition + 1
+        );
+        carouselPosition++;
+      });
+  });
+</script>

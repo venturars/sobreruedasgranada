@@ -1,0 +1,12 @@
+@import "./tailwind.css";
+
+@layer base {
+  [data-theme="remolquesenalquilergranada"] {
+    @apply font-Poppins;
+  }
+
+  html,
+  body {
+    @apply bg-white box-border;
+  }
+}

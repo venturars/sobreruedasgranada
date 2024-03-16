@@ -1,0 +1,5 @@
+{
+  "recommendations": ["astro-build.astro-vscode"],
+  "unwantedRecommendations": [],
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list"]
+}

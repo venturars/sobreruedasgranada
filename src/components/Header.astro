@@ -1,0 +1,144 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.jpg";
+import Phone from "../icons/Phone.astro";
+import Whatsapp from "../icons/Whatsapp.astro";
+
+const navItems = [
+  ["Inicio", "/#inicio"],
+  ["Remolques", "/#remolques"],
+  ["Ubicación", "/#ubicacion"],
+  ["Preguntas frecuentes", "/#preguntas-frecuentes"],
+];
+---
+
+<div
+  class="bg-base-content text-base-100 sticky top-[-1px] z-50"
+  transition:persist
+>
+  <div class="navbar max-w-screen-xl mx-auto">
+    <div class="navbar-start max-md:w-full">
+      <div class="dropdown dropdown-open">
+        <button tabindex="0" class="btn btn-ghost md:hidden" id="dropdown-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16"></path></svg
+          >
+        </button>
+        <ul
+          id="dropdown-panel"
+          tabindex="0"
+          class="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-content rounded-box w-52 hidden"
+        >
+          {
+            navItems.map((node) => (
+              <li class="hover:border-b-base-100 border-b-[1px] border-b-transparent transition-colors">
+                <a href={node[1]} rel="markbook">
+                  {node[0]}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <a
+        class="md:btn md:btn-ghost md:block md:btn-square md:btn-md md:p-1.5"
+        href="/"
+        ><Image
+          src={logo}
+          alt="Logo de remolquesenalquilergranada"
+          class="max-md:hidden"
+        />
+        <span class="md:hidden max-2xs:hidden pl-1.5 block"
+          >Remolques en Alquiler Granada</span
+        ></a
+      >
+    </div>
+    <div class="navbar-center hidden md:flex">
+      <ul class="menu menu-horizontal px-1">
+        {
+          navItems.map((node) => (
+            <li class="hover:underline underline-offset-4">
+              <a href={node[1]} rel="markbook">
+                {node[0]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="navbar-end">
+      <button
+        class="btn btn-sm btn-primary mr-1.5"
+        onclick="modal_contact.showModal()">Contactar</button
+      >
+      <dialog id="modal_contact" class="modal">
+        <div class="modal-box text-black">
+          <form method="dialog">
+            <button
+              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >✕</button
+            >
+          </form>
+          <div class="prose prose-base">
+            <h4 class="font-bold mb-4 text-lg">Contacta con nosotros</h4>
+            <p>
+              Si tienes cualquier duda, problema o quieres contactar con
+              nosotros, tienes estas 2 opciones:
+            </p>
+            <ul class="list-none !pl-0">
+              <li class="!pl-0 !mb-4">
+                <a
+                  href="tel:+34627139931"
+                  class="btn btn-block btn-primary justify-start !m-0"
+                >
+                  <Phone class="w-5 h-5 mr-1.5" />
+                  <span> Llama: +34 627 139 931</span>
+                </a>
+              </li>
+              <li class="!pl-0">
+                <a
+                  href="https://wa.me/627139931"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
+                >
+                  <Whatsapp class="w-5 h-5 mr-1.5" />
+                  <span> WhatsApp: +34 627 139 931</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button></button>
+          </form>
+        </div>
+      </dialog>
+    </div>
+  </div>
+
+  <script is:inline defer>
+    document.getElementById("dropdown-btn").addEventListener(
+      "click",
+      (event) => {
+        event.stopPropagation();
+        document.getElementById("dropdown-panel").classList.toggle("hidden");
+      },
+      { capture: true }
+    );
+    document.addEventListener("click", (event) => {
+      if (
+        !document.getElementById("dropdown-panel").classList.contains("hidden")
+      )
+        document.getElementById("dropdown-panel").classList.add("hidden");
+    });
+  </script>
+</div>

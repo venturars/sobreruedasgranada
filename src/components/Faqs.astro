@@ -1,0 +1,68 @@
+---
+// @ts-nocheck
+import PlusIcon from "../icons/Plus.astro";
+import MinusIcon from "../icons/Minus.astro";
+const faqs = [
+  [
+    "¿Necesito seguro de coche?",
+    "<p class='!m-0'>Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque</p>",
+  ],
+  [
+    "¿Necesito seguro de coche?",
+    "<p class='!m-0'>Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque</p>",
+  ],
+  [
+    "¿Necesito seguro de coche?",
+    "<p class='!m-0'>Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque</p>",
+  ],
+  [
+    "¿Necesito seguro de coche?",
+    "<p class='!m-0'>Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque Sí claro, necesitas seguro de coche con bola de remolque</p>",
+  ],
+];
+---
+
+<script lang="js" type="module">
+  document.addEventListener("DOMContentLoaded", () => {
+    const detailsElements = Array.from(
+      document.getElementById("preguntas-frecuentes").children[1].children
+    ).filter((element) => element instanceof HTMLDetailsElement);
+    detailsElements.forEach((element) => {
+      element.addEventListener("toggle", (event) => {
+        Array.from(event.target.getElementsByTagName("svg")).forEach(
+          (element) => element.classList.toggle("hidden")
+        );
+        if (!event.target.open) return;
+        detailsElements.forEach((otherElement) => {
+          if (otherElement !== event.target && otherElement.open)
+            otherElement.open = false;
+        });
+      });
+    });
+  });
+</script>
+
+<div class="w-full h-full px-6 max-xs:px-4">
+  <section
+    class="max-w-screen-md mx-auto py-14 prose-lg max-xs:prose-sm"
+    id="preguntas-frecuentes"
+  >
+    <h2 class="">Preguntas frecuentes</h2>
+    <div class="grid gap-4">
+      {
+        faqs.map((faq) => (
+          <details>
+            <summary class="bg-white rounded-md list-none px-4 py-3 max-xs:p-2 shadow border-slate-50 border-[1px] cursor-pointer flex justify-between items-center">
+              <span class="mr-2">{faq[0]}</span>
+              <PlusIcon class="w-6 h-6 max-xs:w-5 max-xs:h-5 shrink-0" />
+              <MinusIcon class="w-6 h-6 max-xs:w-5 max-xs:h-5 shrink-0 hidden" />
+            </summary>
+            <div class="bg-white px-4 py-3 max-xs:p-2 mt-2 shadow border-slate-50 border-[1px]">
+              <Fragment set:html={faq[1]} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+</div>

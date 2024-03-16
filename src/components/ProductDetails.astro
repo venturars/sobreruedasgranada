@@ -1,0 +1,124 @@
+---
+import laPintaReservationDoc from "../assets/trailers/la-pinta-documento-de-reserva.pdf";
+
+const rows = [
+  ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
+  ["Ipsum dolor sit", "ipsum dolor sit amet"],
+  [
+    "Lorem lorem",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet",
+  ],
+  ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
+
+  ["Ipsum dolor sit", "ipsum dolor sit amet"],
+  [
+    "Lorem lorem",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet",
+  ],
+];
+---
+
+<div class="w-full h-full">
+  <section
+    class="max-w-screen-xl mx-auto py-14 2xl:px-0 px-16 max-md:px-4 max-xs:px-0"
+    id="detalles"
+  >
+    <div role="tablist" class="tabs tabs-lifted md:tabs-lg">
+      <input
+        type="radio"
+        name="my_tabs_2"
+        role="tab"
+        class="tab [--tab-bg:#F1F5F9] [--tab-border-color:#a1c2f7] min-w-max"
+        aria-label="Datos técnicos"
+      />
+      <div
+        role="tabpanel"
+        class="tab-content border-secondary rounded-box lg:px-6 px-4 prose prose-base max-md:prose-sm min-w-full bg-slate-100 max-xs:!rounded-none"
+      >
+        <div class="overflow-x-auto">
+          <table class="table">
+            <tbody>
+              {
+                rows.map((row, i) => (
+                  <tr
+                    class:list={[
+                      "border-secondary",
+                      i % 2 === 0 && "bg-slate-50",
+                    ]}
+                  >
+                    <td class="border-r border-secondary font-semibold">
+                      {row[0]}
+                    </td>
+                    <td>{row[1]}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+            dolorum explicabo ex ducimus eaque odit, reprehenderit expedita
+            dolore! Ullam distinctio est deleniti deserunt alias? Dignissimos
+            molestias eveniet reprehenderit error illum.
+          </p>
+        </div>
+      </div>
+      <input
+        type="radio"
+        name="my_tabs_2"
+        role="tab"
+        class="tab [--tab-bg:#F1F5F9] [--tab-border-color:#a1c2f7] min-w-max"
+        aria-label="Condiciones de reserva"
+        checked
+      />
+      <div
+        role="tabpanel"
+        class="tab-content border-secondary rounded-box lg:p-6 p-4 prose prose-base max-md:prose-sm min-w-full bg-slate-100 max-xs:!rounded-none"
+      >
+        <p class="font-bold">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint tempora
+          porro qui temporibus adipisci laborum in nulla accusantium! Eveniet
+          provident, voluptate nam quasi molestias nihil sunt sequi nesciunt
+          obcaecati quo.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint tempora
+          porro qui temporibus adipisci laborum in nulla accusantium!<br
+          />Eveniet provident, voluptate nam quasi molestias nihil sunt sequi
+          nesciunt obcaecati quo.
+        </p>
+        <button class="btn btn-secondary btn-sm" onclick="modal_1.showModal()"
+          >Ver documento</button
+        >
+        <dialog id="modal_1" class="modal">
+          <div class="modal-box w-11/12 max-w-4xl max-h-[92vh]">
+            <form method="dialog">
+              <button
+                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >✕</button
+              >
+            </form>
+            <h4 class="font-bold xs:text-lg">
+              Documento genérico: Contrato entre particulares
+            </h4>
+            <div class="grid h-[60vh]">
+              <iframe src={laPintaReservationDoc} width="100%" height="100%"
+              ></iframe>
+            </div>
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn btn-secondary btn-sm">Close</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button></button>
+          </form>
+        </dialog>
+      </div>
+    </div>
+  </section>
+</div>
