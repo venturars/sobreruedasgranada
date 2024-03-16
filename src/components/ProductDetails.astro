@@ -1,6 +1,4 @@
 ---
-import laPintaReservationDoc from "../assets/trailers/la-pinta-documento-de-reserva.pdf";
-
 const rows = [
   ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
   ["Ipsum dolor sit", "ipsum dolor sit amet"],
@@ -105,7 +103,12 @@ const rows = [
               Documento genérico: Contrato entre particulares
             </h4>
             <div class="grid h-[60vh]">
-              <embed src={laPintaReservationDoc} width="100%" height="100%" />
+              <embed
+                src="/assets/la-pinta-documento-de-reserva.pdf"
+                type="application/pdf"
+                width="100%"
+                height="100%"
+              />
             </div>
             <div class="modal-action">
               <form method="dialog">
