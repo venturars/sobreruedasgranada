@@ -28,7 +28,7 @@ const images = [
 ---
 
 <section
-  class="py-9 2xl:px-0 px-16 max-md:px-4 max-xs:px-0 lg:h-[calc(100vh-68px)] lg:grid max-w-screen-xl mx-auto lg:grid-cols-2 md:gap-12 xl:gap-16"
+  class="py-9 max-xs:pt-0 2xl:px-0 px-16 max-md:px-4 max-xs:px-0 lg:h-[calc(100vh-68px)] lg:grid max-w-screen-xl mx-auto lg:grid-cols-2 md:gap-12 xl:gap-16"
 >
   <picture
     class="grid place-content-center overflow-hidden max-lg:max-w-xl mx-auto max-lg:mb-9"
@@ -133,6 +133,32 @@ const images = [
 
 <script is:inline defer define:vars={{ images }}>
   const carouselHTMLElement = document.getElementById("carousel");
+
+  document.getElementById("carousel").addEventListener("swiped", function (e) {
+    const carouselPosition = Number(
+      carouselHTMLElement.getAttribute("data-carousel-position")
+    );
+    const carouselItemsLength = Number(
+      carouselHTMLElement.getAttribute("data-carousel-items")
+    );
+
+    ({
+      right: () => {
+        if (carouselPosition < 1) return;
+        carouselHTMLElement.setAttribute(
+          "data-carousel-position",
+          carouselPosition - 1
+        );
+      },
+      left: () => {
+        if (carouselPosition + 1 >= carouselItemsLength) return;
+        carouselHTMLElement.setAttribute(
+          "data-carousel-position",
+          carouselPosition + 1
+        );
+      },
+    })[e.detail.dir]();
+  });
 
   document.getElementById("control-previous").addEventListener("click", () => {
     const carouselPosition = Number(
