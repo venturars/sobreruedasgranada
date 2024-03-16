@@ -4,6 +4,20 @@
   color-scheme: only light;
 }
 
+/* Firefox */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+/* Chrome */
+@media (forced-colors: active) {
+  :root {
+    color-scheme: light;
+  }
+}
+
 @layer base {
   [data-theme="remolquesenalquilergranada"] {
     @apply font-Poppins;
