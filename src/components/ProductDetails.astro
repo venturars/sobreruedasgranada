@@ -1,4 +1,6 @@
 ---
+import LaPintaReservationDoc from "../assets/trailers/LaPintaReservationDoc.astro";
+
 const rows = [
   ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
   ["Ipsum dolor sit", "ipsum dolor sit amet"],
@@ -100,10 +102,11 @@ const rows = [
               >
             </form>
             <div class="grid min-h-[60vh]">
-              <iframe
+              <LaPintaReservationDoc
                 src="/assets/la-pinta-documento-de-reserva.pdf"
                 width="100%"
-                height="100%"></iframe>
+                height="100%"
+              />
             </div>
             <div class="modal-action">
               <form method="dialog">
