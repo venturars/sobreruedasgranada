@@ -36,6 +36,7 @@ export default {
     require("@tailwindcss/container-queries"),
     require("daisyui"),
   ],
+  darkMode: "class",
   daisyui: {
     themes: [
       {
