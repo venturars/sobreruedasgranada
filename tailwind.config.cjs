@@ -56,6 +56,5 @@ export default {
         },
       },
     ],
-    darkTheme: false,
   },
 };
