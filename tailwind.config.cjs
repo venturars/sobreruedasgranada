@@ -36,9 +36,9 @@ export default {
     require("@tailwindcss/container-queries"),
     require("daisyui"),
   ],
-  darkMode: "class",
   daisyui: {
     themes: [
+      "cupcake",
       {
         remolquesenalquilergranada: {
           primary: "#63abf8",
