@@ -1,38 +1,19 @@
 @import "./tailwind.css";
 
 @layer base {
-  @media (prefers-color-scheme: light) {
-    [data-theme="remolquesenalquilergranada"] {
-      @apply font-Poppins;
-    }
-
-    html,
-    body {
-      @apply bg-white box-border;
-    }
-
-    details > summary {
-      list-style: none;
-    }
-    details > summary::-webkit-details-marker {
-      display: none;
-    }
+  [data-theme="remolquesenalquilergranada"] {
+    @apply font-Poppins;
   }
-  @media (prefers-color-scheme: dark) {
-    [data-theme="remolquesenalquilergranada"] {
-      @apply font-Poppins;
-    }
 
-    html,
-    body {
-      @apply bg-white box-border;
-    }
+  html,
+  body {
+    @apply bg-white box-border;
+  }
 
-    details > summary {
-      list-style: none;
-    }
-    details > summary::-webkit-details-marker {
-      display: none;
-    }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
   }
 }
