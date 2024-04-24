@@ -10,6 +10,5 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [tailwind()],
-  output: "server",
   adapter: vercel(),
 });
