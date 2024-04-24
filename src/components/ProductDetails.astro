@@ -2,18 +2,21 @@
 import LaPintaReservationDoc from "../assets/trailers/LaPintaReservationDoc.astro";
 
 const rows = [
-  ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
-  ["Ipsum dolor sit", "ipsum dolor sit amet"],
-  [
-    "Lorem lorem",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet",
-  ],
-  ["Lorem lorem", "Lorem ipsum dolor sit amet consectetur adipisicing elit."],
+  ["Número de bastidor", "VV9RC750SPP108147"],
+  ["MMA", "750kg"],
+  ["Peso en vacío", "172kg"],
+  ["Carga útil", "578kg"],
 
-  ["Ipsum dolor sit", "ipsum dolor sit amet"],
+  ["Dimesiones de neumáticos", "165/70 R13/79J"],
+  ["Dimensiones exteriores", "175 x 313 x 80 cm"],
+  ["Dimensiones interiores", "130 x 215 cm"],
+  ["Número de ejes", "1 eje"],
+  ["Tipo de iluminación", "Alógenos"],
+  ["Tipo de conector", "7 pines"],
+  ["Extras", "Ruedo jockey, rueda repuesto y rampa de carga y descarga"],
   [
-    "Lorem lorem",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet",
+    "Opciones",
+    "Juego de 8 cinchas, adaptador de 13 a 7 pines y 1 bloqueo antirrobo",
   ],
 ];
 ---
@@ -29,7 +32,7 @@ const rows = [
         name="my_tabs_2"
         role="tab"
         class="tab [--tab-bg:#F1F5F9] [--tab-border-color:#a1c2f7] min-w-max"
-        aria-label="Datos técnicos"
+        aria-label="Ficha técnica"
         checked
       />
       <div
@@ -57,10 +60,11 @@ const rows = [
             </tbody>
           </table>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-            dolorum explicabo ex ducimus eaque odit, reprehenderit expedita
-            dolore! Ullam distinctio est deleniti deserunt alias? Dignissimos
-            molestias eveniet reprehenderit error illum.
+            Este remolque es apto para ser conducido con el permiso B de
+            conducir y puede ser remolcado por cualquier vehículo tractor que
+            tenga una capacidad mínima de arrastre de 750 kg en su bola de
+            remolque. Si tienes cualquier duda sobre las especificaciones
+            técnicas, puedes ponerte en contacto con nosotros.
           </p>
         </div>
       </div>
@@ -76,19 +80,23 @@ const rows = [
         class="tab-content border-secondary rounded-box lg:p-6 p-4 prose prose-base max-md:prose-sm min-w-full bg-slate-100 max-xs:!rounded-none"
       >
         <p class="font-bold">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Condiciones generales de alquiler de remolque La Pinta
         </p>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint tempora
-          porro qui temporibus adipisci laborum in nulla accusantium! Eveniet
-          provident, voluptate nam quasi molestias nihil sunt sequi nesciunt
-          obcaecati quo.
+          Todos los contratos de alquiler de remolque de tipo "La Pinta" se
+          regirán por estas condiciones generales, con la posibilidad de ajustar
+          los detalles específicos como los datos del cliente, el precio, la
+          fecha, la hora y la duración del contrato. Es importante revisar
+          detenidamente estas condiciones antes de solicitar una reserva, para
+          comprender los términos de uso del remolque, así como las obligaciones
+          y derechos de ambas partes.
         </p>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint tempora
-          porro qui temporibus adipisci laborum in nulla accusantium!<br
-          />Eveniet provident, voluptate nam quasi molestias nihil sunt sequi
-          nesciunt obcaecati quo.
+          Por favor, asegúrate de aclarar todas tus dudas antes de proceder con
+          la reserva del remolque. Al realizar la reserva, como se te indicará
+          durante el proceso de solicitud, estarás aceptando estas condiciones.
+          Posteriormente, no se admitirán reclamaciones sobre lo estipulado en
+          el contrato.
         </p>
         <button
           class="btn btn-secondary btn-sm mr-2"
