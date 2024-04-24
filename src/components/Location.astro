@@ -7,10 +7,17 @@ import "leaflet/dist/leaflet.css";
   <p
     class="max-w-screen-md mx-auto md:text-lg text-base px-6 text-center mb-8 z-0"
   >
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eos minima
-    at debitis exercitationem amet, iure nulla? Dolorem temporibus, minus
-    similique, doloremque vel cum mollitia dignissimos harum quisquam
-    reprehenderit cumque.
+    <span>
+      Somos el alquiler más cercano al centro de la ciudad, estamos en el número
+      32 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada.
+    </span>
+    <br />
+    <br />
+    <span>
+      Este punto será la referencia tanto para la recogida como para la entrega
+      de nuestros remolques. Aunque no ofrecemos atención presencial, estamos
+      disponibles para programar citas si deseas ver nuestros remolques.
+    </span>
   </p>
   <leaflet-map
     data-latitude="37.1518945"
@@ -29,6 +36,7 @@ import "leaflet/dist/leaflet.css";
     </div>
   </leaflet-map>
   <script>
+    // @ts-ignore
     import L from "leaflet";
 
     class LeafletMap extends HTMLElement {

@@ -1,0 +1,148 @@
+---
+
+---
+
+<script>
+  import VanillaCalendar from "vanilla-calendar-pro";
+  import "../styles/vanilla-calendar.css";
+
+  function getDate(date: "tommorrow" | "3MonthsAhead") {
+    const today = new Date();
+    const futureDate = new Date(today);
+    if (date === "tommorrow") futureDate.setDate(today.getDate() + 1);
+    else futureDate.setMonth(today.getMonth() + 3);
+
+    const dd = String(futureDate.getDate()).padStart(2, "0");
+    const mm = String(futureDate.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const yyyy = futureDate.getFullYear();
+
+    return yyyy + "-" + mm + "-" + dd;
+  }
+
+  const festDays = [
+    "2024-05-01",
+    "2024-05-02",
+    "2024-05-03",
+    "2024-05-04",
+    "2024-05-05",
+  ];
+
+  const notAvailableDays = ["2024-05-12", "2024-05-13"];
+
+  const calendar = new VanillaCalendar("#calendar", {
+    type: "multiple",
+    months: 2,
+    jumpMonths: 2,
+    date: {
+      min: getDate("tommorrow") as any,
+      max: getDate("3MonthsAhead") as any,
+    },
+    settings: {
+      range: {
+        disableGaps: true,
+        disabled: notAvailableDays,
+      },
+      selected: {
+        holidays: festDays,
+      },
+      selection: {
+        day: "multiple-ranged",
+      },
+      visibility: {
+        theme: "light",
+        today: false,
+        daysOutside: false,
+      },
+    },
+  });
+  calendar.init();
+
+  calendar.settings.selection.day = "single";
+  calendar.update();
+</script>
+
+<div class="w-full h-full">
+  <section
+    class="max-w-screen-xl mx-auto py-14 2xl:px-0 px-16 max-md:px-4 max-xs:px-0"
+    id="reserva"
+  >
+    <form>
+      <h2>Petición de reserva</h2>
+      <fieldset class="form-control">
+        <legend>Tipo de reserva</legend>
+        <label class="label cursor-pointer">
+          <span class="label-text">Recogida y entrega en el mismo día</span>
+          <input type="checkbox" class="toggle" checked />
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Datos personales</legend>
+        <span
+          >Los datos aquí proporcionados se utilizarán para crear el contrato de
+          reserva y solamente se entregará el remolque a la persona que ha
+          realizado dicha reserva, presentando su DNI</span
+        >
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Nombre</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </label>
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Apellidos</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </label>
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">DNI</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </label>
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Correo electrónico</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Fecha y hora de la entrega y recogida del remolque</legend>
+        input llegada, input salida, fecha o rango de fechas
+        <div id="calendar" class="bg-red-400"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Cantidad a abonar</legend>
+        fianza, pago por el servicio, pago por adelantado para poder realizar la
+        reserva, pago en momento de retirar el remolque
+      </fieldset>
+      <fieldset>
+        <legend>aceptación de los términos</legend>
+        <span
+          >Recuerde que esto es una petición de reserva, se le contestará en el
+          menor tiempo posible si el remolque tiene disponibidad y se pondrá a
+          disposición una forma de pago para que realice el pago mínimo de
+          reserva</span
+        >
+        lectura del contrato, terminos de uso y política de privacidad
+      </fieldset>
+    </form>
+  </section>
+</div>

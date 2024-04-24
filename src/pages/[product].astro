@@ -3,7 +3,9 @@ import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 import MainLayout from "../layouts/Main.astro";
 import ProductFirstView from "../components/ProductFirstView.astro";
 import ProductDetails from "../components/ProductDetails.astro";
-import Calendar from "../components/Calendar.astro";
+import BookingForm from "../components/BookingForm.astro";
+
+export const prerender = false;
 
 const { product } = Astro.params;
 
@@ -38,7 +40,7 @@ export async function getStaticPaths() {
     <MainLayout>
       <ProductFirstView />
       <ProductDetails />
-      <Calendar />
+      <BookingForm />
     </MainLayout>
   </body>
 </html>

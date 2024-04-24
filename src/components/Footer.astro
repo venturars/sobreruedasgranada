@@ -1,11 +1,22 @@
+---
+import Phone from "../icons/Phone.astro";
+import Email from "../icons/Email.astro";
+---
+
 <footer
   class="bg-base-content text-white w-full py-8 lg:px-16 xs:px-6 px-4 grid lg:grid-cols-3 sm:grid-rows-[auto,auto] sm:grid-cols-2 gap-4 max-sm:grid-rows-[auto,auto,auto]"
 >
   <div
     class="grid grid-rows-3 text-sm max-sm:text-xs gap-1 sm:max-lg:col-start-1 sm:max-lg:col-span-1"
   >
-    <span class="">Correo electrónico: brodriguezserrano54@gmail.com</span>
-    <span class="">Teléfono de contacto: + 34 648 60 99 25</span>
+    <span class="flex items-center">
+      <Email class="w-4 h-4 mr-1.5" />
+      brodriguezserrano54@gmail.com
+    </span>
+    <span class="flex items-center">
+      <Phone class="w-4 h-4 mr-1.5" />
+      +34 627 13 99 31
+    </span>
     <address class="not-italic">Remolques en Alquiler Granada</address>
   </div>
   <div
