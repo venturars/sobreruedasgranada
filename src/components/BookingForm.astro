@@ -1,12 +1,12 @@
 ---
-
+import "../styles/vanilla-calendar.css";
 ---
 
-<script>
-  import VanillaCalendar from "vanilla-calendar-pro";
-  import "../styles/vanilla-calendar.css";
-
-  function getDate(date: "tommorrow" | "3MonthsAhead") {
+<script
+  src="/scripts/vanilla-calendar.js"
+  defer
+  onload={`
+  function getDate(date) {
     const today = new Date();
     const futureDate = new Date(today);
     if (date === "tommorrow") futureDate.setDate(today.getDate() + 1);
@@ -34,8 +34,8 @@
     months: 2,
     jumpMonths: 2,
     date: {
-      min: getDate("tommorrow") as any,
-      max: getDate("3MonthsAhead") as any,
+      min: getDate("tommorrow"),
+      max: getDate("3MonthsAhead"),
     },
     settings: {
       range: {
@@ -46,7 +46,7 @@
         holidays: festDays,
       },
       selection: {
-        day: "multiple-ranged",
+        day: "single",
       },
       visibility: {
         theme: "light",
@@ -56,93 +56,321 @@
     },
   });
   calendar.init();
+  // calendar.settings.selection.day = "multiple-ranged";
+  // calendar.update();
 
-  calendar.settings.selection.day = "single";
-  calendar.update();
-</script>
+`}></script>
 
 <div class="w-full h-full">
-  <section
-    class="max-w-screen-xl mx-auto py-14 2xl:px-0 px-16 max-md:px-4 max-xs:px-0"
-    id="reserva"
-  >
-    <form>
-      <h2>Petición de reserva</h2>
-      <fieldset class="form-control">
-        <legend>Tipo de reserva</legend>
-        <label class="label cursor-pointer">
-          <span class="label-text">Recogida y entrega en el mismo día</span>
-          <input type="checkbox" class="toggle" checked />
-        </label>
-      </fieldset>
-      <fieldset>
-        <legend>Datos personales</legend>
-        <span
-          >Los datos aquí proporcionados se utilizarán para crear el contrato de
-          reserva y solamente se entregará el remolque a la persona que ha
-          realizado dicha reserva, presentando su DNI</span
+  <section class="xs:py-20 py-8 sm:px-16 bg-slate-100" id="reserva">
+    <form
+      id="bookingForm"
+      class="max-w-screen-xl mx-auto 2xl:px-0 xl:px-16 max-md:px-4 max-xs:px-0 bg-white rounded-xl py-8"
+    >
+      <h2 class="xs:text-4xl text-2xl text-center mb-8">
+        Solicitud de reserva
+      </h2>
+      <fieldset class="form-control p-6">
+        <legend class="text-base font-bold mb-6 float-left"
+          >Datos personales</legend
         >
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Nombre</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Type here"
-            class="input input-bordered w-full max-w-xs"
-          />
-        </label>
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Apellidos</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Type here"
-            class="input input-bordered w-full max-w-xs"
-          />
-        </label>
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">DNI</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Type here"
-            class="input input-bordered w-full max-w-xs"
-          />
-        </label>
-        <label class="form-control w-full max-w-xs">
-          <div class="label">
-            <span class="label-text">Correo electrónico</span>
-          </div>
-          <input
-            type="text"
-            placeholder="Type here"
-            class="input input-bordered w-full max-w-xs"
-          />
-        </label>
-      </fieldset>
-      <fieldset>
-        <legend>Fecha y hora de la entrega y recogida del remolque</legend>
-        input llegada, input salida, fecha o rango de fechas
-        <div id="calendar" class="bg-red-400"></div>
-      </fieldset>
-      <fieldset>
-        <legend>Cantidad a abonar</legend>
-        cinchas y bloqueo antirobo, fianza, pago por el servicio, pago por adelantado
-        para poder realizar la reserva, pago en momento de retirar el remolque
-      </fieldset>
-      <fieldset>
-        <legend>aceptación de los términos</legend>
-        <span
-          >Recuerde que esto es una petición de reserva, se le contestará en el
-          menor tiempo posible si el remolque tiene disponibidad y se pondrá a
-          disposición una forma de pago para que realice el pago mínimo de
-          reserva</span
+        <div
+          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-6 gap-y-4 w-max"
         >
-        lectura del contrato, terminos de uso y política de privacidad
+          <label class="form-control w-60">
+            <div class="label">
+              <span class="label-text">Nombre</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Introduzca su nombre"
+              class="input input-bordered w-full"
+              name="firstname"
+              id="firstname"
+              data-ispristine="true"
+            />
+          </label>
+          <label class="form-control w-96">
+            <div class="label">
+              <span class="label-text">Apellidos</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Introduzca sus apellidos"
+              class="input input-bordered w-full"
+              name="lastname"
+              id="lastname"
+              data-ispristine="true"
+            />
+          </label>
+          <label class="form-control w-60">
+            <div class="label">
+              <span class="label-text">DNI</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Introduzca su DNI"
+              class="input input-bordered w-full"
+              name="dni"
+              id="dni"
+              data-ispristine="true"
+            />
+          </label>
+          <label class="form-control w-96">
+            <div class="label">
+              <span class="label-text">Correo electrónico</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Introduzca su correo electrónico"
+              class="input input-bordered w-full"
+              name="email"
+              id="email"
+              data-ispristine="true"
+            />
+          </label>
+        </div>
+        <div class="max-w-screen-md mt-6 flex text-sm">
+          <span class="w-4">*</span>
+          <span class="">
+            Los datos proporcionados serán utilizados para generar el contrato
+            de reserva. El remolque se entregará únicamente a la persona que
+            haya realizado la reserva, previa presentación de su DNI.
+          </span>
+        </div>
       </fieldset>
+      <fieldset class="form-control p-6">
+        <legend class="text-base font-bold mb-6 float-left">
+          Tipo de reserva</legend
+        >
+        <div class="grid grid-cols-[auto,auto] gap-6 w-max">
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text">Moldalidad de alquiler</span>
+            </div>
+            <select
+              class="select select-md select-bordered select-ghost"
+              name="rentType"
+              id="rentType"
+            >
+              <option disabled selected>Seleccione una opción</option>
+              <option>Alquiler por días</option>
+              <option>Alquiler por horas</option>
+            </select>
+          </label>
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text"
+                >¿Necesita cinchas y bloqueo antirrobo?</span
+              >
+            </div>
+            <select
+              class="select select-md select-bordered"
+              name="accesories"
+              id="accesories"
+            >
+              <option disabled selected>Seleccione una opción</option>
+              <option>Si</option>
+              <option>No</option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+      <fieldset class="form-control p-6">
+        <legend class="text-base font-bold mb-6 float-left">Fecha y hora</legend
+        >
+        <div
+          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-8 gap-y-4 w-max"
+        >
+          <label class="form-control w-72 col-start-1 row-span-1 self-end">
+            <div class="label">
+              <span class="label-text">Hora de recogida</span>
+            </div>
+            <input
+              type="time"
+              min="08:00"
+              max="22:00"
+              class="input input-bordered w-full"
+              name="pickUpTime"
+              id="pickUpTime"
+            />
+          </label>
+          <label class="form-control w-72 col-start-1 row-start-2 row-span-1">
+            <div class="label">
+              <span class="label-text">Hora de entrega</span>
+            </div>
+            <input
+              type="time"
+              min="08:00"
+              max="22:00"
+              class="input input-bordered w-full"
+              name="deliveryTime"
+              id="deliveryTime"
+            />
+          </label>
+          <div
+            id="calendar"
+            class="col-start-2 row-start-1 col-span-1 row-span-2"
+          >
+            <input type="text" class="hidden" name="date" id="date" />
+          </div>
+        </div>
+        <div class="max-w-screen-md mt-6 flex text-sm">
+          <span class="w-4">*</span>
+          <span class="">
+            Si desea alquilar por días, por favor seleccione un rango de fechas
+            en el calendario. En el caso de alquiler por horas, seleccione el
+            día deseado en el calendario.
+          </span>
+        </div>
+      </fieldset>
+      <fieldset class="form-control p-6">
+        <legend class="text-base font-bold mb-6 float-left"
+          >Condiciones de reserva</legend
+        >
+        <div
+          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-6 gap-y-4 w-max"
+        >
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text">Precio del servicio de alquiler</span>
+            </div>
+            <input
+              type="text"
+              value="- €"
+              class="input input-bordered w-full text-right disabled"
+              readonly
+              name="rentalPrice"
+              id="rentalPrice"
+            />
+          </label>
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text">Fianza a depositar</span>
+            </div>
+            <input
+              type="text"
+              value="- €"
+              class="input input-bordered w-full text-right"
+              readonly
+              name="guaranty"
+              id="guaranty"
+            />
+          </label>
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text">Depósito de reserva</span>
+            </div>
+            <input
+              type="text"
+              value="- €"
+              class="input input-bordered w-full text-right disabled"
+              readonly
+              name="reservationAmount"
+              id="reservationAmount"
+            />
+          </label>
+          <label class="form-control w-72">
+            <div class="label">
+              <span class="label-text"
+                >Abono a la recogida (fianza incluida)</span
+              >
+            </div>
+            <input
+              type="text"
+              value="- €"
+              class="input input-bordered w-full text-right"
+              readonly
+              name="pickUpPaymentAmount"
+              id="pickUpPaymentAmount"
+            />
+          </label>
+        </div>
+        <div class="form-control max-w-screen-md w-fit text-sm mt-6">
+          <label class="label cursor-pointer">
+            <input
+              type="checkbox"
+              checked="checked"
+              class="checkbox checkbox-sm mr-2"
+              name="contractAgreement"
+              id="contractAgreement"
+            />
+            <span class="label-text">
+              He leído y estoy de acuerdo con las <a
+                href="/assets/la-pinta-documento-de-reserva.pdf"
+                target="_blank"
+                rel="bookmark"
+                class="link link-primary"
+                >Condiciones Generales del Contrato de Alquiler</a
+              > del remolque La Pinta.</span
+            >
+          </label>
+        </div>
+        <div class="form-control max-w-screen-md w-fit text-sm">
+          <label class="label cursor-pointer">
+            <input
+              type="checkbox"
+              checked="checked"
+              class="checkbox checkbox-sm mr-2"
+              name="webAgreement"
+              id="webAgreement"
+            />
+            <span class="label-text">
+              He leído y estoy de acuerdo con los <a
+                href="/terminos-de-uso"
+                target="_blank"
+                class="link link-primary"
+                rel="bookmark">Términos de Uso</a
+              > y la
+              <a
+                href="/politica-de-privacidad"
+                target="_blank"
+                rel="bookmark"
+                class="link link-primary">Política de Privacidad</a
+              > de la web.</span
+            >
+          </label>
+        </div>
+        <div class="max-w-screen-md mt-6 flex text-sm">
+          <span class="w-4">*</span>
+          <span class="">
+            Por favor, tenga en cuenta que esta es una solicitud de reserva. Nos
+            comunicaremos con usted lo antes posible para confirmar la
+            disponibilidad del remolque y proporcionarle una forma de pago para
+            realizar el depósito y completar la reserva.
+          </span>
+        </div>
+      </fieldset>
+      <div class="p-6 block">
+        <button class="btn btn-md btn-primary" type="submit"
+          >Enviar solicitud de reserva</button
+        >
+      </div>
     </form>
   </section>
 </div>
+
+<script defer>
+  const firstnameRegex = /^[a-zA-Z\- ]{2,30}$/;
+
+  const form = document.getElementById("bookingForm");
+
+  form.onsubmit = (event) => {
+    event.preventDefault();
+    console.log(event);
+  };
+
+  form.firstname.addEventListener("change", (event) => {
+    const isValid = firstnameRegex.test(event.target.value);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+  });
+
+  // Array.from(form.elements).forEach((htmlElement) => {
+  //   if (htmlElement.name === "") return;
+
+  //   htmlElement.addEventListener("change", (event) => {
+  //     if (htmlElement.dataset.ispristine === "true")
+  //       htmlElement.dataset.ispristine = "false";
+  //   });
+  // });
+</script>
