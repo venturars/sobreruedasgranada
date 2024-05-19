@@ -4,6 +4,9 @@ import nodemailer from "nodemailer";
 import Phone from "../icons/Phone.astro";
 import Whatsapp from "../icons/Whatsapp.astro";
 
+const smtpUser = import.meta.env.SMTP_USER;
+const smtpPassword = import.meta.env.SMTP_PASSWORD;
+
 if (Astro.request.method === "POST") {
   try {
     const data = await Astro.request.formData();
@@ -29,8 +32,8 @@ if (Astro.request.method === "POST") {
       port: 465,
       secure: true,
       auth: {
-        user: "ventu@kudu.design",
-        pass: "egjo chma ztto kjtj",
+        user: smtpUser,
+        pass: smtpPassword,
       },
     });
 
