@@ -1,376 +1,897 @@
 ---
 import "../styles/vanilla-calendar.css";
+import nodemailer from "nodemailer";
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const firstname = data.get("firstname");
+    const lastname = data.get("lastname");
+    const dni = data.get("dni");
+    const email = data.get("email");
+    const phone = data.get("phone");
+    const rentType = data.get("rentType");
+    const accessories = data.get("accessories");
+    const pickUpTime = data.get("pickUpTime");
+    const deliveryTime = data.get("deliveryTime");
+    const date = data.get("date");
+    const rentalPrice = data.get("rentalPrice");
+    const guarantee = data.get("guarantee");
+    const reservationAmount = data.get("reservationAmount");
+    const pickUpPaymentAmount = data.get("pickUpPaymentAmount");
+    const contractAgreement = data.get("contractAgreement");
+    const webAgreement = data.get("webAgreement");
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "ventu@kudu.design",
+        pass: "egjo chma ztto kjtj",
+      },
+    });
+
+    const response = await transporter.sendMail({
+      from: "ventu@kudu.design",
+      to: "brodriguezserrano54@gmail.com",
+      subject: `Contacto remolque La Pinta de ${firstname}`,
+      replyTo: email,
+      html: `
+        <p>Hola Noel,</p>
+        <p>Has recibido una nueva solicitud de alquiler de remolque:</p>
+        <ul>
+          <li>Nombre: ${firstname} ${lastname}</li>
+          <li>DNI: ${dni}</li>
+          <li>Email: ${email}</li>
+          <li>Teléfono de contacto: ${phone}</li>
+          <li>Tipo de alquiler: ${rentType}</li>
+          <li>Accesorios: ${accessories}</li>
+          <li>Horario de recogida: ${pickUpTime}</li>
+          <li>Horario de entrega: ${deliveryTime}</li>
+          <li>Fecha: ${JSON.parse(date.toString())[0]}${
+            JSON.parse(date.toString()).length > 1
+              ? " a " +
+                JSON.parse(date.toString())[
+                  JSON.parse(date.toString()).length - 1
+                ]
+              : ""
+          }</li>
+          <li>Precio del alquiler: ${rentalPrice}</li>
+          <li>Fianza: ${guarantee}</li>
+          <li>Importe de la reserva: ${reservationAmount}</li>
+          <li>Importe a pagar en la recogida: ${pickUpPaymentAmount}</li>
+          <li>Acuerdo del contrato: ${contractAgreement}</li>
+          <li>Acuerdo de la web: ${webAgreement}</li>
+        </ul>
+      `,
+    });
+    if (!response.accepted[0]) Astro.response.status = 500;
+
+    await transporter.sendMail({
+      from: "ventu@kudu.design",
+      to: email,
+      subject:
+        "[No responder]: Gracias por contactar con Remolques en Alquiler Granada",
+      html: `
+        <p>Hola ${firstname},</p>
+        <p>Gracias por contactar con Remolques en Alquiler Granada. Hemos recibido tu solicitud y nos pondremos en contacto contigo lo antes posible.</p>
+        <p>Detalles de la solicitud:</p>
+        <ul>
+          <li>Nombre: ${firstname} ${lastname}</li>
+          <li>DNI: ${dni}</li>
+          <li>Email: ${email}</li>
+          <li>Teléfono de contacto: ${phone}</li>
+          <li>Tipo de alquiler: ${rentType}</li>
+          <li>Accesorios: ${accessories}</li>
+          <li>Horario de recogida: ${pickUpTime}</li>
+          <li>Horario de entrega: ${deliveryTime}</li>
+          <li>Fecha: ${JSON.parse(date.toString())[0]}${
+            JSON.parse(date.toString()).length > 1
+              ? " a " +
+                JSON.parse(date.toString())[
+                  JSON.parse(date.toString()).length - 1
+                ]
+              : ""
+          }</li>
+          <li>Precio del alquiler: ${rentalPrice}</li>
+          <li>Fianza: ${guarantee}</li>
+        </ul>
+        <p>¡Gracias!</p>
+      `,
+    });
+    Astro.response.status = 200;
+    return;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else console.log("ERROR: ", error);
+    Astro.response.status = 500;
+    Astro.response.statusText = "Unknown error";
+    return;
+  }
+}
 ---
 
-<script
-  src="/scripts/vanilla-calendar.js"
-  defer
-  onload={`
-  function getDate(date) {
-    const today = new Date();
-    const futureDate = new Date(today);
-    if (date === "tommorrow") futureDate.setDate(today.getDate() + 1);
-    else futureDate.setMonth(today.getMonth() + 3);
-
-    const dd = String(futureDate.getDate()).padStart(2, "0");
-    const mm = String(futureDate.getMonth() + 1).padStart(2, "0"); // January is 0!
-    const yyyy = futureDate.getFullYear();
-
-    return yyyy + "-" + mm + "-" + dd;
-  }
-
-  const festDays = [
-    "2024-05-01",
-    "2024-05-02",
-    "2024-05-03",
-    "2024-05-04",
-    "2024-05-05",
-  ];
-
-  const notAvailableDays = ["2024-05-12", "2024-05-13"];
-
-  const calendar = new VanillaCalendar("#calendar", {
-    type: "multiple",
-    months: 2,
-    jumpMonths: 2,
-    date: {
-      min: getDate("tommorrow"),
-      max: getDate("3MonthsAhead"),
-    },
-    settings: {
-      range: {
-        disableGaps: true,
-        disabled: notAvailableDays,
-      },
-      selected: {
-        holidays: festDays,
-      },
-      selection: {
-        day: "single",
-      },
-      visibility: {
-        theme: "light",
-        today: false,
-        daysOutside: false,
-      },
-    },
-  });
-  calendar.init();
-  // calendar.settings.selection.day = "multiple-ranged";
-  // calendar.update();
-
-`}></script>
-
 <div class="w-full h-full">
-  <section class="xs:py-20 py-8 sm:px-16 bg-slate-100" id="reserva">
-    <form
-      id="bookingForm"
-      class="max-w-screen-xl mx-auto 2xl:px-0 xl:px-16 max-md:px-4 max-xs:px-0 bg-white rounded-xl py-8"
-    >
-      <h2 class="xs:text-4xl text-2xl text-center mb-8">
-        Solicitud de reserva
-      </h2>
-      <fieldset class="form-control p-6">
-        <legend class="text-base font-bold mb-6 float-left"
-          >Datos personales</legend
-        >
-        <div
-          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-6 gap-y-4 w-max"
-        >
-          <label class="form-control w-60">
-            <div class="label">
-              <span class="label-text">Nombre</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Introduzca su nombre"
-              class="input input-bordered w-full"
-              name="firstname"
-              id="firstname"
-              data-ispristine="true"
-            />
-          </label>
-          <label class="form-control w-96">
-            <div class="label">
-              <span class="label-text">Apellidos</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Introduzca sus apellidos"
-              class="input input-bordered w-full"
-              name="lastname"
-              id="lastname"
-              data-ispristine="true"
-            />
-          </label>
-          <label class="form-control w-60">
-            <div class="label">
-              <span class="label-text">DNI</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Introduzca su DNI"
-              class="input input-bordered w-full"
-              name="dni"
-              id="dni"
-              data-ispristine="true"
-            />
-          </label>
-          <label class="form-control w-96">
-            <div class="label">
-              <span class="label-text">Correo electrónico</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Introduzca su correo electrónico"
-              class="input input-bordered w-full"
-              name="email"
-              id="email"
-              data-ispristine="true"
-            />
-          </label>
-        </div>
-        <div class="max-w-screen-md mt-6 flex text-sm">
-          <span class="w-4">*</span>
-          <span class="">
-            Los datos proporcionados serán utilizados para generar el contrato
-            de reserva. El remolque se entregará únicamente a la persona que
-            haya realizado la reserva, previa presentación de su DNI.
-          </span>
-        </div>
-      </fieldset>
-      <fieldset class="form-control p-6">
-        <legend class="text-base font-bold mb-6 float-left">
-          Tipo de reserva</legend
-        >
-        <div class="grid grid-cols-[auto,auto] gap-6 w-max">
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text">Moldalidad de alquiler</span>
-            </div>
-            <select
-              class="select select-md select-bordered select-ghost"
-              name="rentType"
-              id="rentType"
-            >
-              <option disabled selected>Seleccione una opción</option>
-              <option>Alquiler por días</option>
-              <option>Alquiler por horas</option>
-            </select>
-          </label>
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text"
-                >¿Necesita cinchas y bloqueo antirrobo?</span
-              >
-            </div>
-            <select
-              class="select select-md select-bordered"
-              name="accesories"
-              id="accesories"
-            >
-              <option disabled selected>Seleccione una opción</option>
-              <option>Si</option>
-              <option>No</option>
-            </select>
-          </label>
-        </div>
-      </fieldset>
-      <fieldset class="form-control p-6">
-        <legend class="text-base font-bold mb-6 float-left">Fecha y hora</legend
-        >
-        <div
-          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-8 gap-y-4 w-max"
-        >
-          <label class="form-control w-72 col-start-1 row-span-1 self-end">
-            <div class="label">
-              <span class="label-text">Hora de recogida</span>
-            </div>
-            <input
-              type="time"
-              min="08:00"
-              max="22:00"
-              class="input input-bordered w-full"
-              name="pickUpTime"
-              id="pickUpTime"
-            />
-          </label>
-          <label class="form-control w-72 col-start-1 row-start-2 row-span-1">
-            <div class="label">
-              <span class="label-text">Hora de entrega</span>
-            </div>
-            <input
-              type="time"
-              min="08:00"
-              max="22:00"
-              class="input input-bordered w-full"
-              name="deliveryTime"
-              id="deliveryTime"
-            />
-          </label>
-          <div
-            id="calendar"
-            class="col-start-2 row-start-1 col-span-1 row-span-2"
+  <section class="xs:py-20 py-8 lg:px-16 bg-slate-100" id="reserva">
+    <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
+      <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
+        <h2 class="xs:text-4xl text-2xl text-center mb-8">
+          Solicitud de reserva
+        </h2>
+        <fieldset class="form-control py-6">
+          <legend class="text-base font-bold mb-6 float-left"
+            >Datos personales</legend
           >
+          <div
+            class="grid md:grid-cols-[auto,auto] md:grid-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
+          >
+            <label class="form-control md:w-60 xs:w-96">
+              <div class="label">
+                <span class="label-text">Nombre</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Introduzca su nombre"
+                class="input input-bordered w-full"
+                name="firstname"
+                id="firstname"
+                data-ispristine="true"
+              />
+            </label>
+            <label class="form-control xs:w-96">
+              <div class="label">
+                <span class="label-text">Apellidos</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Introduzca sus apellidos"
+                class="input input-bordered w-full"
+                name="lastname"
+                id="lastname"
+                data-ispristine="true"
+              />
+            </label>
+            <label class="form-control md:w-60 xs:w-96">
+              <div class="label">
+                <span class="label-text">DNI</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Introduzca su DNI"
+                class="input input-bordered w-full"
+                name="dni"
+                id="dni"
+                data-ispristine="true"
+              />
+            </label>
+            <label class="form-control xs:w-96">
+              <div class="label">
+                <span class="label-text">Correo electrónico</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Introduzca su correo electrónico"
+                class="input input-bordered w-full"
+                name="email"
+                id="email"
+                data-ispristine="true"
+              />
+            </label>
+            <label class="form-control xs:w-96 md:w-60">
+              <div class="label">
+                <span class="label-text">Móvil de contacto</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Introduzca su móvil"
+                class="input input-bordered w-full"
+                name="phone"
+                id="phone"
+                data-ispristine="true"
+              />
+            </label>
+          </div>
+          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+            <span class="w-4">*</span>
+            <span class="">
+              Los datos proporcionados serán utilizados para generar el contrato
+              de reserva. El remolque se entregará únicamente a la persona que
+              haya realizado la reserva, previa presentación de su DNI.
+            </span>
+          </div>
+        </fieldset>
+        <fieldset class="form-control py-6">
+          <legend class="text-base font-bold mb-6 float-left">
+            Tipo de reserva</legend
+          >
+          <div class="grid md:grid-cols-[auto,auto] gap-6 xs:w-max">
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text">Moldalidad de alquiler</span>
+              </div>
+              <select
+                class="select select-md select-bordered select-ghost"
+                name="rentType"
+                id="rentType"
+              >
+                <option disabled selected>Seleccione una opción</option>
+                <option>Alquiler por días</option>
+                <option>Alquiler por horas</option>
+              </select>
+            </label>
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text"
+                  >¿Necesita cinchas y bloqueo antirrobo?</span
+                >
+              </div>
+              <select
+                class="select select-md select-bordered"
+                name="accessories"
+                id="accessories"
+              >
+                <option disabled selected>Seleccione una opción</option>
+                <option>Si</option>
+                <option>No</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset class="form-control py-6">
+          <legend class="text-base font-bold mb-6 float-left"
+            >Fecha y hora</legend
+          >
+          <div
+            class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-8 gap-y-4 xs:w-max"
+          >
+            <label
+              class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-span-1 md:self-end"
+            >
+              <div class="label">
+                <span class="label-text">Hora de recogida</span>
+              </div>
+              <input
+                type="time"
+                min="08:00"
+                max="22:00"
+                class="input input-bordered w-full"
+                name="pickUpTime"
+                id="pickUpTime"
+              />
+            </label>
+            <label
+              class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-start-2 md:row-span-1"
+            >
+              <div class="label">
+                <span class="label-text">Hora de entrega</span>
+              </div>
+              <input
+                type="time"
+                min="08:00"
+                max="22:00"
+                class="input input-bordered w-full"
+                name="deliveryTime"
+                id="deliveryTime"
+              />
+            </label>
+            <div
+              id="calendar"
+              class="md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-2"
+            >
+            </div>
             <input type="text" class="hidden" name="date" id="date" />
           </div>
-        </div>
-        <div class="max-w-screen-md mt-6 flex text-sm">
-          <span class="w-4">*</span>
-          <span class="">
-            Si desea alquilar por días, por favor seleccione un rango de fechas
-            en el calendario. En el caso de alquiler por horas, seleccione el
-            día deseado en el calendario.
-          </span>
-        </div>
-      </fieldset>
-      <fieldset class="form-control p-6">
-        <legend class="text-base font-bold mb-6 float-left"
-          >Condiciones de reserva</legend
-        >
-        <div
-          class="grid grid-cols-[auto,auto] grod-rows-[auto,auto] gap-x-6 gap-y-4 w-max"
-        >
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text">Precio del servicio de alquiler</span>
-            </div>
-            <input
-              type="text"
-              value="- €"
-              class="input input-bordered w-full text-right disabled"
-              readonly
-              name="rentalPrice"
-              id="rentalPrice"
-            />
-          </label>
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text">Fianza a depositar</span>
-            </div>
-            <input
-              type="text"
-              value="- €"
-              class="input input-bordered w-full text-right"
-              readonly
-              name="guaranty"
-              id="guaranty"
-            />
-          </label>
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text">Depósito de reserva</span>
-            </div>
-            <input
-              type="text"
-              value="- €"
-              class="input input-bordered w-full text-right disabled"
-              readonly
-              name="reservationAmount"
-              id="reservationAmount"
-            />
-          </label>
-          <label class="form-control w-72">
-            <div class="label">
-              <span class="label-text"
-                >Abono a la recogida (fianza incluida)</span
+          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+            <span class="w-4">*</span>
+            <span class="">
+              Si desea alquilar por días, por favor seleccione un rango de
+              fechas en el calendario. En el caso de alquiler por horas,
+              seleccione el día deseado en el calendario. Para reservas que
+              excedan los 7 días, nos pondremos en contacto para ofrecerle una
+              oferta personalizada. Nuestro horario de atención es de 08:00 a
+              22:00 horas.
+            </span>
+          </div>
+        </fieldset>
+        <fieldset class="form-control py-6">
+          <legend class="text-base font-bold mb-6 float-left"
+            >Condiciones de reserva</legend
+          >
+          <div
+            class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
+          >
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text">Precio del servicio de alquiler</span>
+              </div>
+              <input
+                type="text"
+                value="- €"
+                class="input input-bordered w-full text-right disabled"
+                readonly
+                name="rentalPrice"
+                id="rentalPrice"
+              />
+            </label>
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text">Fianza a depositar</span>
+              </div>
+              <input
+                type="text"
+                value="- €"
+                class="input input-bordered w-full text-right"
+                readonly
+                name="guarantee"
+                id="guarantee"
+              />
+            </label>
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text">Depósito de reserva</span>
+              </div>
+              <input
+                type="text"
+                value="- €"
+                class="input input-bordered w-full text-right disabled"
+                readonly
+                name="reservationAmount"
+                id="reservationAmount"
+              />
+            </label>
+            <label class="form-control md:w-72 xs:w-96">
+              <div class="label">
+                <span class="label-text"
+                  >Abono a la recogida (fianza incluida)</span
+                >
+              </div>
+              <input
+                type="text"
+                value="- €"
+                class="input input-bordered w-full text-right"
+                readonly
+                name="pickUpPaymentAmount"
+                id="pickUpPaymentAmount"
+              />
+            </label>
+          </div>
+          <div class="form-control max-w-screen-md w-fit text-sm mt-6">
+            <label class="label cursor-pointer max-md:pr-2">
+              <input
+                type="checkbox"
+                class="checkbox checkbox-sm mr-2"
+                name="contractAgreement"
+                id="contractAgreement"
+              />
+              <span class="label-text">
+                He leído y estoy de acuerdo con las <a
+                  href="/assets/la-pinta-documento-de-reserva.pdf"
+                  target="_blank"
+                  rel="bookmark"
+                  class="link link-primary"
+                  >Condiciones Generales del Contrato de Alquiler</a
+                > del remolque La Pinta.</span
               >
-            </div>
-            <input
-              type="text"
-              value="- €"
-              class="input input-bordered w-full text-right"
-              readonly
-              name="pickUpPaymentAmount"
-              id="pickUpPaymentAmount"
-            />
-          </label>
-        </div>
-        <div class="form-control max-w-screen-md w-fit text-sm mt-6">
-          <label class="label cursor-pointer">
-            <input
-              type="checkbox"
-              checked="checked"
-              class="checkbox checkbox-sm mr-2"
-              name="contractAgreement"
-              id="contractAgreement"
-            />
-            <span class="label-text">
-              He leído y estoy de acuerdo con las <a
-                href="/assets/la-pinta-documento-de-reserva.pdf"
-                target="_blank"
-                rel="bookmark"
-                class="link link-primary"
-                >Condiciones Generales del Contrato de Alquiler</a
-              > del remolque La Pinta.</span
-            >
-          </label>
-        </div>
-        <div class="form-control max-w-screen-md w-fit text-sm">
-          <label class="label cursor-pointer">
-            <input
-              type="checkbox"
-              checked="checked"
-              class="checkbox checkbox-sm mr-2"
-              name="webAgreement"
-              id="webAgreement"
-            />
-            <span class="label-text">
-              He leído y estoy de acuerdo con los <a
-                href="/terminos-de-uso"
-                target="_blank"
-                class="link link-primary"
-                rel="bookmark">Términos de Uso</a
-              > y la
-              <a
-                href="/politica-de-privacidad"
-                target="_blank"
-                rel="bookmark"
-                class="link link-primary">Política de Privacidad</a
-              > de la web.</span
-            >
-          </label>
-        </div>
-        <div class="max-w-screen-md mt-6 flex text-sm">
-          <span class="w-4">*</span>
-          <span class="">
-            Por favor, tenga en cuenta que esta es una solicitud de reserva. Nos
-            comunicaremos con usted lo antes posible para confirmar la
-            disponibilidad del remolque y proporcionarle una forma de pago para
-            realizar el depósito y completar la reserva.
-          </span>
-        </div>
-      </fieldset>
-      <div class="p-6 block">
-        <button class="btn btn-md btn-primary" type="submit"
-          >Enviar solicitud de reserva</button
+            </label>
+          </div>
+          <div class="form-control max-w-screen-md w-fit text-sm">
+            <label class="label cursor-pointer max-md:pr-2">
+              <input
+                type="checkbox"
+                class="checkbox checkbox-sm mr-2"
+                name="webAgreement"
+                id="webAgreement"
+              />
+              <span class="label-text">
+                He leído y estoy de acuerdo con los <a
+                  href="/terminos-de-uso"
+                  target="_blank"
+                  class="link link-primary"
+                  rel="bookmark">Términos de Uso</a
+                > y la
+                <a
+                  href="/politica-de-privacidad"
+                  target="_blank"
+                  rel="bookmark"
+                  class="link link-primary">Política de Privacidad</a
+                > de la web.</span
+              >
+            </label>
+          </div>
+          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+            <span class="w-4">*</span>
+            <span class="">
+              Por favor, tenga en cuenta que esta es una solicitud de reserva.
+              Nos comunicaremos con usted lo antes posible para confirmar la
+              disponibilidad del remolque y proporcionarle una forma de pago
+              para realizar el depósito y completar la reserva.
+            </span>
+          </div>
+        </fieldset>
+        <div
+          id="errorMessage"
+          class="hidden p-6 max-w-screen-md text-base text-error"
         >
+          <span
+            >Algunos campos contienen errores. Por favor, revise los datos
+            introducidos en el formulario.</span
+          >
+        </div>
+        <div class="py-6 block">
+          <button class="btn btn-md btn-primary" type="submit"
+            >Enviar solicitud de reserva</button
+          >
+        </div>
       </div>
     </form>
   </section>
 </div>
 
-<script defer>
-  const firstnameRegex = /^[a-zA-Z\- ]{2,30}$/;
+<script type="module">
+  const firstnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,30}$/;
+  const lastnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,50}$/;
+  const dniRegex = /^\d{8}[a-zA-Z]$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[6|7][0-9]{8}$/;
+
+  const tryToCalcRentPrice = () => {
+    if (
+      form.accessories.value === "Seleccione una opción" ||
+      form.pickUpTime.value === "" ||
+      form.deliveryTime.value === "" ||
+      form.date.value === "" ||
+      form.date.value === " " ||
+      form.rentType.value === "Seleccione una opción" ||
+      form.pickUpTime.value <= "08:00" ||
+      form.pickUpTime.value >= "22:00" ||
+      form.deliveryTime.value <= "08:00" ||
+      form.deliveryTime.value >= "22:00" ||
+      (form.rentType.value === "Alquiler por horas" &&
+        form.pickUpTime.value >= form.deliveryTime.value) ||
+      (form.rentType.value === "Alquiler por días" &&
+        JSON.parse(form.date.value).length < 2)
+    )
+      form.dataset.rentIsCalculable = false;
+    else form.dataset.rentIsCalculable = true;
+  };
+
+  function hasFiveHoursDifference(pickUpTimeValue, deliveryTimeValue) {
+    const [pickUpHours, pickUpMinutes] = pickUpTimeValue.split(":").map(Number);
+    const [deliveryHours, deliveryMinutes] = deliveryTimeValue
+      .split(":")
+      .map(Number);
+
+    const pickUpTotalMinutes = pickUpHours * 60 + pickUpMinutes;
+    const deliveryTotalMinutes = deliveryHours * 60 + deliveryMinutes;
+
+    const minutesDifference = Math.abs(
+      deliveryTotalMinutes - pickUpTotalMinutes
+    );
+
+    return minutesDifference >= 300;
+  }
 
   const form = document.getElementById("bookingForm");
 
-  form.onsubmit = (event) => {
-    event.preventDefault();
-    console.log(event);
-  };
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === "data-rent-is-calculable") {
+        const form = document.getElementById("bookingForm");
+        const newValue = form.getAttribute("data-rent-is-calculable");
+        if (newValue === "true") {
+          const accessories = form.accessories.value === "Si";
+          const days = JSON.parse(form.date.value);
+          const festDays = [
+            "2024-05-23",
+            "2024-05-24",
+            "2024-05-03",
+            "2024-05-04",
+            "2024-05-05",
+          ];
+
+          let totalRentalPrice = 0;
+
+          if (form.rentType.value === "Alquiler por horas") {
+            const firstDay = days[0];
+            const isHoliday = festDays.includes(firstDay);
+            const isWeekend =
+              new Date(firstDay).getDay() === 0 ||
+              new Date(firstDay).getDay() === 6;
+
+            if (
+              (isHoliday || isWeekend) &&
+              hasFiveHoursDifference(
+                form.pickUpTime.value,
+                form.deliveryTime.value
+              )
+            ) {
+              totalRentalPrice = 35;
+            } else if (isHoliday || isWeekend) {
+              totalRentalPrice = 30;
+            } else if (
+              hasFiveHoursDifference(
+                form.pickUpTime.value,
+                form.deliveryTime.value
+              )
+            ) {
+              totalRentalPrice = 25;
+            } else {
+              totalRentalPrice = 20;
+            }
+          } else if (
+            form.rentType.value === "Alquiler por días" &&
+            days.length <= 8
+          ) {
+            const pickUpTime = form.pickUpTime.value;
+            const deliveryTime = form.deliveryTime.value;
+            const pickUpDate = new Date(`2000-01-01T${pickUpTime}`);
+            const deliveryDate = new Date(`2000-01-01T${deliveryTime}`);
+
+            const daysDifference = Math.max(
+              1,
+              Math.ceil(
+                (new Date(days[days.length - 1]).getTime() -
+                  new Date(days[0]).getTime()) /
+                  (1000 * 60 * 60 * 24)
+              )
+            );
+
+            const isFullWeekend =
+              new Date(days[0]).getDay() === 5 &&
+              (new Date(days[days.length - 1]).getDay() === 0 ||
+                (new Date(days[days.length - 1]).getDay() === 1 &&
+                  deliveryDate.getHours() <= 10));
+            const isFullWeek =
+              (daysDifference === 6 && deliveryDate.getHours() > 10) ||
+              daysDifference === 7;
+            const countHolidays = days.filter(
+              (day) =>
+                festDays.includes(day) ||
+                new Date(day).getDay() === 6 ||
+                new Date(day).getDay() === 0
+            ).length;
+
+            if (isFullWeek) {
+              totalRentalPrice =
+                (new Date(days[0]).getDay() === 5 ||
+                new Date(days[0]).getDay() === 6
+                  ? 130
+                  : 120) +
+                days.filter((day) => festDays.includes(day)).length * 10;
+            } else if (isFullWeekend) {
+              totalRentalPrice = 60;
+            } else {
+              let firstDayPrice = countHolidays ? 35 : 25;
+              if (daysDifference === 1 && deliveryDate.getHours() <= 10)
+                totalRentalPrice = firstDayPrice;
+              else if (deliveryDate.getHours() <= 10)
+                totalRentalPrice =
+                  firstDayPrice + 15 * (daysDifference - 1) + 5 * countHolidays;
+              else
+                totalRentalPrice =
+                  firstDayPrice + 15 * daysDifference + 5 * countHolidays;
+            }
+          }
+
+          const rentalPrice = totalRentalPrice + (accessories ? 5 : 0);
+          const guarantee = days.length > 8 ? 200 : 150;
+          const reservationAmount =
+            rentalPrice > 100 ? rentalPrice * 0.2 : rentalPrice;
+          const pickUpPaymentAmount =
+            rentalPrice + guarantee - reservationAmount;
+
+          form.rentalPrice.value =
+            days.length > 8 ? "Precio personalizado" : `${rentalPrice} €`;
+          form.guarantee.value = `${guarantee} €`;
+          form.reservationAmount.value =
+            days.length > 8 ? "Precio personalizado" : `${reservationAmount} €`;
+          form.pickUpPaymentAmount.value =
+            days.length > 8
+              ? "Precio personalizado"
+              : `${pickUpPaymentAmount} €`;
+        }
+        if (newValue === "false") {
+          form.rentalPrice.value = "- €";
+          form.guarantee.value = "- €";
+          form.reservationAmount.value = "- €";
+          form.pickUpPaymentAmount.value = "- €";
+        }
+      }
+    }
+  });
+
+  observer.observe(form, { attributes: true });
 
   form.firstname.addEventListener("change", (event) => {
     const isValid = firstnameRegex.test(event.target.value);
     event.target.classList[isValid ? "remove" : "add"]("input-error");
   });
 
-  // Array.from(form.elements).forEach((htmlElement) => {
-  //   if (htmlElement.name === "") return;
+  form.lastname.addEventListener("change", (event) => {
+    const isValid = lastnameRegex.test(event.target.value);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+  });
 
-  //   htmlElement.addEventListener("change", (event) => {
-  //     if (htmlElement.dataset.ispristine === "true")
-  //       htmlElement.dataset.ispristine = "false";
-  //   });
-  // });
+  form.email.addEventListener("change", (event) => {
+    const isValid = emailRegex.test(event.target.value);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+  });
+
+  form.dni.addEventListener("change", (event) => {
+    const isValid = dniRegex.test(event.target.value);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+  });
+
+  form.phone.addEventListener("change", (event) => {
+    const isValid = phoneRegex.test(event.target.value);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+  });
+
+  form.rentType.addEventListener("change", (event) => {
+    const isValid = event.target.value !== "Seleccione una opción";
+    event.target.classList[isValid ? "remove" : "add"]("select-error");
+    if (form.pickUpTime.value !== "") {
+      form.pickUpTime.classList.add("input-error");
+      form.pickUpTime.value = "";
+    }
+    if (form.deliveryTime.value !== "") {
+      form.deliveryTime.value = "";
+      form.deliveryTime.classList.add("input-error");
+    }
+    tryToCalcRentPrice();
+  });
+
+  form.accessories.addEventListener("change", (event) => {
+    const isValid = event.target.value !== "Seleccione una opción";
+    event.target.classList[isValid ? "remove" : "add"]("select-error");
+    tryToCalcRentPrice();
+  });
+
+  form.pickUpTime.addEventListener("change", (event) => {
+    const isValid =
+      event.target.value >= "08:00" &&
+      event.target.value <= "22:00" &&
+      (form.rentType.value === "Alquiler por horas"
+        ? event.target.value < (form.deliveryTime.value || "22:00")
+        : true);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+    tryToCalcRentPrice();
+  });
+
+  form.deliveryTime.addEventListener("change", (event) => {
+    const isValid =
+      event.target.value >= "08:00" &&
+      event.target.value <= "22:00" &&
+      (form.rentType.value === "Alquiler por horas"
+        ? form.pickUpTime.value < event.target.value
+        : true);
+    event.target.classList[isValid ? "remove" : "add"]("input-error");
+    tryToCalcRentPrice();
+  });
+
+  form.contractAgreement.addEventListener("change", (event) => {
+    const isValid = event.target.checked;
+    event.target.classList[isValid ? "remove" : "add"]("checkbox-error");
+  });
+
+  form.webAgreement.addEventListener("change", (event) => {
+    const isValid = event.target.checked;
+    event.target.classList[isValid ? "remove" : "add"]("checkbox-error");
+  });
+
+  form.onsubmit = (event) => {
+    event.preventDefault();
+
+    document.getElementById("errorMessage").classList.add("hidden");
+
+    if (!firstnameRegex.test(event.target.firstname.value)) {
+      event.target.firstname.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (!lastnameRegex.test(event.target.lastname.value)) {
+      event.target.lastname.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (!emailRegex.test(event.target.email.value)) {
+      event.target.email.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (!dniRegex.test(event.target.dni.value)) {
+      event.target.dni.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (!phoneRegex.test(event.target.phone.value)) {
+      event.target.phone.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (event.target.rentType.value === "Seleccione una opción") {
+      event.target.rentType.classList.add("select-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (event.target.accessories.value === "Seleccione una opción") {
+      event.target.accessories.classList.add("select-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (
+      !(
+        event.target.pickUpTime.value >= "08:00" &&
+        event.target.pickUpTime.value <= "22:00" &&
+        (event.target.rentType.value === "Alquiler por horas"
+          ? event.target.pickUpTime.value <
+            (event.target.deliveryTime.value || "22:00")
+          : true)
+      )
+    ) {
+      event.target.pickUpTime.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (
+      !(
+        event.target.deliveryTime.value >= "08:00" &&
+        event.target.deliveryTime.value <= "22:00" &&
+        (event.target.rentType.value === "Alquiler por horas"
+          ? event.target.pickUpTime.value < event.target.deliveryTime.value
+          : true)
+      )
+    ) {
+      event.target.deliveryTime.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (
+      event.target.date.value === "" ||
+      (event.target.rentType.value === "Alquiler por días" &&
+        JSON.parse(event.target.date.value).length < 2)
+    ) {
+      document
+        .getElementById("calendar")
+        .classList.add("outline", "outline-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      event.target.date.value = " ";
+    }
+    if (!event.target.contractAgreement.checked) {
+      event.target.contractAgreement.classList.add("checkbox-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+    if (!event.target.webAgreement.checked) {
+      event.target.webAgreement.classList.add("checkbox-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+    }
+
+    const formData = new FormData(form);
+    fetch("/la-pinta", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .then((data) => {
+        console.log("Datos enviados:", data);
+        // Hacer algo con la respuesta del servidor
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 </script>
+
+<script
+  src="/scripts/vanilla-calendar.js"
+  defer
+  onload={`
+    function getDate(date) {
+      const today = new Date();
+      const futureDate = new Date(today);
+      if (date === "tommorrow") futureDate.setDate(today.getDate() + 1);
+      else futureDate.setMonth(today.getMonth() + 3);
+    
+      const dd = String(futureDate.getDate()).padStart(2, "0");
+      const mm = String(futureDate.getMonth() + 1).padStart(2, "0"); // January is 0!
+      const yyyy = futureDate.getFullYear();
+    
+      return yyyy + "-" + mm + "-" + dd;
+    }
+    
+    function isMobile() {
+      return window.innerWidth < 640 ;
+    }
+
+    const festDays = [
+      "2024-05-01",
+      "2024-05-02",
+      "2024-05-03",
+      "2024-05-04",
+      "2024-05-05",
+    ];
+    
+    const notAvailableDays = ["2024-05-12", "2024-05-13"];
+    
+    const calendar = new VanillaCalendar("#calendar", {
+      type: isMobile() ? 'default' : "multiple",
+      months: isMobile() ? 1 : 2,
+      jumpMonths: isMobile() ? 1 : 2,
+      date: {
+        min: getDate("tommorrow"),
+        max: getDate("3MonthsAhead"),
+      },
+      settings: {
+        range: {
+          disableGaps: true,
+          disabled: notAvailableDays,
+        },
+        selected: {
+          holidays: festDays,
+        },
+        selection: {
+          day: "single",
+        },
+        visibility: {
+          theme: "light",
+          today: false,
+          daysOutside: false,
+        },
+      },
+      actions: {
+        clickDay(e, self) {
+          const form = document.getElementById("bookingForm")
+          const tryToCalcRentPrice = () => {
+            if (
+              form.accessories.value === "Seleccione una opción" ||
+              form.pickUpTime.value === "" ||
+              form.deliveryTime.value === "" ||
+              form.date.value === "" ||
+              form.date.value === " " ||
+              form.rentType.value === "Seleccione una opción" ||
+              form.pickUpTime.value <= "08:00" ||
+              form.pickUpTime.value >= "22:00" ||
+              form.deliveryTime.value <= "08:00" ||
+              form.deliveryTime.value >= "22:00" ||
+              (form.rentType.value === "Alquiler por horas" &&
+                form.pickUpTime.value > form.deliveryTime.value) ||
+              (form.rentType.value === "Alquiler por días" &&
+                JSON.parse(form.date.value).length < 2)
+            )
+              form.dataset.rentIsCalculable = false;
+            else form.dataset.rentIsCalculable = true;
+          };
+
+          if (form.rentType.value === 'Alquiler por horas'){
+            form.date.value = self.selectedDates.length > 0 ? JSON.stringify(self.selectedDates) : ''
+            document.getElementById("calendar").classList.remove('outline', 'outline-error')
+          }
+          if (form.rentType.value === 'Alquiler por días') {
+            form.date.value = self.selectedDates.length > 1 ? JSON.stringify(self.selectedDates) : ''
+            document.getElementById("calendar").classList.remove('outline', 'outline-error')
+          }
+
+          tryToCalcRentPrice()
+        },
+      },
+    });
+
+    calendar.init();
+    
+    window.addEventListener("resize", () => {
+      calendar.type = isMobile() ? 'default' : "multiple";
+      calendar.months= isMobile() ? 1 : 2;
+      calendar.jumpMonths= isMobile() ? 1 : 2;
+      calendar.update()
+    });
+
+    document
+      .getElementById("bookingForm")
+      .rentType.addEventListener("change", (event) => {
+        calendar.destroy();
+        if(document.getElementById("bookingForm").date.value !== '') {
+          document.getElementById("bookingForm").date.value = ''
+          document.getElementById("calendar").classList.add('outline', 'outline-error')
+        }
+        if (event.target.value === "Alquiler por horas")
+          calendar.settings.selection.day = "single";
+        if (event.target.value === "Alquiler por días")
+          calendar.settings.selection.day = "multiple-ranged";
+        calendar.init();
+      });
+`}></script>
