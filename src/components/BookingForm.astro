@@ -1,6 +1,8 @@
 ---
 import "../styles/vanilla-calendar.css";
 import nodemailer from "nodemailer";
+import Phone from "../icons/Phone.astro";
+import Whatsapp from "../icons/Whatsapp.astro";
 
 if (Astro.request.method === "POST") {
   try {
@@ -255,7 +257,7 @@ if (Astro.request.method === "POST") {
               <input
                 type="time"
                 min="08:00"
-                max="22:00"
+                max="19:00"
                 class="input input-bordered w-full"
                 name="pickUpTime"
                 id="pickUpTime"
@@ -270,7 +272,7 @@ if (Astro.request.method === "POST") {
               <input
                 type="time"
                 min="08:00"
-                max="22:00"
+                max="19:00"
                 class="input input-bordered w-full"
                 name="deliveryTime"
                 id="deliveryTime"
@@ -291,7 +293,7 @@ if (Astro.request.method === "POST") {
               seleccione el día deseado en el calendario. Para reservas que
               excedan los 7 días, nos pondremos en contacto para ofrecerle una
               oferta personalizada. Nuestro horario de atención es de 08:00 a
-              22:00 horas.
+              19:00 horas.
             </span>
           </div>
         </fieldset>
@@ -451,6 +453,48 @@ if (Astro.request.method === "POST") {
       <button></button>
     </form>
   </dialog>
+  <dialog id="modal_form_error" class="modal">
+    <div class="modal-box text-black">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          >✕</button
+        >
+      </form>
+      <div class="prose prose-base">
+        <h4 class="font-bold mb-4 text-lg">Solicitud de Reserva enviada</h4>
+        <p>
+          Se ha producido un error al enviar la solicitud de reserva del
+          remolque La Pinta. Por favor, inténtelo de nuevo. Si el problema
+          persiste, póngase en contacto con nosotros.
+        </p>
+        <ul class="list-none !pl-0">
+          <li class="!pl-0 !mb-4">
+            <a
+              href="tel:+34627139931"
+              class="btn btn-block btn-primary justify-start !m-0"
+            >
+              <Phone class="w-5 h-5 mr-1.5" />
+              <span> Llámanos: +34 627 139 931</span>
+            </a>
+          </li>
+          <li class="!pl-0">
+            <a
+              href="https://wa.me/627139931"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
+            >
+              <Whatsapp class="w-5 h-5 mr-1.5" />
+              <span> WhatsApp: +34 627 139 931</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button></button>
+    </form>
+  </dialog>
 </div>
 
 <script type="module">
@@ -468,10 +512,10 @@ if (Astro.request.method === "POST") {
       form.date.value === "" ||
       form.date.value === " " ||
       form.rentType.value === "Seleccione una opción" ||
-      form.pickUpTime.value <= "08:00" ||
-      form.pickUpTime.value >= "22:00" ||
-      form.deliveryTime.value <= "08:00" ||
-      form.deliveryTime.value >= "22:00" ||
+      form.pickUpTime.value < "08:00" ||
+      form.pickUpTime.value >= "19:00" ||
+      form.deliveryTime.value < "08:00" ||
+      form.deliveryTime.value >= "19:00" ||
       (form.rentType.value === "Alquiler por horas" &&
         form.pickUpTime.value >= form.deliveryTime.value) ||
       (form.rentType.value === "Alquiler por días" &&
@@ -676,9 +720,9 @@ if (Astro.request.method === "POST") {
   form.pickUpTime.addEventListener("change", (event) => {
     const isValid =
       event.target.value >= "08:00" &&
-      event.target.value <= "22:00" &&
+      event.target.value <= "19:00" &&
       (form.rentType.value === "Alquiler por horas"
-        ? event.target.value < (form.deliveryTime.value || "22:00")
+        ? event.target.value < (form.deliveryTime.value || "19:00")
         : true);
     event.target.classList[isValid ? "remove" : "add"]("input-error");
     tryToCalcRentPrice();
@@ -687,7 +731,7 @@ if (Astro.request.method === "POST") {
   form.deliveryTime.addEventListener("change", (event) => {
     const isValid =
       event.target.value >= "08:00" &&
-      event.target.value <= "22:00" &&
+      event.target.value <= "19:00" &&
       (form.rentType.value === "Alquiler por horas"
         ? form.pickUpTime.value < event.target.value
         : true);
@@ -741,10 +785,10 @@ if (Astro.request.method === "POST") {
     if (
       !(
         event.target.pickUpTime.value >= "08:00" &&
-        event.target.pickUpTime.value <= "22:00" &&
+        event.target.pickUpTime.value <= "19:00" &&
         (event.target.rentType.value === "Alquiler por horas"
           ? event.target.pickUpTime.value <
-            (event.target.deliveryTime.value || "22:00")
+            (event.target.deliveryTime.value || "19:00")
           : true)
       )
     ) {
@@ -754,7 +798,7 @@ if (Astro.request.method === "POST") {
     if (
       !(
         event.target.deliveryTime.value >= "08:00" &&
-        event.target.deliveryTime.value <= "22:00" &&
+        event.target.deliveryTime.value <= "19:00" &&
         (event.target.rentType.value === "Alquiler por horas"
           ? event.target.pickUpTime.value < event.target.deliveryTime.value
           : true)
@@ -794,7 +838,7 @@ if (Astro.request.method === "POST") {
         window.scrollTo(0, 0);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        modal_form_error.showModal();
       });
   };
 </script>
@@ -866,10 +910,10 @@ if (Astro.request.method === "POST") {
               form.date.value === "" ||
               form.date.value === " " ||
               form.rentType.value === "Seleccione una opción" ||
-              form.pickUpTime.value <= "08:00" ||
-              form.pickUpTime.value >= "22:00" ||
-              form.deliveryTime.value <= "08:00" ||
-              form.deliveryTime.value >= "22:00" ||
+              form.pickUpTime.value < "08:00" ||
+              form.pickUpTime.value >= "19:00" ||
+              form.deliveryTime.value < "08:00" ||
+              form.deliveryTime.value >= "19:00" ||
               (form.rentType.value === "Alquiler por horas" &&
                 form.pickUpTime.value > form.deliveryTime.value) ||
               (form.rentType.value === "Alquiler por días" &&
