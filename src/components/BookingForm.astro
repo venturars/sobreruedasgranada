@@ -8,6 +8,7 @@ const smtpUser = import.meta.env.SMTP_USER;
 const smtpPassword = import.meta.env.SMTP_PASSWORD;
 
 if (Astro.request.method === "POST") {
+  console.log("se lanzó el post");
   try {
     const data = await Astro.request.formData();
     const firstname = data.get("firstname");
@@ -836,11 +837,13 @@ if (Astro.request.method === "POST") {
       body: formData,
     })
       .then((response) => {
+        console.log(response);
         modal_form.showModal();
         form.reset();
         window.scrollTo(0, 0);
       })
       .catch((error) => {
+        console.log(error);
         modal_form_error.showModal();
       });
   };

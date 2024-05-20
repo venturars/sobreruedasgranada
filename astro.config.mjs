@@ -7,6 +7,13 @@ import vercel from "@astrojs/vercel/serverless";
 export default defineConfig({
   site: "https://remolquesalquilergranada.es",
   output: "hybrid",
+  experimental: {
+    security: {
+      csrfProtection: {
+        origin: true,
+      },
+    },
+  },
   image: {
     service: passthroughImageService(),
   },
