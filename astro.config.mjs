@@ -5,7 +5,7 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://remolquesalquilergranada.es",
+  site: "https://www.sobreruedasgranada.es",
   output: "hybrid",
   experimental: {
     security: {

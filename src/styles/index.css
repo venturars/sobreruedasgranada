@@ -1,7 +1,7 @@
 @import "./tailwind.css";
 
 @layer base {
-  [data-theme="remolquesenalquilergranada"] {
+  [data-theme="sobreruedasgranada"] {
     @apply font-Poppins;
   }
 

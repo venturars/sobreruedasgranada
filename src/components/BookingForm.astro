@@ -1,122 +1,7 @@
 ---
 import "../styles/vanilla-calendar.css";
-import nodemailer from "nodemailer";
 import Phone from "../icons/Phone.astro";
 import Whatsapp from "../icons/Whatsapp.astro";
-
-const smtpUser = import.meta.env.SMTP_USER;
-const smtpPassword = import.meta.env.SMTP_PASSWORD;
-
-if (Astro.request.method === "POST") {
-  console.log("se lanzó el post");
-  try {
-    const data = await Astro.request.formData();
-    const firstname = data.get("firstname");
-    const lastname = data.get("lastname");
-    const dni = data.get("dni");
-    const email = data.get("email");
-    const phone = data.get("phone");
-    const rentType = data.get("rentType");
-    const accessories = data.get("accessories");
-    const pickUpTime = data.get("pickUpTime");
-    const deliveryTime = data.get("deliveryTime");
-    const date = data.get("date");
-    const rentalPrice = data.get("rentalPrice");
-    const guarantee = data.get("guarantee");
-    const reservationAmount = data.get("reservationAmount");
-    const pickUpPaymentAmount = data.get("pickUpPaymentAmount");
-    const contractAgreement = data.get("contractAgreement");
-    const webAgreement = data.get("webAgreement");
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: smtpUser,
-        pass: smtpPassword,
-      },
-    });
-
-    const response = await transporter.sendMail({
-      from: "ventu@kudu.design",
-      to: "brodriguezserrano54@gmail.com",
-      subject: `Contacto remolque La Pinta de ${firstname}`,
-      replyTo: email,
-      html: `
-        <p>Hola Noel,</p>
-        <p>Has recibido una nueva solicitud de alquiler de remolque:</p>
-        <ul>
-          <li>Nombre: ${firstname} ${lastname}</li>
-          <li>DNI: ${dni}</li>
-          <li>Email: ${email}</li>
-          <li>Teléfono de contacto: ${phone}</li>
-          <li>Tipo de alquiler: ${rentType}</li>
-          <li>Accesorios: ${accessories}</li>
-          <li>Horario de recogida: ${pickUpTime}</li>
-          <li>Horario de entrega: ${deliveryTime}</li>
-          <li>Fecha: ${JSON.parse(date.toString())[0]}${
-            JSON.parse(date.toString()).length > 1
-              ? " a " +
-                JSON.parse(date.toString())[
-                  JSON.parse(date.toString()).length - 1
-                ]
-              : ""
-          }</li>
-          <li>Precio del alquiler: ${rentalPrice}</li>
-          <li>Fianza: ${guarantee}</li>
-          <li>Importe de la reserva: ${reservationAmount}</li>
-          <li>Importe a pagar en la recogida: ${pickUpPaymentAmount}</li>
-          <li>Acuerdo del contrato: ${contractAgreement}</li>
-          <li>Acuerdo de la web: ${webAgreement}</li>
-        </ul>
-      `,
-    });
-    if (!response.accepted[0]) Astro.response.status = 500;
-
-    await transporter.sendMail({
-      from: "ventu@kudu.design",
-      to: email,
-      subject:
-        "[No responder]: Gracias por contactar con Remolques en Alquiler Granada",
-      html: `
-        <p>Hola ${firstname},</p>
-        <p>Gracias por contactar con Remolques en Alquiler Granada. Hemos recibido tu solicitud y nos pondremos en contacto contigo lo antes posible.</p>
-        <p>Detalles de la solicitud:</p>
-        <ul>
-          <li>Nombre: ${firstname} ${lastname}</li>
-          <li>DNI: ${dni}</li>
-          <li>Email: ${email}</li>
-          <li>Teléfono de contacto: ${phone}</li>
-          <li>Tipo de alquiler: ${rentType}</li>
-          <li>Accesorios: ${accessories}</li>
-          <li>Horario de recogida: ${pickUpTime}</li>
-          <li>Horario de entrega: ${deliveryTime}</li>
-          <li>Fecha: ${JSON.parse(date.toString())[0]}${
-            JSON.parse(date.toString()).length > 1
-              ? " a " +
-                JSON.parse(date.toString())[
-                  JSON.parse(date.toString()).length - 1
-                ]
-              : ""
-          }</li>
-          <li>Precio del alquiler: ${rentalPrice}</li>
-          <li>Fianza: ${guarantee}</li>
-        </ul>
-        <p>¡Gracias!</p>
-      `,
-    });
-    Astro.response.status = 200;
-    return;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    } else console.log("ERROR: ", error);
-    Astro.response.status = 500;
-    Astro.response.statusText = "Unknown error";
-    return;
-  }
-}
 ---
 
 <div class="w-full h-full">
@@ -465,7 +350,7 @@ if (Astro.request.method === "POST") {
         >
       </form>
       <div class="prose prose-base">
-        <h4 class="font-bold mb-4 text-lg">Solicitud de Reserva enviada</h4>
+        <h4 class="font-bold mb-4 text-lg">Error de Solicitud de Reserva</h4>
         <p>
           Se ha producido un error al enviar la solicitud de reserva del
           remolque La Pinta. Por favor, inténtelo de nuevo. Si el problema
@@ -556,11 +441,61 @@ if (Astro.request.method === "POST") {
           const accessories = form.accessories.value === "Si";
           const days = JSON.parse(form.date.value);
           const festDays = [
-            "2024-05-23",
-            "2024-05-24",
-            "2024-05-03",
-            "2024-05-04",
-            "2024-05-05",
+            "2024-08-15",
+            "2024-08-16",
+            "2024-10-11",
+            "2024-10-12",
+            "2024-11-01",
+            "2024-12-06",
+            "2024-12-07",
+            "2024-12-08",
+            "2024-12-09",
+            "2024-12-24",
+            "2024-12-25",
+            "2024-12-26",
+            "2024-12-27",
+            "2024-12-28",
+            "2024-12-29",
+            "2024-12-30",
+            "2024-12-31",
+            "2025-01-01",
+            "2025-01-02",
+            "2025-01-03",
+            "2025-01-04",
+            "2025-01-05",
+            "2025-01-06",
+            "2025-02-28",
+            "2025-03-01",
+            "2025-03-02",
+            "2025-04-17",
+            "2025-04-18",
+            "2025-04-19",
+            "2025-04-20",
+            "2025-05-01",
+            "2025-05-02",
+            "2025-05-03",
+            "2025-05-04",
+            "2025-06-19",
+            "2025-06-20",
+            "2025-06-21",
+            "2025-06-22",
+            "2025-08-15",
+            "2025-08-16",
+            "2025-08-17",
+            "2025-10-12",
+            "2025-11-01",
+            "2025-11-02",
+            "2025-12-06",
+            "2025-12-07",
+            "2025-12-08",
+            "2025-12-24",
+            "2025-12-25",
+            "2025-12-26",
+            "2025-12-27",
+            "2025-12-28",
+            "2025-12-29",
+            "2025-12-30",
+            "2025-12-31",
           ];
 
           let totalRentalPrice = 0;
@@ -756,35 +691,44 @@ if (Astro.request.method === "POST") {
   form.onsubmit = (event) => {
     event.preventDefault();
 
+    let isValid = true;
+
     document.getElementById("errorMessage").classList.add("hidden");
 
     if (!firstnameRegex.test(event.target.firstname.value)) {
       event.target.firstname.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (!lastnameRegex.test(event.target.lastname.value)) {
       event.target.lastname.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (!emailRegex.test(event.target.email.value)) {
       event.target.email.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (!dniRegex.test(event.target.dni.value)) {
       event.target.dni.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (!phoneRegex.test(event.target.phone.value)) {
       event.target.phone.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (event.target.rentType.value === "Seleccione una opción") {
       event.target.rentType.classList.add("select-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (event.target.accessories.value === "Seleccione una opción") {
       event.target.accessories.classList.add("select-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (
       !(
@@ -798,6 +742,7 @@ if (Astro.request.method === "POST") {
     ) {
       event.target.pickUpTime.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (
       !(
@@ -810,6 +755,7 @@ if (Astro.request.method === "POST") {
     ) {
       event.target.deliveryTime.classList.add("input-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (
       event.target.date.value === "" ||
@@ -821,15 +767,20 @@ if (Astro.request.method === "POST") {
         .classList.add("outline", "outline-error");
       document.getElementById("errorMessage").classList.remove("hidden");
       event.target.date.value = " ";
+      isValid = false;
     }
     if (!event.target.contractAgreement.checked) {
       event.target.contractAgreement.classList.add("checkbox-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
     if (!event.target.webAgreement.checked) {
       event.target.webAgreement.classList.add("checkbox-error");
       document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
     }
+
+    if (!isValid) return;
 
     const formData = new FormData(form);
     fetch("/la-pinta", {
@@ -837,7 +788,7 @@ if (Astro.request.method === "POST") {
       body: formData,
     })
       .then((response) => {
-        console.log(response);
+        if (!response.ok) throw new Error(response.statusText);
         modal_form.showModal();
         form.reset();
         window.scrollTo(0, 0);
@@ -871,11 +822,61 @@ if (Astro.request.method === "POST") {
     }
 
     const festDays = [
-      "2024-05-01",
-      "2024-05-02",
-      "2024-05-03",
-      "2024-05-04",
-      "2024-05-05",
+      "2024-08-15",
+      "2024-08-16",
+      "2024-10-11",
+      "2024-10-12",
+      "2024-11-01",
+      "2024-12-06",
+      "2024-12-07",
+      "2024-12-08",
+      "2024-12-09",
+      "2024-12-24",
+      "2024-12-25",
+      "2024-12-26",
+      "2024-12-27",
+      "2024-12-28",
+      "2024-12-29",
+      "2024-12-30",
+      "2024-12-31",
+      "2025-01-01",
+      "2025-01-02",
+      "2025-01-03",
+      "2025-01-04",
+      "2025-01-05",
+      "2025-01-06",
+      "2025-02-28",
+      "2025-03-01",
+      "2025-03-02",
+      "2025-04-17",
+      "2025-04-18",
+      "2025-04-19",
+      "2025-04-20",
+      "2025-05-01",
+      "2025-05-02",
+      "2025-05-03",
+      "2025-05-04",
+      "2025-06-19",
+      "2025-06-20",
+      "2025-06-21",
+      "2025-06-22",
+      "2025-08-15",
+      "2025-08-16",
+      "2025-08-17",
+      "2025-10-12",
+      "2025-11-01",
+      "2025-11-02",
+      "2025-12-06",
+      "2025-12-07",
+      "2025-12-08",
+      "2025-12-24",
+      "2025-12-25",
+      "2025-12-26",
+      "2025-12-27",
+      "2025-12-28",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31",
     ];
     
     const notAvailableDays = ["2024-05-12", "2024-05-13"];

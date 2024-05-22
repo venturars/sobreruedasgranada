@@ -39,7 +39,7 @@ export default {
   daisyui: {
     themes: [
       {
-        remolquesenalquilergranada: {
+        sobreruedasgranada: {
           primary: "#63abf8",
           "primary-content": "#ffffff",
           secondary: "#a1c2f7",
