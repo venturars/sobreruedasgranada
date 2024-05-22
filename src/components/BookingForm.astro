@@ -402,9 +402,9 @@ import Whatsapp from "../icons/Whatsapp.astro";
       form.date.value === " " ||
       form.rentType.value === "Seleccione una opción" ||
       form.pickUpTime.value < "08:00" ||
-      form.pickUpTime.value >= "19:00" ||
+      form.pickUpTime.value > "19:00" ||
       form.deliveryTime.value < "08:00" ||
-      form.deliveryTime.value >= "19:00" ||
+      form.deliveryTime.value > "19:00" ||
       (form.rentType.value === "Alquiler por horas" &&
         form.pickUpTime.value >= form.deliveryTime.value) ||
       (form.rentType.value === "Alquiler por días" &&
@@ -918,9 +918,9 @@ import Whatsapp from "../icons/Whatsapp.astro";
               form.date.value === " " ||
               form.rentType.value === "Seleccione una opción" ||
               form.pickUpTime.value < "08:00" ||
-              form.pickUpTime.value >= "19:00" ||
+              form.pickUpTime.value > "19:00" ||
               form.deliveryTime.value < "08:00" ||
-              form.deliveryTime.value >= "19:00" ||
+              form.deliveryTime.value > "19:00" ||
               (form.rentType.value === "Alquiler por horas" &&
                 form.pickUpTime.value > form.deliveryTime.value) ||
               (form.rentType.value === "Alquiler por días" &&
