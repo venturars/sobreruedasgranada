@@ -146,7 +146,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
               <input
                 type="time"
                 min="08:00"
-                max="19:00"
+                max="20:00"
                 class="input input-bordered w-full"
                 name="pickUpTime"
                 id="pickUpTime"
@@ -161,7 +161,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
               <input
                 type="time"
                 min="08:00"
-                max="19:00"
+                max="20:00"
                 class="input input-bordered w-full"
                 name="deliveryTime"
                 id="deliveryTime"
@@ -182,7 +182,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
               seleccione el día deseado en el calendario. Para reservas que
               excedan los 7 días, nos pondremos en contacto para ofrecerle una
               oferta personalizada. Nuestro horario de atención es de 08:00 a
-              19:00 horas.
+              20:00 horas.
             </span>
           </div>
         </fieldset>
@@ -402,9 +402,9 @@ import Whatsapp from "../icons/Whatsapp.astro";
       form.date.value === " " ||
       form.rentType.value === "Seleccione una opción" ||
       form.pickUpTime.value < "08:00" ||
-      form.pickUpTime.value > "19:00" ||
+      form.pickUpTime.value > "20:00" ||
       form.deliveryTime.value < "08:00" ||
-      form.deliveryTime.value > "19:00" ||
+      form.deliveryTime.value > "20:00" ||
       (form.rentType.value === "Alquiler por horas" &&
         form.pickUpTime.value >= form.deliveryTime.value) ||
       (form.rentType.value === "Alquiler por días" &&
@@ -525,7 +525,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
             ) {
               totalRentalPrice = 25;
             } else {
-              totalRentalPrice = 20;
+              totalRentalPrice = 25;
             }
           } else if (
             form.rentType.value === "Alquiler por días" &&
@@ -659,9 +659,9 @@ import Whatsapp from "../icons/Whatsapp.astro";
   form.pickUpTime.addEventListener("change", (event) => {
     const isValid =
       event.target.value >= "08:00" &&
-      event.target.value <= "19:00" &&
+      event.target.value <= "20:00" &&
       (form.rentType.value === "Alquiler por horas"
-        ? event.target.value < (form.deliveryTime.value || "19:00")
+        ? event.target.value < (form.deliveryTime.value || "20:00")
         : true);
     event.target.classList[isValid ? "remove" : "add"]("input-error");
     tryToCalcRentPrice();
@@ -670,7 +670,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
   form.deliveryTime.addEventListener("change", (event) => {
     const isValid =
       event.target.value >= "08:00" &&
-      event.target.value <= "19:00" &&
+      event.target.value <= "20:00" &&
       (form.rentType.value === "Alquiler por horas"
         ? form.pickUpTime.value < event.target.value
         : true);
@@ -733,10 +733,10 @@ import Whatsapp from "../icons/Whatsapp.astro";
     if (
       !(
         event.target.pickUpTime.value >= "08:00" &&
-        event.target.pickUpTime.value <= "19:00" &&
+        event.target.pickUpTime.value <= "20:00" &&
         (event.target.rentType.value === "Alquiler por horas"
           ? event.target.pickUpTime.value <
-            (event.target.deliveryTime.value || "19:00")
+            (event.target.deliveryTime.value || "20:00")
           : true)
       )
     ) {
@@ -747,7 +747,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
     if (
       !(
         event.target.deliveryTime.value >= "08:00" &&
-        event.target.deliveryTime.value <= "19:00" &&
+        event.target.deliveryTime.value <= "20:00" &&
         (event.target.rentType.value === "Alquiler por horas"
           ? event.target.pickUpTime.value < event.target.deliveryTime.value
           : true)
@@ -918,9 +918,9 @@ import Whatsapp from "../icons/Whatsapp.astro";
               form.date.value === " " ||
               form.rentType.value === "Seleccione una opción" ||
               form.pickUpTime.value < "08:00" ||
-              form.pickUpTime.value > "19:00" ||
+              form.pickUpTime.value > "20:00" ||
               form.deliveryTime.value < "08:00" ||
-              form.deliveryTime.value > "19:00" ||
+              form.deliveryTime.value > "20:00" ||
               (form.rentType.value === "Alquiler por horas" &&
                 form.pickUpTime.value > form.deliveryTime.value) ||
               (form.rentType.value === "Alquiler por días" &&
