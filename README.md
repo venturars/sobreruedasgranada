@@ -4,8 +4,8 @@ TODO
 
 ## Environments
 
-| NAME       | URL                   | BRANCH  | VERCEL ENV |
-| ---------- | --------------------- | ------- | ---------- |
-| PRODUCTION | NA                    | main    | Production |
-| PREVIEW    | NA                    | staging | Preview    |
-| LOCALHOST  | http://localhost:3000 | NA      | NA         |
+| NAME       | URL                                | BRANCH | VERCEL ENV |
+| ---------- | ---------------------------------- | ------ | ---------- |
+| PRODUCTION | https://www.sobreruedasgranada.es/ | main   | Production |
+| PREVIEW    | NA                                 | NA     | NA         |
+| LOCALHOST  | http://localhost:4321              | NA     | NA         |
