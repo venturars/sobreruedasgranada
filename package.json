@@ -26,6 +26,6 @@
     "vanilla-calendar-pro": "2.9.6"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "19.9.0"
   }
 }
