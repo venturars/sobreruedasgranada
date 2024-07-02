@@ -1,4 +1,4 @@
-# sSobreruedas Granada
+# Sobreruedas Granada
 
 Welcome to the Sobreruedas Granada repository. This project aims to create a landing page for a trailer
 and classic car rental company, and to provide an online reservation system for receiving reservations.
