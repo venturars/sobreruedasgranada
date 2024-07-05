@@ -438,7 +438,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
         const form = document.getElementById("bookingForm");
         const newValue = form.getAttribute("data-rent-is-calculable");
         if (newValue === "true") {
-          const accessories = form.accessories.value === "Si";
+          const accessories = form.accessories.value === "Sí";
           const days = JSON.parse(form.date.value);
           const festDays = [
             "2024-05-29",
