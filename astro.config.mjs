@@ -7,12 +7,8 @@ import vercel from "@astrojs/vercel/serverless";
 export default defineConfig({
   site: "https://www.sobreruedasgranada.es",
   output: "hybrid",
-  experimental: {
-    security: {
-      csrfProtection: {
-        origin: true,
-      },
-    },
+  security: {
+    checkOrigin: true,
   },
   image: {
     service: passthroughImageService(),
