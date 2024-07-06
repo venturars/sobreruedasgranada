@@ -594,8 +594,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
 
           const rentalPrice = totalRentalPrice + (accessories ? 5 : 0);
           const guarantee = days.length > 8 ? 200 : 150;
-          const reservationAmount =
-            rentalPrice > 100 ? rentalPrice * 0.2 : rentalPrice;
+          const reservationAmount = rentalPrice > 100 ? 100 : rentalPrice;
           const pickUpPaymentAmount =
             rentalPrice + guarantee - reservationAmount;
 
