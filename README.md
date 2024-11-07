@@ -72,11 +72,11 @@ When you run this development server, the changes you make in your frontend will
 
 ## Environments
 
-| NAME       | URL                                | BRANCH | VERCEL ENV |
-| ---------- | ---------------------------------- | ------ | ---------- |
-| PRODUCTION | https://www.sobreruedasgranada.es/ | main   | Production |
-| PREVIEW    | NA                                 | NA     | NA         |
-| LOCALHOST  | http://localhost:4321              | NA     | NA         |
+| NAME       | URL                                    | BRANCH  | VERCEL ENV |
+| ---------- | -------------------------------------- | ------- | ---------- |
+| PRODUCTION | https://www.sobreruedasgranada.es/     | main    | Production |
+| PREVIEW    | https://develop.sobreruedasgranada.es/ | develop | Preview    |
+| LOCALHOST  | http://localhost:4321                  | NA      | NA         |
 
 ### Env file
 
@@ -89,6 +89,7 @@ When you run this development server, the changes you make in your frontend will
 
 | File(s)              | Description                                              |
 | -------------------- | -------------------------------------------------------- |
+| `vercel.json`        | Config file for Vercel                                   |
 | `astro.config.mjs`   | Config file for Svelte                                   |
 | `vite.config.js`     | Config file for Vite                                     |
 | `tailwind.config.js` | Config file for Tailwind and Daisy UI (design system)    |
