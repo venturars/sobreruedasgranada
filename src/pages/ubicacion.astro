@@ -1,6 +1,8 @@
 ---
-import MainLayout from "../layouts/Main.astro";
 import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
+import MainLayout from "../layouts/Main.astro";
+import Location from "../components/Location.astro";
+import Solutions from "../components/Solutions.astro";
 import ES from "../locales/ES.json";
 ---
 
@@ -14,20 +16,19 @@ import ES from "../locales/ES.json";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
-    <title>{ES.pages.terms.metadata.title}</title>
-    <meta name="description" content={ES.pages.terms.metadata.description} />
+    <title>{ES.pages.location.metadata.title}</title>
+    <meta name="description" content={ES.pages.location.metadata.description} />
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <script src="/scripts/swiped-events.js" defer></script>
   </head>
+
   <body>
     <MainLayout>
-      <section class="md:px-16 xs:px-6 px-4 md:pb-16 pb-4 pt-6 md:pt-24">
-        <div class="prose mx-auto">
-          <Fragment set:html={ES.pages.terms.text} />
-        </div>
-      </section>
+      <Location locales={ES.sections.location} />
+      <Solutions locales={ES.sections.solutions} />
     </MainLayout>
   </body>
 </html>

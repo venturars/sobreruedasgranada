@@ -1,20 +1,11 @@
+---
+const { locales } = Astro.props;
+---
+
 <section class="py-20 px-16 max-xs:px-6 max-xs:py-8 bg-slate-100">
   <div
     class="max-w-screen-md mx-auto prose-lg text-center leading-loose max-xs:leading-relaxed"
   >
-    <p>
-      Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un
-      circuito con un vehículo no matriculado, o enfrentarte a una mudanza o
-      transporte de objetos voluminosos, nuestros remolques están completamente
-      preparados y equipados para llevar a cabo cada una de estas tareas de
-      manera eficiente y segura.
-    </p>
-    <p>
-      Todos nuestros remolques se entregan completamente revisados en cuanto a
-      su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de
-      repuesto y su documentación correspondiente. También ofrecemos opciones de
-      equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y
-      bloqueo antirrobo.
-    </p>
+    <Fragment set:html={locales.text} />
   </div>
 </section>

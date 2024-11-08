@@ -1,0 +1,418 @@
+{
+  "pages": {
+    "landing": {
+      "metadata": {
+        "title": "sobreruedasgranada",
+        "description": ""
+      },
+      "firstView": {
+        "title": "Especializados en alquiler de vehículos y remolques",
+        "subtitle": "Vehiculos y remolques de primera calidad con un equipo a tu servicio, te ofrecemos la solución de transporte que necesitas.",
+        "accionButton": {
+          "text": "Ver soluciones",
+          "href": "/#soluciones"
+        },
+        "image": {
+          "src": "/assets/landing/first-view.webp",
+          "alt": "Remolque de motos de hasta 750kg de carga."
+        }
+      },
+      "intro": {
+        "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo.</p>"
+      }
+    },
+    "trailers": {
+      "metadata": {
+        "title": "Remolques",
+        "description": "Descubre la solución perfecta para transportar tus vehículos de medio tamaño. En sobreruedasgranada, ubicado en Calle Ebro 32, Granada, ofrecemos alquiler de remolques de hasta 750kg para motos, bicicletas, quads, karts, buggis y más. Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, nuestros remolques están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
+        "keywords": "alquiler remolques Granada, transportar vehículos, motos, quads, karts, buggies, transporte de carga, remolques hasta 750kg, alquiler remolques Granada, transporte seguro, vehículos no matriculados, transporte de carga, remolques equipados"
+      },
+      "firstView": {
+        "title": "Solución de alquiler de remolques en Granada",
+        "subtitle": "Con la seguridad y confianza que necesitas para transportar tus pertenencias en un remolque de calidad y totalmente revisado.",
+        "accionButton": {
+          "text": "Ver remolques",
+          "href": "/remolques#remolques"
+        },
+        "image": {
+          "src": "/assets/trailers/first-view.webp",
+          "alt": "Remolque de motos de hasta 750kg de carga."
+        }
+      },
+      "intro": {
+        "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo. </p>"
+      },
+      "faqs": {
+        "title": "Preguntas frecuentes",
+        "questions": [
+          [
+            "¿Qué puedo y no puedo transportar?",
+            "<p class='!m-0'>Puedes transportar cualquier carga en el remolque, siempre y cuando no exceda las medidas máximas homologadas ni el peso máximo permitido. Entre las cargas permitidas se incluyen vehículos a motor, vehículos acuáticos, equipo deportivo, muebles y electrodomésticos. Quedan exentos la carga de materiales inflamables y animales.</p>"
+          ],
+          [
+            "¿Necesito tener seguro para alquilar?",
+            "<p class='!m-0'>No, solo necesitas declarar la bola de remolque de tu coche en tu póliza de seguro. En el caso de remolques ligeros, la responsabilidad civil recae directamente sobre el seguro del vehículo tractor. Para remolques de más de 750 kg, el seguro a todo riesgo está incluido en el alquiler del remolque.</p>"
+          ],
+          [
+            "¿Puedo ampliar el plazo de alquiler?",
+            "<p class='!m-0'>Sí, podrás extender el plazo de alquiler del remolque siempre que no esté reservado por otra persona. Para hacerlo, simplemente debes abonar la cantidad acordada para la extensión, siempre y cuando nos lo comuniques con al menos 24 horas de antelación a la hora de entrega prevista. Si la comunicación se realiza con menos de 24 horas de antelación, se aplicará la tarifa de retraso de entrega estipulada en el acuerdo del remolque.</p>"
+          ],
+          [
+            "¿Qué ocurre si tengo una avería?",
+            "<p class='!m-0'>En el caso de que su vehículo se averíe y no puedas devolver el remolque al punto de entrega acordado, nos encargaremos de recoger el remolque según las condiciones y costos establecidos en el acuerdo específico del remolque. Es importante destacar que nunca debes abandonar el remolque ni su carga en la vía pública.</p>"
+          ],
+          [
+            "¿Dónde estamos ubicados?",
+            "<p class='!m-0'>Nos encontramos en el número 32 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada. Este punto será la ubicación de referencia tanto para la recogida como para la entrega de nuestros remolques.</p>"
+          ]
+        ]
+      }
+    },
+    "utilityVehicles": {
+      "metadata": {
+        "title": "Vehiculos comerciales",
+        "description": "Alquila furgonetas y camiones conducibles con carnet B en sobreruedasgranada, ubicado en Calle Ebro 32, Granada. ¡También realizamos portes por ti! HAcemos mudanzas, transporte de muebles, material deportivo, vehículos... Nuestros alquileres están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
+        "keywords": "alquiler furgonetas Granada, mudanzas Granada, portes Granada, camiones carnet B, transporte de muebles"
+      },
+      "firstView": {
+        "title": "Alquiler de vehículos comerciales conducibles con carnet B",
+        "subtitle": "Transporta tus pertenencias con total tranquilidad. Nuestros vehículos están revisados y preparados para garantizar tu seguridad.",
+        "accionButton": {
+          "text": "Ver vehículos",
+          "href": "/vehiculos-comerciales#vehiculos-comerciales"
+        },
+        "image": {
+          "src": "/assets/utility-vehicles/first-view.webp",
+          "alt": "Remolque de motos de hasta 750kg de carga."
+        }
+      },
+      "intro": {
+        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas te ofrecerán la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con carnet B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
+      },
+      "faqs": {
+        "title": "Preguntas frecuentes",
+        "questions": [
+          [
+            "¿Tengo que cumplir algún requisito para alquilar?",
+            "<p class='!m-0'>Si, debes ser mayor de 25 años y un carnet de conducir tipo B con una antigüedad mínima de 2 años.</p>"
+          ],
+          [
+            "¿Qué puedo y no puedo transportar?",
+            "<p class='!m-0'>Puedes transportar cualquier carga en los vehículos, siempre y cuando no exceda el peso máximo homologado y la carga se asegure correctamente. Entre las cargas permitidas se incluyen muebles, electrodomésticos, vehículos, útiles agrícolas, material deportivo, mercancías... Quedan exentos la carga de materiales inflamables y animales.</p>"
+          ],
+          [
+            "¿Necesito tener seguro para alquilar?",
+            "<p class='!m-0'>El seguro está incluido en todos nuestros alquileres. Para poder asegurarte, debes ser mayor de 25 años y un carnet de conducir tipo B con una antigüedad mínima de 2 años.</p>"
+          ],
+          [
+            "¿Puedo ampliar el plazo de alquiler?",
+            "<p class='!m-0'>Sí, podrás extender el plazo de alquiler del vehículo siempre que no esté reservado por otra persona. Para hacerlo, simplemente debes abonar la cantidad acordada para la extensión, siempre y cuando nos lo comuniques con al menos 24 horas de antelación a la hora de entrega prevista. Si la comunicación se realiza con menos de 24 horas de antelación, se aplicará la tarifa de retraso de entrega estipulada en el acuerdo de alquiler.</p>"
+          ],
+          [
+            "¿Qué ocurre si tengo una avería?",
+            "<p class='!m-0'>En el caso de que el vehículo alquilado se averíe y no puedas devolverlo al punto de entrega acordado, nos encargaremos de recogerlo según las condiciones y costos establecidos en el acuerdo específico del alquiler acordado. Es importante destacar que nunca debes abandonar el vehiculo ni su carga en la vía pública.</p>"
+          ],
+          [
+            "¿Dónde estamos ubicados?",
+            "<p class='!m-0'>Nos encontramos en el número 32 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada. Este punto será la ubicación de referencia tanto para la recogida como para la entrega de nuestros vehículos.</p>"
+          ]
+        ]
+      }
+    },
+    "location": {
+      "metadata": {
+        "title": "sobreruedasgranada",
+        "description": "sobreruedasgranada.es: Estamos ubicados en Calle Ebro 32, Granada."
+      }
+    },
+    "privacyPolicy": {
+      "metadata": {
+        "title": "Política de privacidad",
+        "description": "sobreruedasgranada.es: Conoce nuestra política de privacidad."
+      },
+      "text": "<h1>Política de Privacidad</h1><p>En sobreruedasgranada.es, accesible desde https://www.sobreruedasgranada.es/, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de Privacidad contiene tipos de información que se recopilan y registran en sobreruedasgranada.es y cómo la utilizamos. </p> <p> Si tienes preguntas adicionales o necesitas más información sobre nuestra Política de Privacidad, no dudes en contactarnos. </p> <p> Esta Política de Privacidad se aplica solo a nuestras actividades en línea y es válida para los visitantes de nuestro sitio web en cuanto a la información que comparten y/o recopilan en sobreruedasgranada.es. Esta política no es aplicable a ninguna información recopilada fuera de línea o a través de canales distintos a este sitio web. </p> <h2>Consentimiento</h2> <p> Al utilizar nuestro sitio web, aceptas nuestra Política de Privacidad y estás de acuerdo con sus términos. </p> <h2>Información que recopilamos</h2> <p> La información personal que se te solicita proporcionar y las razones por las cuales se te pide proporcionarla se te explicarán claramente en el momento en que se te solicite tu información personal. </p> <p> Si nos contactas directamente, podemos recibir información adicional sobre ti, como tu nombre, dirección de correo electrónico, número de teléfono, el contenido del mensaje y/o los archivos adjuntos que nos puedas enviar, y cualquier otra información que elijas proporcionar. </p> <p> Cuando te registras para una cuenta, podemos solicitar tu información de contacto, incluyendo elementos como nombre, nombre de la empresa, dirección, dirección de correo electrónico y número de teléfono. </p> <h2>Cómo utilizamos tu información</h2> <p> Utilizamos la información que recopilamos de diversas maneras, incluyendo: </p> <ul> <li>Proporcionar, operar y mantener nuestro sitio web.</li> <li>Mejorar, personalizar y ampliar nuestro sitio web.</li> <li>Comprender y analizar cómo utilizas nuestro sitio web.</li> <li> Desarrollar nuevos productos, servicios, características y funcionalidades. </li> <li> Comunicarnos contigo, ya sea directamente o a través de uno de nuestros socios, incluyendo servicio al cliente, para proporcionarte actualizaciones y otra información relacionada con el sitio web, y con fines de marketing y promocionales. </li> <li>Enviarte correos electrónicos.</li> <li>Encontrar y prevenir fraudes.</li> </ul> <h2>Archivos de Registro</h2> <p> sobreruedasgranada.es sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando visitan sitios web. Todas las empresas de alojamiento web hacen esto como parte de los servicios de análisis. La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), sello de fecha y hora, páginas de referencia/salida y posiblemente la cantidad de clics. Estos no están vinculados a ninguna información que sea personalmente identificable. El propósito de la información es analizar tendencias, administrar el sitio, rastrear el movimiento de los usuarios en el sitio web y recopilar información demográfica. </p> <h2>Cookies y Web Beacons</h2> <p> Al igual que cualquier otro sitio web, sobreruedasgranada.es utiliza \"cookies\". Estas cookies se utilizan para almacenar información, incluyendo las preferencias de los visitantes y las páginas del sitio web que el visitante accedió o visitó. La información se utiliza para optimizar la experiencia de los usuarios personalizando el contenido de nuestra página web según el tipo de navegador de los visitantes y/u otra información. </p> <h2>Políticas de Privacidad de los Socios Publicitarios</h2> <p> Los servidores publicitarios de terceros o redes de publicidad utilizan tecnologías como cookies, JavaScript o Web Beacons que se utilizan en sus respectivos anuncios y enlaces que aparecen en sobreruedasgranada.es, y que se envían directamente al navegador de los usuarios. Estos reciben automáticamente tu dirección IP cuando esto ocurre. Estas tecnologías se utilizan para medir la efectividad de sus campañas publicitarias y/o personalizar el contenido publicitario que ves en los sitios web que visitas. </p> <p> Ten en cuenta que sobreruedasgranada no tiene acceso ni control sobre estas cookies que son utilizadas por anunciantes de terceros. </p> <h2>Políticas de Privacidad de Terceros</h2> <p> La Política de Privacidad de sobreruedasgranada no se aplica a otros anunciantes o sitios web. Por lo tanto, te recomendamos que consultes las respectivas Políticas de Privacidad de estos servidores publicitarios de terceros para obtener información más detallada. Puede incluir sus prácticas e instrucciones sobre cómo excluirte de ciertas opciones. </p> <p> Puedes optar por desactivar las cookies a través de las opciones individuales de tu navegador. Para obtener información más detallada sobre la gestión de cookies con navegadores web específicos, puedes encontrarla en los sitios web respectivos de los navegadores. </p> <h2>Derechos de Protección de Datos GDPR</h2> <p> Queremos asegurarnos de que estés completamente informado sobre todos tus derechos de protección de datos. Cada usuario tiene derecho a lo siguiente: </p> <p> El derecho de acceso: tienes derecho a solicitar copias de tus datos personales. Podemos cobrarte una pequeña tarifa por este servicio. </p> <p> El derecho de rectificación: tienes derecho a solicitar que corrijamos cualquier información que creas que es inexacta. También tienes el derecho de solicitar que completemos la información que crees que está incompleta. </p> <p> El derecho al olvido: tienes derecho a solicitar que borremos tus datos personales, bajo ciertas condiciones. </p> <p> El derecho a restringir el procesamiento: tienes derecho a solicitar que restrinjamos el procesamiento de tus datos personales, bajo ciertas condiciones. </p> <p> El derecho a oponerte al procesamiento: tienes derecho a oponerte al procesamiento de tus datos personales, bajo ciertas condiciones. </p> <p> El derecho a la portabilidad de datos: tienes derecho a solicitar que transfiramos los datos que hemos recopilado a otra organización o directamente a ti, bajo ciertas condiciones. </p> <p> Si realizas una solicitud, tenemos un mes para responderte. Si deseas ejercer alguno de estos derechos, no dudes en contactarnos. </p> <h2>Información para Niños</h2> <p> Otra parte de nuestra prioridad es agregar protección para niños al utilizar Internet. Animamos a los padres y tutores a observar, participar y/o supervisar y guiar la actividad en línea de sus hijos. </p> <p> sobreruedasgranada.es no recopila intencionadamente información identificable personalmente de niños menores de 13 años. Si crees que tu hijo proporcionó este tipo de información en nuestro sitio web, te instamos a que nos contactes de inmediato y haremos nuestro mejor esfuerzo para eliminar rápidamente dicha información de nuestros registros. </p> <h2>Cambios en Esta Política de Privacidad</h2> <p> Podemos actualizar nuestra Política de Privacidad de vez en cuando. Por lo tanto, te recomendamos que revises esta página periódicamente para cualquier cambio. Te notificaremos de cualquier cambio publicando la nueva Política de Privacidad en esta página. Estos cambios son efectivos de inmediato después de ser publicados en esta página. </p> <h2>Contáctanos</h2> <p> Si tienes alguna pregunta o sugerencia sobre nuestra Política de Privacidad, no dudes en contactarnos. </p>"
+    },
+    "terms": {
+      "metadata": {
+        "title": "Términos de uso",
+        "description": "sobreruedasgranada.es: Conoce nuestros términos de uso."
+      },
+      "text": "<h1>Términos de Uso</h1> <p>Version 1.1</p> <p> El sitio web sobreruedasgranada.es, ubicado en https://www.sobreruedasgranada.es/, es una obra protegida por derechos de autor que pertenece a Remolques en Alquiler Granada. Algunas características del sitio pueden estar sujetas a pautas, términos o reglas adicionales que se publicarán en el sitio en relación con dichas características. </p> <p> Todos estos términos adicionales, pautas y reglas se incorporan por referencia a estos Términos. </p> <p> Estos Términos de Uso describen los términos y condiciones legalmente vinculantes que supervisan tu uso del sitio.&nbsp;AL INICIAR SESIÓN EN EL SITIO, ESTÁS ACEPTANDO ESTOS TÉRMINOS y declaras que tienes la autoridad y capacidad para aceptar estos Términos. DEBES TENER AL MENOS 18 AÑOS DE EDAD PARA ACCEDER AL SITIO. SI NO ESTÁS DE ACUERDO CON TODAS LAS DISPOSICIONES DE ESTOS TÉRMINOS, NO INICIES SESIÓN Y/O NO USES EL SITIO. </p> <p></p> <p> Estos términos requieren el uso de la Sección 10.2 de arbitraje de manera individual para resolver disputas y también limitan los recursos disponibles para ti en caso de una disputa. </p> <h2>Acceso al Sitio</h2> <p> <strong>Sujeto a estos Términos.</strong> sobreruedasgranada.es le concede una licencia no transferible, no exclusiva, revocable y limitada para acceder al Sitio únicamente para su uso personal y no comercial. </p> <p> <strong>Restricciones Específicas.</strong> Los derechos otorgados en estos Términos están sujetos a las siguientes restricciones: (a) no debe vender, alquilar, arrendar, transferir, ceder, distribuir, alojar o explotar comercialmente el Sitio; (b) no debe modificar, crear obras derivadas, desmontar, compilar inversamente o ingeniería inversa de ninguna parte del Sitio; (c) no debe acceder al Sitio con el fin de construir un sitio web similar o competitivo; y (d) excepto según se indique expresamente aquí, ninguna parte del Sitio puede ser copiada, reproducida, distribuida, republicada, descargada, mostrada, publicada o transmitida de ninguna forma o por ningún medio, a menos que se indique lo contrario. Cualquier versión futura, actualización u otra adición de funcionalidad del Sitio estará sujeta a estos Términos. Todos los avisos de derechos de autor y otros avisos de propiedad en el Sitio deben conservarse en todas las copias del mismo. </p> <p> sobreruedasgranada.es se reserva el derecho de cambiar, suspender o dar por terminado el Sitio con o sin previo aviso. Aceptas que sobreruedasgranada.es no será responsable ante ti ni ante terceros por ningún cambio, interrupción o terminación del Sitio o de alguna de sus partes. </p> <p> <strong>Sin Soporte o Mantenimiento.</strong> Acuerdas que sobreruedasgranada.es no tendrá la obligación de brindarte ningún tipo de soporte en relación con el Sitio. </p> <p> <strong>Exclusión de Contenido del Usuario.</strong> A excepción de cualquier contenido que puedas proporcionar, eres consciente de que todos los derechos de propiedad intelectual, incluyendo derechos de autor, patentes, marcas comerciales y secretos comerciales, en el Sitio y su contenido son propiedad de sobreruedasgranada.es o de los proveedores. Ten en cuenta que estos Términos y el acceso al Sitio no te otorgan ningún derecho, título o interés sobre los derechos de propiedad intelectual, excepto por los derechos de acceso limitados expresados en la Sección 2.1. sobreruedasgranada.es y sus proveedores se reservan todos los derechos no otorgados en estos Términos. </p> <h2>Enlaces y Anuncios de Terceros; Otros Usuarios</h2> <p> <strong>Enlaces y Anuncios de Terceros</strong> El sitio puede incluir enlaces a sitios web y servicios de terceros, y/o mostrar anuncios de terceros. Tales Enlaces y Anuncios de Terceros no están bajo el control de sobreruedasgranada.es, y no es responsable de ellos. sobreruedasgranada.es proporciona acceso a estos Enlaces y Anuncios de Terceros solo como una conveniencia para ti, y no revisa, aprueba, supervisa, respalda, garantiza, ni realiza ninguna representación con respecto a ellos. Utilizas todos los Enlaces y Anuncios de Terceros bajo tu propio riesgo, y debes aplicar un nivel adecuado de precaución y discreción al hacerlo. Al hacer clic en cualquiera de los Enlaces y Anuncios de Terceros, se aplicarán los términos y políticas del tercero correspondiente, incluyendo las prácticas de privacidad y recopilación de datos del tercero. </p> <p> <strong>Otros Usuarios</strong> Cada usuario del sitio es completamente responsable de su propio contenido de usuario. Dado que no controlamos el contenido de usuario, reconoces y aceptas que no somos responsables de ningún contenido de usuario, ya sea proporcionado por ti u otros. Estás de acuerdo en que la sobreruedasgranada.es no será responsable de ninguna pérdida o daño incurrido como resultado de tales interacciones. Si surge una disputa entre tú y cualquier usuario del sitio, no estamos obligados a intervenir. </p> <p> Por la presente, liberas y eximes a sobreruedasgranada.es de, y renuncias y cedes, cada disputa, reclamación, controversia, demanda, derecho, obligación, responsabilidad, acción y causa de acción pasada, presente y futura de cualquier tipo y naturaleza, que haya surgido o surja directa o indirectamente de, o que se relacione directa o indirectamente con, el Sitio. </p> <p> <strong>Cookies y Web Beacons.</strong> Al igual que cualquier otro sitio web, sobreruedasgranada.es utiliza \"cookies\". Estas cookies se utilizan para almacenar información, incluyendo las preferencias de los visitantes y las páginas del sitio web que el visitante accedió o visitó. La información se utiliza para optimizar la experiencia de los usuarios personalizando el contenido de nuestra página web según el tipo de navegador de los visitantes y/u otra información. </p> <h2>Renuncias</h2> <p> El sitio se proporciona \"tal cual\" y \"según esté disponible\", y sobreruedasgranada.es y nuestros proveedores renuncian expresamente a todas y cada una de las garantías y condiciones de cualquier tipo, ya sean expresas, implícitas o legales, incluidas todas las garantías o condiciones de comerciabilidad, idoneidad para un fin particular, título, disfrute tranquilo, precisión o no infracción.&nbsp; Nosotros y nuestros proveedores no garantizamos que el sitio cumpla con sus requisitos, esté disponible de manera ininterrumpida, oportuna, segura o libre de errores, o que sea preciso, confiable, libre de virus u otro código perjudicial, completo, legal o seguro.&nbsp; Si la ley aplicable exige garantías con respecto al sitio, todas esas garantías están limitadas en duración a noventa (90) días a partir de la fecha del primer uso. </p> <p> Algunas jurisdicciones no permiten la exclusión de garantías implícitas, por lo que la exclusión anterior puede no aplicarse a usted.&nbsp; Algunas jurisdicciones no permiten limitaciones sobre la duración de una garantía implícita, por lo que la limitación anterior puede no aplicarse a usted. </p> <h2>Limitación de Responsabilidad</h2> <p> En la medida máxima permitida por la ley, en ningún caso sobreruedasgranada.es ni nuestros proveedores serán responsables ante usted o cualquier tercero por lucro cesante, pérdida de datos, costos de adquisición de productos sustitutos, o cualquier daño indirecto, consecuente, ejemplar, incidental, especial o punitivo derivado de o relacionado con estos términos o su uso, o incapacidad para usar el sitio, incluso si se ha informado a sobreruedasgranada.es sobre la posibilidad de tales daños. El acceso y uso del sitio se realiza bajo su propia discreción y riesgo, y usted será el único responsable de cualquier daño a su dispositivo o sistema informático, o pérdida de datos que resulte de ello. </p> <p> En la medida máxima permitida por la ley, y sin importar lo contrario establecido aquí, nuestra responsabilidad hacia usted por cualquier daño derivado de o relacionado con este acuerdo, se limitará en todo momento a un máximo de cincuenta euros. La existencia de más de una reclamación no ampliará este límite. Usted acepta que nuestros proveedores no tendrán ninguna responsabilidad de ningún tipo derivada de o relacionada con este acuerdo. </p> <p> Algunas jurisdicciones no permiten la limitación o exclusión de responsabilidad por daños incidentales o consecuentes, por lo que la limitación o exclusión anterior puede no aplicarse a usted. </p> <p> <strong>Término y Terminación.</strong> Sujeto a esta Sección, estos Términos permanecerán en pleno vigor y efecto mientras uses el Sitio. Podemos suspender o dar por terminados tus derechos de uso del Sitio en cualquier momento y por cualquier motivo a nuestra sola discreción, incluyendo cualquier uso del Sitio que viole estos Términos. Tras la terminación de tus derechos bajo estos Términos, tu cuenta y tu derecho de acceso y uso del Sitio terminarán inmediatamente. Comprendes que la terminación de tu cuenta puede implicar la eliminación de tu Contenido de Usuario asociado con tu cuenta de nuestras bases de datos en vivo. sobreruedasgranada.es no tendrá ninguna responsabilidad hacia ti por la terminación de tus derechos bajo estos Términos. Incluso después de la terminación de tus derechos bajo estos Términos, las siguientes disposiciones de estos Términos permanecerán vigentes: Secciones 2 a 2.5, Sección 3 y Secciones 4 a 10. </p> <h2>Política de Derechos de Autor.</h2> <p> En sobreruedasgranada.es, valoramos y respetamos la propiedad intelectual de terceros. Si consideras que uno de nuestros usuarios está violando los derechos de autor de una obra a través de nuestro sitio y deseas que se retire el material supuestamente infractor, por favor, notifícalo utilizando los medios de contacto proporcionados al final de esta página. </p> <h2>Comunicaciones Electrónicas</h2> <p> Las comunicaciones entre tú y sobreruedasgranada.es utilizan medios electrónicos, ya sea que utilices el Sitio, nos envíes correos electrónicos, o que sobreruedasgranada.es publique avisos en el Sitio o se comunique contigo por correo electrónico. Con fines contractuales, tú (a) consientes recibir comunicaciones de sobreruedasgranada.es en formato electrónico; y (b) aceptas que todos los términos y condiciones, acuerdos, avisos, divulgaciones y otras comunicaciones que sobreruedasgranada.es te proporcione electrónicamente satisfacen cualquier obligación legal que dichas comunicaciones cumplirían si estuvieran en formato impreso. </p> <h2>General</h2> <p> Estas Condiciones constituyen el acuerdo completo entre tú y sobreruedasgranada.es con respecto al uso del Sitio. Nuestra falta de ejercicio o aplicación de cualquier derecho o disposición de estas Condiciones no operará como una renuncia a dicho derecho o disposición. Los títulos de las secciones en estas Condiciones son solo para conveniencia y no tienen efecto legal o contractual. La palabra \"incluyendo\" significa \"incluyendo, pero no limitado a\". Si alguna disposición de estas Condiciones se considera inválida o inaplicable, las demás disposiciones de estas Condiciones no se verán afectadas y la disposición inválida o inaplicable se considerará modificada para que sea válida y aplicable en la medida máxima permitida por la ley.&nbsp; Tu relación con sobreruedasgranada.es es la de un contratista independiente y ninguna de las partes es un agente o socio de la otra.&nbsp; Estas Condiciones, y tus derechos y obligaciones en virtud de las mismas, no pueden ser cedidos, subcontratados, delegados o transferidos por ti sin el consentimiento previo por escrito de sobreruedasgranada.es, y cualquier intento de cesión, subcontrato, delegación o transferencia en violación de lo anterior será nulo y sin valor.&nbsp; sobreruedasgranada.es puede ceder libremente estas Condiciones.&nbsp; Los términos y condiciones establecidos en estas Condiciones serán vinculantes para los cesionarios. </p> <h2>Tu Privacidad</h2> <p>Por favor, lee nuestra Política de Privacidad.</p> <p> <strong>Información de Derechos de Autor/Marcas Comerciales.</strong > Derechos de autor ©. Todos los derechos reservados. Todas las marcas comerciales, logotipos y marcas de servicio mostradas en el Sitio son propiedad nuestra o propiedad de otros terceros. No se te permite utilizar estas marcas sin nuestro consentimiento previo por escrito o el consentimiento de dicho tercero que pueda ser el propietario de las marcas. </p> <h2>Información de Contacto</h2> <p>Correo Electrónico: stipka99@gmail.com</p>"
+    }
+  },
+  "sections": {
+    "trailers": {
+      "title": "Nuestra flota de remolques",
+      "trailers": [
+        {
+          "title": "La Pinta (remolque ligero)",
+          "description": "<p>La Pinta es un remolque de medio tamaño diseñado para transportar motos, quads, muebles o electrodomésticos. Con una capacidad de carga de 750kg de Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B y es muy fácil de manejar y maniobrar. Este remolque cuenta con sistema de alumbrado, rampa, rueda jockey, rueda de repuesto, cinchas y bloqueo antirrobo.</p>",
+          "images": [
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": "Foto principal del remolque La Pinta"
+            },
+            {
+              "src": "/assets/trailers/la-pinta-2.webp",
+              "alt": "Foto lateral del remolque La Pinta"
+            },
+            {
+              "src": "/assets/trailers/la-pinta-3.webp",
+              "alt": "Foto trasera del remolque La Pinta"
+            },
+            {
+              "src": "/assets/trailers/la-pinta-4.webp",
+              "alt": "Foto delantera del remolque La Pinta"
+            }
+          ],
+          "links": {
+            "booking": {
+              "href": "/remolques/la-pinta#reserva",
+              "rel": "",
+              "text": "Solicitar reserva"
+            },
+            "information": {
+              "href": "/remolques/la-pinta",
+              "rel": "bookmark",
+              "text": "Más información"
+            }
+          },
+          "labels": {
+            "license": "Permiso B"
+          }
+        },
+        {
+          "title": "",
+          "description": "",
+          "images": [
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            }
+          ],
+          "links": {
+            "booking": {
+              "href": "/remolques/la-pinta#reserva",
+              "rel": "",
+              "text": "Solicitar reserva"
+            },
+            "information": {
+              "href": "/remolques/la-pinta",
+              "rel": "bookmark",
+              "text": "Más información"
+            }
+          },
+          "labels": {
+            "license": "Permiso B"
+          }
+        },
+        {
+          "title": "",
+          "description": "",
+          "images": [
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            }
+          ],
+          "links": {
+            "booking": {
+              "href": "/remolques/la-pinta#reserva",
+              "rel": "",
+              "text": "Solicitar reserva"
+            },
+            "information": {
+              "href": "/remolques/la-pinta",
+              "rel": "bookmark",
+              "text": "Más información"
+            }
+          },
+          "labels": {
+            "license": "Permiso B"
+          }
+        }
+      ]
+    },
+    "utilityVehicles": {
+      "title": "Nuestra oferta de vehículos",
+      "trailers": [
+        {
+          "title": "Mercedes Sprinter 3500kg (caja)",
+          "description": "<p>Camión de 130cv y cambio manual de 5 velocidades. Su caja tiene 14m3 de capacidad, dispone de doble portón trasero y puerta de paso en el lateral derecho. Homologa una capacidad de carga de 3500kg de Masa Máxima Autorizada (MMA) por lo que puede ser conducido con el permiso B, es muy fácil de manejar y maniobrar. Cuenta con aire acondicionado, elevalunas elécricos, pantalla bluetooth, Android Auto, Apple Carplay, sensores de proximidad y cámara de aparcamiento.</p>",
+          "images": [
+            {
+              "src": "/assets/utility-vehicles/sprinter-caja-1.webp",
+              "alt": "Foto principal de Mercedes Sprinter 3500kg (caja)"
+            },
+            {
+              "src": "/assets/utility-vehicles/sprinter-caja-2.webp",
+              "alt": "Foto de Mercedes Sprinter 3500kg (caja)"
+            },
+            {
+              "src": "/assets/utility-vehicles/sprinter-caja-3.webp",
+              "alt": "Foto de Mercedes Sprinter 3500kg (caja)"
+            },
+            {
+              "src": "/assets/utility-vehicles/sprinter-caja-4.webp",
+              "alt": "Foto de Mercedes Sprinter 3500kg (caja)"
+            }
+          ],
+          "links": {
+            "booking": {
+              "href": "/vehiculos-comerciales/sprinter-caja#reserva",
+              "rel": "next",
+              "text": "Solicitar reserva"
+            },
+            "information": {
+              "href": "/vehiculos-comerciales/sprinter-caja",
+              "rel": "bookmark",
+              "text": "Más información"
+            }
+          },
+          "labels": {
+            "license": "Permiso B"
+          }
+        },
+        {
+          "title": "",
+          "description": "",
+          "images": [
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            },
+            {
+              "src": "/assets/trailers/la-pinta.webp",
+              "alt": ""
+            }
+          ],
+          "links": {
+            "booking": {
+              "href": "/remolques/la-pinta#reserva",
+              "rel": "next",
+              "text": "Solicitar reserva"
+            },
+            "information": {
+              "href": "/remolques/la-pinta",
+              "rel": "bookmark",
+              "text": "Más información"
+            }
+          },
+          "labels": {
+            "license": "Permiso B"
+          }
+        }
+      ]
+    },
+    "location": {
+      "title": "Ubicación",
+      "paragraph1": "Somos el alquiler más cercano al centro de la ciudad, estamos en el número 32 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada.",
+      "paragraph2": "Este punto será la referencia tanto para la recogida como para la entrega de nuestros alquileres. Aunque no ofrecemos atención presencial, estamos disponibles para programar una cita si lo deseas."
+    },
+    "solutions": {
+      "title": "¿Qué necesitas?",
+      "solutions": [
+        {
+          "link": { "href": "/remolques", "rel": "next" },
+          "paragraph": "Remolques para vehículos, muebles y electrodomésticos.",
+          "image": {
+            "src": "/assets/solutions/trailers.webp",
+            "alt": "Foto de la sección de remolques."
+          }
+        },
+        {
+          "link": { "href": "/vehiculos-comerciales", "rel": "next" },
+          "paragraph": "Vehículos comerciales con y sin conductor.",
+          "image": {
+            "src": "/assets/solutions/utility-vehicles.webp",
+            "alt": "Foto de la sección de vehiculos comerciales."
+          }
+        }
+      ]
+    }
+  },
+  "footer": {
+    "email": "stipka99@gmail.com",
+    "phone": "+34 627 13 99 31",
+    "domain": "sobreruedasgranada.es",
+    "copyright": "Copyright 2024. Kudu Consultant LLC.",
+    "links": {
+      "terms": {
+        "href": "/terminos-de-uso",
+        "text": "Términos de Uso"
+      },
+      "privacyPolicy": {
+        "href": "/politica-de-privacidad",
+        "text": "Política de Privacidad"
+      }
+    }
+  },
+  "header": {
+    "mobileTitle": "sobreruedasgranada.es",
+    "contactButton": { "text": "Contactar" },
+    "navItems": [
+      {
+        "href": "/",
+        "text": "Inicio"
+      },
+      {
+        "href": "/remolques",
+        "text": "Remolques"
+      },
+      {
+        "href": "/vehiculos-comerciales",
+        "text": "Vehículos comerciales"
+      },
+      {
+        "href": "/ubicacion",
+        "text": "Ubicación"
+      }
+    ]
+  },
+  "modals": {
+    "contact": {
+      "title": "Contacta con nosotros",
+      "paragraph": "Si necesitas asistencia, resolver algún problema o simplemente deseas comunicarte con nosotros, te ofrecemos dos opciones de contacto:",
+      "callButton": {
+        "href": "tel:+34627139931",
+        "text": "Llámanos: +34 627 139 931"
+      },
+      "whatsappButton": {
+        "href": "https://wa.me/627139931",
+        "text": "WhatsApp: +34 627 139 931"
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+---
+import { Image } from "astro:assets";
+
+const { locales, id } = Astro.props;
+---
+
+<section id={id} class="py-20 lg:px-16">
+  <h3 class="xs:text-4xl text-2xl text-center mb-8">
+    {locales.title}
+  </h3>
+  <div class="max-w-screen-lg mx-auto grid gap-8">
+    <ul
+      class="grid md:grid-flow-col max-md:grid-cols-2 max-xs:grid-cols-1 w-full xl:gap-10 md:w-min max-md:w-fit mx-auto lg:gap-6 sm:gap-5"
+    >
+      {
+        locales.solutions.map((solution, i) => (
+          <li
+            class:list={[
+              "shrink-0 lg:w-72 min-w-60 max-xs:w-full btn btn-ghost btn-square h-full xs:max-md:h-64 p-4 max-xs:py-6 max-xs:rounded-none",
+              i == 0
+                ? "xs:max-md:col-start-1 xs:max-md:row-start-1"
+                : "xs:max-md:col-start-2 xs:max-md:row-start-1",
+            ]}
+          >
+            <a
+              href={solution.link.href}
+              rel={solution.link.rel}
+              class="w-full h-full"
+            >
+              <Image
+                src={solution.image.src}
+                alt={solution.image.alt}
+                class="aspect-1/1 md:w-40 max-xs:w-52 max-md:w-32 md:h-40 max-xs:h-52 max-md:h-32 rounded-xl overflow-hidden mx-auto mb-6"
+                width="1200"
+                height="1200"
+              />
+              <h4 class="md:text-lg text-base text-center font-normal">
+                {solution.paragraph}
+              </h4>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- <script is:inline defer define:vars={{ locales }}>
+  locales.trailers.forEach((trailer, i) => {
+    const carouselHTMLElement = document.getElementById("carousel-" + i);
+
+    document
+      .getElementById("carousel-" + i)
+      .addEventListener("swiped", function (e) {
+        const carouselPosition = Number(
+          carouselHTMLElement.getAttribute("data-carousel-position")
+        );
+        const carouselItemsLength = Number(
+          carouselHTMLElement.getAttribute("data-carousel-items")
+        );
+
+        ({
+          right: () => {
+            if (carouselPosition < 1) return;
+            carouselHTMLElement.setAttribute(
+              "data-carousel-position",
+              carouselPosition - 1
+            );
+          },
+          left: () => {
+            if (carouselPosition + 1 >= carouselItemsLength) return;
+            carouselHTMLElement.setAttribute(
+              "data-carousel-position",
+              carouselPosition + 1
+            );
+          },
+        })[e.detail.dir]();
+      });
+
+    document
+      .getElementById("control-previous-" + i)
+      .addEventListener("click", () => {
+        const carouselPosition = Number(
+          carouselHTMLElement.getAttribute("data-carousel-position")
+        );
+        if (carouselPosition < 1) return;
+        carouselHTMLElement.setAttribute(
+          "data-carousel-position",
+          carouselPosition - 1
+        );
+      });
+
+    document
+      .getElementById("control-next-" + i)
+      .addEventListener("click", () => {
+        const carouselPosition = Number(
+          carouselHTMLElement.getAttribute("data-carousel-position")
+        );
+        const carouselItemsLength = Number(
+          carouselHTMLElement.getAttribute("data-carousel-items")
+        );
+        if (carouselPosition + 1 >= carouselItemsLength) return;
+        carouselHTMLElement.setAttribute(
+          "data-carousel-position",
+          carouselPosition + 1
+        );
+      });
+
+    const observer = new MutationObserver(() => {
+      const carouselPosition = Number(
+        document
+          .getElementById("carousel-" + i)
+          .getAttribute("data-carousel-position")
+      );
+      const carouselItemsLength = Number(
+        carouselHTMLElement.getAttribute("data-carousel-items")
+      );
+      const carouselControlsHTMLElement = document.getElementById(
+        "carousel-controls-" + i
+      );
+
+      document.getElementById("control-previous-" + i).disabled =
+        carouselPosition < 1;
+      document.getElementById("control-next-" + i).disabled =
+        carouselPosition + 1 >= carouselItemsLength;
+
+      carouselHTMLElement.style.left = carouselPosition * -100 + "%";
+      carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
+    });
+
+    observer.observe(document.getElementById("carousel-" + i), {
+      attributes: true,
+    });
+  });
+</script> -->

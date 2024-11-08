@@ -3,8 +3,8 @@ import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 import FirstView from "../components/FirstView.astro";
 import MainLayout from "../layouts/Main.astro";
 import Intro from "../components/Intro.astro";
+import CardsList from "../components/CardsList.astro";
 import Location from "../components/Location.astro";
-import Solutions from "../components/Solutions.astro";
 import Faqs from "../components/Faqs.astro";
 import ES from "../locales/ES.json";
 ---
@@ -19,8 +19,15 @@ import ES from "../locales/ES.json";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
-    <title>{ES.pages.landing.metadata.title}</title>
-    <meta name="description" content={ES.pages.landing.metadata.description} />
+    <title>{ES.pages.utilityVehicles.metadata.title}</title>
+    <meta
+      name="description"
+      content={ES.pages.utilityVehicles.metadata.description}
+    />
+    <meta
+      name="keywords"
+      content={ES.pages.utilityVehicles.metadata.keywords}
+    />
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     />
@@ -30,17 +37,14 @@ import ES from "../locales/ES.json";
 
   <body>
     <MainLayout>
-      <FirstView locales={ES.pages.landing.firstView} />
-      <Intro locales={ES.pages.landing.intro} />
-      <Solutions locales={ES.sections.solutions} id="soluciones" />
+      <FirstView locales={ES.pages.utilityVehicles.firstView} />
+      <Intro locales={ES.pages.utilityVehicles.intro} />
+      <CardsList
+        locales={ES.sections.utilityVehicles}
+        id="vehiculos-comerciales"
+      />
       <Location locales={ES.sections.location} />
-      <!-- <Faqs /> -->
+      <Faqs locales={ES.pages.utilityVehicles.faqs} />
     </MainLayout>
   </body>
 </html>
-
-<!-- componente presentación de las secciones de remolques y camiones -->
-
-<!-- arreglar página de reserva de la pinta y la calculadora de precio -->
-
-<!-- página de alquiler con y sin conductor del camión -->

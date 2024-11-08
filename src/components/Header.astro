@@ -1,15 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/logo.webp";
-import Phone from "../icons/Phone.astro";
-import Whatsapp from "../icons/Whatsapp.astro";
 
-const navItems = [
-  ["Inicio", "/#inicio"],
-  ["Remolques", "/#remolques"],
-  ["Ubicación", "/#ubicacion"],
-  ["Preguntas frecuentes", "/#preguntas-frecuentes"],
-];
+const { locales } = Astro.props;
 ---
 
 <div
@@ -39,10 +31,10 @@ const navItems = [
           class="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-content rounded-box w-52 hidden"
         >
           {
-            navItems.map((node) => (
+            locales.navItems.map((item) => (
               <li class="hover:border-b-base-100 border-b-[1px] border-b-transparent transition-colors">
-                <a href={node[1]} rel="markbook">
-                  {node[0]}
+                <a href={item.href} rel="markbook">
+                  {item.text}
                 </a>
               </li>
             ))
@@ -53,22 +45,28 @@ const navItems = [
         class="md:btn md:btn-ghost md:block md:btn-square md:btn-md md:p-1.5"
         href="/"
         ><Image
-          src={logo}
+          src="/assets/logo.webp"
           alt="Logo de sobreruedasgranada"
+          width="200"
+          height="200"
           class="max-md:hidden"
         />
         <span class="md:hidden max-2xs:hidden pl-1.5 block"
-          >sobreruedasgranada.es</span
+          >{locales.mobileTitle}</span
         ></a
       >
     </div>
     <div class="navbar-center hidden md:flex">
       <ul class="menu menu-horizontal px-1">
         {
-          navItems.map((node) => (
-            <li class="hover:underline underline-offset-4">
-              <a href={node[1]} rel="markbook">
-                {node[0]}
+          locales.navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                rel="markbook"
+                class="!text-white hover:underline underline-offset-4 focus:underline !bg-transparent"
+              >
+                {item.text}
               </a>
             </li>
           ))
@@ -78,51 +76,8 @@ const navItems = [
     <div class="navbar-end">
       <button
         class="btn btn-sm btn-primary mr-1.5"
-        onclick="modal_contact.showModal()">Contactar</button
+        onclick="modal_contact.showModal()">{locales.contactButton.text}</button
       >
-      <dialog id="modal_contact" class="modal">
-        <div class="modal-box text-black">
-          <form method="dialog">
-            <button
-              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              >✕</button
-            >
-          </form>
-          <div class="prose prose-base">
-            <h4 class="font-bold mb-4 text-lg">Contacta con nosotros</h4>
-            <p>
-              Si necesitas asistencia, resolver algún problema o simplemente
-              deseas comunicarte con nosotros, te ofrecemos dos opciones de
-              contacto:
-            </p>
-            <ul class="list-none !pl-0">
-              <li class="!pl-0 !mb-4">
-                <a
-                  href="tel:+34627139931"
-                  class="btn btn-block btn-primary justify-start !m-0"
-                >
-                  <Phone class="w-5 h-5 mr-1.5" />
-                  <span> Llámanos: +34 627 139 931</span>
-                </a>
-              </li>
-              <li class="!pl-0">
-                <a
-                  href="https://wa.me/627139931"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
-                >
-                  <Whatsapp class="w-5 h-5 mr-1.5" />
-                  <span> WhatsApp: +34 627 139 931</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <form method="dialog" class="modal-backdrop">
-          <button></button>
-        </form>
-      </dialog>
     </div>
   </div>
 

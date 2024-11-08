@@ -1,6 +1,9 @@
 ---
 import Phone from "../icons/Phone.astro";
 import Email from "../icons/Email.astro";
+
+const { locales } = Astro.props;
+console.log(locales);
 ---
 
 <footer
@@ -11,33 +14,37 @@ import Email from "../icons/Email.astro";
   >
     <span class="flex items-center">
       <Email class="w-4 h-4 mr-1.5" />
-      stipka99@gmail.com
+      {locales.email}
     </span>
     <span class="flex items-center">
       <Phone class="w-4 h-4 mr-1.5" />
-      +34 627 13 99 31
+      {locales.phone}
     </span>
-    <address class="not-italic">sobreruedasgranada.es</address>
+    <address class="not-italic">{locales.domain}</address>
   </div>
   <div
     class="text-sm max-sm:text-xs text-slate-500 sm:grid sm:place-content-center sm:max-lg:row-start-2 sm:max-lg:col-span-2 max-sm:row-start-3"
   >
-    <span>Copyright 2024. Kudu Consultant LLC.</span>
+    <span>{locales.copyright}</span>
   </div>
   <ul
     class="grid grid-cols-[auto,auto,auto] w-fit place-content-center text-sm max-sm:text-xs sm:ml-auto sm:max-lg:col-start-2 sm:max-lg:col-span-1 max-sm:-ml-3"
   >
     <li class="h-fit">
-      <a href="/terminos-de-uso" rel="bookmark" class="px-3 py-2 w-max block"
-        >Términos de Uso</a
+      <a
+        href={locales.links.terms.href}
+        rel="bookmark"
+        class="px-3 py-2 w-max block">{locales.links.terms.text}</a
       >
     </li>
     <div class="text-xs h-fit translate-y-2">|</div>
     <li>
       <a
-        href="/politica-de-privacidad"
+        href={locales.links.privacyPolicy.href}
         class="px-3 py-2 w-max block"
-        rel="bookmark">Política de Privacidad</a
+        rel="bookmark"
+      >
+        {locales.links.privacyPolicy.text}</a
       >
     </li>
   </ul>

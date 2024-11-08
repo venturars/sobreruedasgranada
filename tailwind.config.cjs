@@ -40,12 +40,12 @@ export default {
     themes: [
       {
         sobreruedasgranada: {
-          primary: "#63abf8",
+          primary: "#0361de",
           "primary-content": "#ffffff",
           secondary: "#a1c2f7",
           "secondary-content": "#000000",
-          accent: "#f8e5aa",
-          "accent-content": "#000000",
+          accent: "#fb8038",
+          "accent-content": "#ffffff",
           neutral: "#ffffff",
           "base-100": "#ffffff",
           info: "#ffffff",

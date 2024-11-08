@@ -1,7 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import firstView from "../assets/first-view.webp";
 import ArrowRight from "../icons/ArrowRight.astro";
+
+const { locales } = Astro.props;
 ---
 
 <section
@@ -16,18 +17,17 @@ import ArrowRight from "../icons/ArrowRight.astro";
       max-md:mx-auto max-md:px-3 max-md:py-4 max-md:bg-opacity-30 max-md:text-center"
     >
       <h1 class="text-2xl font-bold">
-        <span class="max-md:px-2 max-md:py-1">
-          Solución de alquiler de remolques en Granada</span
-        >
+        <span class="max-md:px-2 max-md:py-1">{locales.title}</span>
       </h1><p class="text-xl pt-8 pb-14 max-md:text-lg">
-        <span class="max-md:px-2 max-md:py-1">
-          Con la seguridad y confianza que necesitas para transportar tus
-          pertenencias en un remolque de calidad y totalmente revisado.
-        </span>
+        <span class="max-md:px-2 max-md:py-1">{locales.subtitle} </span>
       </p>
       <div>
-        <a class="btn btn-md btn-primary" rel="bookmark" href="/#remolques">
-          <span>Ver remolques</span>
+        <a
+          class="btn btn-md btn-primary"
+          rel="bookmark"
+          href={locales.accionButton.href}
+        >
+          <span>{locales.accionButton.text}</span>
           <ArrowRight class="w-5 h-5 ml-1.5" />
         </a>
       </div>
@@ -35,7 +35,13 @@ import ArrowRight from "../icons/ArrowRight.astro";
     <div
       class="max-w-[440px] mx-auto overflow-hidden rounded-xl max-md:col-start-1 max-md:row-start-1 max-xs:rounded-none max-md:scale-150 max-md:opacity-15"
     >
-      <Image src={firstView} alt="" class="aspect-4/3" />
+      <Image
+        src={locales.image.src}
+        width="2400"
+        height="3200"
+        alt={locales.image.alt}
+        class="aspect-4/3"
+      />
     </div>
   </div>
 </section>

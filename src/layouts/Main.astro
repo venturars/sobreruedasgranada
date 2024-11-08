@@ -3,10 +3,14 @@ import "../styles/index.css";
 import { ViewTransitions } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import ModalContact from "../components/ModalContact.astro";
+
+import ES from "../locales/ES.json";
 ---
 
 <ViewTransitions />
 
-<Header />
+<Header locales={ES.header} />
 <slot />
-<Footer />
+<Footer locales={ES.footer} />
+<ModalContact locales={ES.modals.contact} />

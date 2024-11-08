@@ -1,0 +1,45 @@
+---
+import Phone from "../icons/Phone.astro";
+import Whatsapp from "../icons/Whatsapp.astro";
+
+const { locales } = Astro.props;
+---
+
+<dialog id="modal_contact" class="modal">
+  <div class="modal-box text-black">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        >✕</button
+      >
+    </form>
+    <div class="prose prose-base">
+      <h4 class="font-bold mb-4 text-lg">{locales.title}</h4>
+      <p>{locales.paragraph}</p>
+      <ul class="list-none !pl-0">
+        <li class="!pl-0 !mb-4">
+          <a
+            href={locales.callButton.href}
+            class="btn btn-block btn-primary justify-start !m-0"
+          >
+            <Phone class="w-5 h-5 mr-1.5" />
+            <span>{locales.callButton.text}</span>
+          </a>
+        </li>
+        <li class="!pl-0">
+          <a
+            href={locales.whatsappButton.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
+          >
+            <Whatsapp class="w-5 h-5 mr-1.5" />
+            <span>{locales.whatsappButton.text}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button></button>
+  </form>
+</dialog>
