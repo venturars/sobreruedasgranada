@@ -20,6 +20,9 @@
       "intro": {
         "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo.</p>"
       },
+      "bridge": {
+        "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam fugit atque eum nam temporibus earum consequuntur delectus accusamus culpa. Labore sed ad reprehenderit quo non consequuntur molestias ea, nemo culpa.</p>"
+      },
       "trailers": {
         "images": [
           {
@@ -38,6 +41,9 @@
         "title": "Solución de alquiler de remolques en Granada",
         "paragraph": "<p>Con la seguridad y confianza que necesitas para transportar tus pertenencias en un remolque de calidad y totalmente revisado.</p>",
         "actionButton": { "href": "/remolques", "text": "Ver remolques" }
+      },
+      "bridge2": {
+        "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam fugit atque eum nam temporibus earum consequuntur delectus accusamus culpa. Labore sed ad reprehenderit quo non consequuntur molestias ea, nemo culpa.</p>"
       },
       "utilityVehicles": {
         "images": [
