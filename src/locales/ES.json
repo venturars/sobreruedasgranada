@@ -19,6 +19,47 @@
       },
       "intro": {
         "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo.</p>"
+      },
+      "trailers": {
+        "images": [
+          {
+            "src": "/assets/landing/trailers/la-pinta.webp",
+            "alt": "Imagen del remolque La Pinta"
+          },
+          {
+            "src": "/assets/landing/trailers/la-pinta-2.webp",
+            "alt": "Imagen del remolque La Pinta"
+          },
+          {
+            "src": "/assets/landing/trailers/la-pinta-3.webp",
+            "alt": "Imagen del remolque La Pinta"
+          }
+        ],
+        "title": "Solución de alquiler de remolques en Granada",
+        "paragraph": "<p>Con la seguridad y confianza que necesitas para transportar tus pertenencias en un remolque de calidad y totalmente revisado.</p>",
+        "actionButton": { "href": "/remolques", "text": "Ver remolques" }
+      },
+      "utilityVehicles": {
+        "images": [
+          {
+            "src": "/assets/landing/utility-vehicles/sprinter-caja-1.webp",
+            "alt": "Imagen de Mercedes Sprinter 3500KG (caja)"
+          },
+          {
+            "src": "/assets/landing/utility-vehicles/sprinter-caja-2.webp",
+            "alt": "Imagen de Mercedes Sprinter 3500KG (caja)"
+          },
+          {
+            "src": "/assets/landing/utility-vehicles/sprinter-caja-3.webp",
+            "alt": "Imagen de Mercedes Sprinter 3500KG (caja)"
+          }
+        ],
+        "title": "Alquiler de vehículos comerciales conducibles con carnet B",
+        "paragraph": "<p>Transporta tus pertenencias con total tranquilidad. Nuestros vehículos están revisados y preparados para garantizar tu seguridad.</p>",
+        "actionButton": {
+          "href": "/vehiculos-comerciales",
+          "text": "Ver vehículos"
+        }
       }
     },
     "trailers": {

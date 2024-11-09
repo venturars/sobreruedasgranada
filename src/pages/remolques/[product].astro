@@ -149,7 +149,7 @@ if (Astro.request.method === "POST") {
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
-    } else console.log("ERROR: ", error);
+    } else console.error("ERROR: ", error);
     return new Response(null, {
       status: 500,
       statusText: "Server Error",

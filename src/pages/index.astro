@@ -5,6 +5,7 @@ import MainLayout from "../layouts/Main.astro";
 import Intro from "../components/Intro.astro";
 import Location from "../components/Location.astro";
 import Solutions from "../components/Solutions.astro";
+import ServicePresentation from "../components/ServicePresentation.astro";
 import Faqs from "../components/Faqs.astro";
 import ES from "../locales/ES.json";
 ---
@@ -33,6 +34,8 @@ import ES from "../locales/ES.json";
       <FirstView locales={ES.pages.landing.firstView} />
       <Intro locales={ES.pages.landing.intro} />
       <Solutions locales={ES.sections.solutions} id="soluciones" />
+      <ServicePresentation locales={ES.pages.landing.trailers} />
+      <ServicePresentation locales={ES.pages.landing.utilityVehicles} />
       <Location locales={ES.sections.location} />
       <!-- <Faqs /> -->
     </MainLayout>
