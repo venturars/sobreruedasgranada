@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 
-const { locales, id } = Astro.props;
+const { locales, id, class: _class } = Astro.props;
 ---
 
-<section id={id} class="py-20 lg:px-16">
+<section id={id} class:list={["py-20 lg:px-16", _class]}>
   <div class="mx-auto w-fit mb-8 max-xs:mb-6">
     <div class="carousel carousel-center md:rounded-lg">
       {

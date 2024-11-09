@@ -22,6 +22,7 @@ import ES from "../locales/ES.json";
     <meta name="viewport" content="width=device-width" />
     <title>{ES.pages.landing.metadata.title}</title>
     <meta name="description" content={ES.pages.landing.metadata.description} />
+    <meta name="keywords" content={ES.pages.landing.metadata.keywords} />
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     />
@@ -35,17 +36,17 @@ import ES from "../locales/ES.json";
       <Intro locales={ES.pages.landing.intro} />
       <Solutions locales={ES.sections.solutions} id="soluciones" />
       <Intro locales={ES.pages.landing.bridge} />
-      <ServicePresentation locales={ES.pages.landing.trailers} />
+      <ServicePresentation
+        locales={ES.pages.landing.trailers}
+        class="max-xs:pt-0"
+      />
       <Intro locales={ES.pages.landing.bridge2} />
-      <ServicePresentation locales={ES.pages.landing.utilityVehicles} />
+      <ServicePresentation
+        locales={ES.pages.landing.utilityVehicles}
+        class="max-xs:pt-0"
+      />
       <Location locales={ES.sections.location} />
       <!-- <Faqs /> -->
     </MainLayout>
   </body>
 </html>
-
-<!-- copies de la landing -->
-
-<!-- arreglar página de reserva de la pinta y la calculadora de precio -->
-
-<!-- página de alquiler con y sin conductor del camión -->

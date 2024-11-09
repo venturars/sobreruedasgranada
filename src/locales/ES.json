@@ -3,11 +3,12 @@
     "landing": {
       "metadata": {
         "title": "sobreruedasgranada",
-        "description": ""
+        "description": "Alquiler de remolques y vehículos comerciales conducibles con el carnet B, con y sin conductor. Estamos ubicados en Calle Ebro 32, Granada. Ofrecemos soluciones de transporte para tus vehículos, motos, quads, buggis, maquinaria agrícola, coches clásicos, coches de competición, mudanzas, electrodomésticos, muebles... Disponemos de remolques, furgonetas y camiones  totalmente revisados, preparados y equipados además de equipo profesional excelente a tu servicio para cualquier necesidad de transporte que necesites.",
+        "keywords": "alquiler remolques Granada, alquiler de camiones Granada, alquiler de furgonetas Granada, remolques para coches Granada, remolques para motos Granada, remolques para quads Granada, mudanzas Granada"
       },
       "firstView": {
         "title": "Especializados en alquiler de vehículos y remolques",
-        "subtitle": "Vehiculos y remolques de primera calidad con un equipo a tu servicio, te ofrecemos la solución de transporte que necesitas.",
+        "subtitle": "Vehículos y remolques de primera calidad con un equipo a tu servicio, te ofrecemos la solución de transporte que necesitas.",
         "accionButton": {
           "text": "Ver soluciones",
           "href": "/#soluciones"
@@ -18,10 +19,10 @@
         }
       },
       "intro": {
-        "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo.</p>"
+        "text": "<p><span class='font-bold'>Resolvemos tu problema de transporte dándote la mejor solución y al precio más económico.</span><br/><br/>Gracias a nuestra variada oferta de remolques, camiones y furgonetas podemos ofrecerte una solución unificada de transporte para cualquier necesidad que tengas, con nuestros alquileres podrás hacer portes de vehículos, motos, quads, buggis, maquinaria agrícola, coches clásicos, coches de competición, mudanzas, electrodomésticos, muebles...<br/><br/>Contamos con un excelente equipo para asegurar la mejor experiencia en el servicio y ponemos a tu disposición a conductores profesionales para ayudarte con los transportes si así lo deseas.</p>"
       },
       "bridge": {
-        "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam fugit atque eum nam temporibus earum consequuntur delectus accusamus culpa. Labore sed ad reprehenderit quo non consequuntur molestias ea, nemo culpa.</p>"
+        "text": "<p>¿Acabas de comprar una nueva moto, necesitas transportar tu vehículo de competición a circuito o tienes que portar un quad o llevar maquinaria agrícola?<br/><br/><span class='font-bold'>Te ayudamos.</span></p>"
       },
       "trailers": {
         "images": [
@@ -38,12 +39,12 @@
             "alt": "Imagen del remolque La Pinta"
           }
         ],
-        "title": "Solución de alquiler de remolques en Granada",
-        "paragraph": "<p>Con la seguridad y confianza que necesitas para transportar tus pertenencias en un remolque de calidad y totalmente revisado.</p>",
+        "title": "Remolques para vehículos y cargas ligeras",
+        "paragraph": "<p>Estamos listos para la ruta, transporta tus pertenencias con el remolque que mejor se adapte a tus nuevos planes.</p>",
         "actionButton": { "href": "/remolques", "text": "Ver remolques" }
       },
       "bridge2": {
-        "text": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam fugit atque eum nam temporibus earum consequuntur delectus accusamus culpa. Labore sed ad reprehenderit quo non consequuntur molestias ea, nemo culpa.</p>"
+        "text": "<p>¿Te vas de mudanza, tienes un evento, vas a realizar un trabajo especial o tienes que realizar un gran porte de mercancías?<br/><br/><span class='font-bold'>Te ayudamos.</span></p>"
       },
       "utilityVehicles": {
         "images": [
@@ -60,8 +61,8 @@
             "alt": "Imagen de Mercedes Sprinter 3500KG (caja)"
           }
         ],
-        "title": "Alquiler de vehículos comerciales conducibles con carnet B",
-        "paragraph": "<p>Transporta tus pertenencias con total tranquilidad. Nuestros vehículos están revisados y preparados para garantizar tu seguridad.</p>",
+        "title": "Vehículos comerciales conducibles con carnet B",
+        "paragraph": "<p>Etamos preparados, nuestros vehículos con y sin conductor están disponibles para culaquier servicio que necesites</p>",
         "actionButton": {
           "href": "/vehiculos-comerciales",
           "text": "Ver vehículos"
@@ -71,7 +72,7 @@
     "trailers": {
       "metadata": {
         "title": "Remolques",
-        "description": "Descubre la solución perfecta para transportar tus vehículos de medio tamaño. En sobreruedasgranada, ubicado en Calle Ebro 32, Granada, ofrecemos alquiler de remolques de hasta 750kg para motos, bicicletas, quads, karts, buggis y más. Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, nuestros remolques están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
+        "description": "Descubre la solución perfecta para transportar tus vehículos de medio tamaño. En sobreruedasgranada, ubicado en Calle Ebro 32, Granada, ofrecemos alquiler de remolques de hasta 750kg para motos, bicicletas, quads, karts, buggis y más. Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar maquinaría agrícola, nuestros remolques están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
         "keywords": "alquiler remolques Granada, transportar vehículos, motos, quads, karts, buggies, transporte de carga, remolques hasta 750kg, alquiler remolques Granada, transporte seguro, vehículos no matriculados, transporte de carga, remolques equipados"
       },
       "firstView": {
@@ -87,7 +88,7 @@
         }
       },
       "intro": {
-        "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar objetos voluminosos, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de 7 a 13 pines y bloqueo antirrobo. </p>"
+        "text": "<p>Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o necesitas transportar maquinaria agrícola, <span class='font-bold'>nuestros remolques están completamente preparados y equipados</span> para llevar a cabo cada una de estas tareas de manera eficiente y segura. </p> <p> Todos nuestros remolques se entregan completamente revisados en cuanto a su funcionamiento mecánico y alumbrado. Además, incluyen una rueda de repuesto y su documentación correspondiente. También ofrecemos opciones de equipamiento adicionales, como cinchas, adaptadores de pines de conexión y bloqueo antirrobo.</p>"
       },
       "faqs": {
         "title": "Preguntas frecuentes",

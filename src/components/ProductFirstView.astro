@@ -1,27 +1,23 @@
-<!-- ---
+---
 import { Image } from "astro:assets";
-import laPinta from "../assets/trailers/la-pinta.webp";
-import laPinta2 from "../assets/trailers/la-pinta-2.webp";
-import laPinta3 from "../assets/trailers/la-pinta-3.webp";
-import laPinta4 from "../assets/trailers/la-pinta-4.webp";
 import KeyboardArrowLeft from "../icons/KeyboardArrowLeft.astro";
 import KeyboardArrowRight from "../icons/KeyboardArrowRight.astro";
 
 const images = [
   {
-    src: laPinta,
+    src: "/assets/trailers/la-pinta.webp",
     alt: "Foto principal del remolque La Pinta",
   },
   {
-    src: laPinta2,
+    src: "/assets/trailers/la-pinta-2.webp",
     alt: "Foto lateral del remolque La Pinta",
   },
   {
-    src: laPinta3,
+    src: "/assets/trailers/la-pinta-3.webp",
     alt: "Foto trasera del remolque La Pinta",
   },
   {
-    src: laPinta4,
+    src: "/assets/trailers/la-pinta-4.webp",
     alt: "Foto delantera del remolque La Pinta",
   },
 ];
@@ -45,6 +41,8 @@ const images = [
           <Image
             src={image.src}
             alt={image.alt}
+            width="3200"
+            height="3200"
             class="aspect-1/1 xs:rounded-2xl"
           />
         ))
@@ -216,4 +214,4 @@ const images = [
   observer.observe(document.getElementById("carousel"), {
     attributes: true,
   });
-</script> -->
+</script>
