@@ -11,6 +11,8 @@ import ES from "../locales/ES.json";
 <ViewTransitions />
 
 <Header locales={ES.header} />
-<slot />
+<div class="drop-shadow-sm bg-base-100">
+  <slot />
+</div>
 <Footer locales={ES.footer} />
 <ModalContact locales={ES.modals.contact} />

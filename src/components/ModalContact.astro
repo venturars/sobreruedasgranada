@@ -6,7 +6,7 @@ const { locales } = Astro.props;
 ---
 
 <dialog id="modal_contact" class="modal">
-  <div class="modal-box text-black">
+  <div class="modal-box text-base-content bg-base-100">
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         >✕</button
@@ -30,7 +30,7 @@ const { locales } = Astro.props;
             href={locales.whatsappButton.href}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
+            class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0 border-none"
           >
             <Whatsapp class="w-5 h-5 mr-1.5" />
             <span>{locales.whatsappButton.text}</span>
