@@ -1,0 +1,16 @@
+---
+import Whatsapp from "../icons/Whatsapp.astro";
+
+const { locales } = Astro.props;
+---
+
+<aside class="xs:hidden fixed bottom-4 right-4">
+  <a
+    href={locales.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn btn-square p-2 btn-lg rounded-lg bg-green-500 text-white hover:bg-green-600 justify-start border-none shadow-md"
+  >
+    <Whatsapp class="w-full h-full" />
+  </a>
+</aside>

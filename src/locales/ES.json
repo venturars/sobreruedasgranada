@@ -135,7 +135,7 @@
         }
       },
       "intro": {
-        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas ofrecen la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con permiso B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
+        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas ofrecen la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con permiso B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores para llevar tus pertenencias a donde quieras.</p>"
       },
       "faqs": {
         "title": "Preguntas frecuentes",
@@ -158,10 +158,14 @@
           ],
           [
             "¿Qué ocurre si tengo una avería?",
-            "<p class='!m-0'>En el caso de que el vehículo alquilado se averíe y no puedas devolverlo al punto de entrega acordado, nos encargaremos de recogerlo según las condiciones y costos establecidos en el acuerdo específico del alquiler acordado. Es importante destacar que nunca debes abandonar el vehiculo ni su carga en la vía pública.</p>"
+            "<p class='!m-0'>En el caso de que el vehículo alquilado se averíe y no puedas devolverlo al punto de entrega acordado, nos encargaremos de recogerlo según las condiciones y costos establecidos en el acuerdo específico del alquiler acordado. Es importante destacar que nunca debes depositar y abandonar la carga del vehículo en la vía pública.</p>"
           ],
           [
             "¿Dónde estamos ubicados?",
+            "<p class='!m-0'>Nos encontramos en el número 36 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada. Este punto será la ubicación de referencia tanto para la recogida como para la entrega de nuestros vehículos.</p>"
+          ],
+          [
+            "¿Qué pasa con las multas?",
             "<p class='!m-0'>Nos encontramos en el número 36 de la calle Ebro, cerca del Estadio Nuevo Los Cármenes, en Granada. Este punto será la ubicación de referencia tanto para la recogida como para la entrega de nuestros vehículos.</p>"
           ]
         ]
@@ -310,7 +314,7 @@
       "trailers": [
         {
           "title": "Mercedes Sprinter 3500kg (caja)",
-          "description": "<p>Camión de 130cv y cambio manual de 5 velocidades. Su caja tiene 14m3 de capacidad, dispone de doble portón trasero y puerta de paso en el lateral derecho. Homologa una capacidad de carga de 3500kg, Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B, fácil de manejar y maniobrar. Cuenta con aire acondicionado, elevalunas elécricos, pantalla bluetooth, Android Auto, Apple Carplay, sensores de proximidad y cámara de aparcamiento.</p>",
+          "description": "<p>Camión de 130 cv con cambio manual de 5 velocidades. Su caja tiene 14m3 de capacidad, dispone de doble portón trasero y puerta de paso en el lateral derecho. Homologa una capacidad de carga de 3500kg, Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B, fácil de manejar y maniobrar. Cuenta con aire acondicionado, elevalunas elécricos, pantalla bluetooth, Android Auto, Apple Carplay, sensores de proximidad y cámara de aparcamiento.</p>",
           "images": [
             {
               "src": "/assets/utility-vehicles/sprinter-caja-1.webp",
@@ -462,5 +466,8 @@
         "text": "WhatsApp: +34 627 139 931"
       }
     }
+  },
+  "floatingButton": {
+    "href": "https://wa.me/627139931"
   }
 }

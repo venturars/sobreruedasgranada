@@ -3,6 +3,7 @@ import "../styles/index.css";
 import { ViewTransitions } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import FloatingButton from "../components/FloatingButton.astro";
 import ModalContact from "../components/ModalContact.astro";
 
 import ES from "../locales/ES.json";
@@ -15,4 +16,5 @@ import ES from "../locales/ES.json";
   <slot />
 </div>
 <Footer locales={ES.footer} />
+<FloatingButton locales={ES.floatingButton} />
 <ModalContact locales={ES.modals.contact} />
