@@ -3,7 +3,7 @@
     "landing": {
       "metadata": {
         "title": "sobreruedasgranada",
-        "description": "Alquiler de remolques y vehículos comerciales conducibles con el carnet B, con y sin conductor. Estamos ubicados en Calle Ebro 36, Granada. Ofrecemos soluciones de transporte para tus vehículos, motos, quads, buggis, maquinaria agrícola, coches clásicos, coches de competición, mudanzas, electrodomésticos, muebles... Disponemos de remolques, furgonetas y camiones  totalmente revisados, preparados y equipados además de equipo profesional excelente a tu servicio para cualquier necesidad de transporte que necesites.",
+        "description": "Alquiler de remolques y vehículos comerciales conducibles con el permiso B, con y sin conductor. Estamos ubicados en Calle Ebro 36, Granada. Ofrecemos soluciones de transporte para tus vehículos, motos, quads, buggis, maquinaria agrícola, coches clásicos, coches de competición, mudanzas, electrodomésticos, muebles... Disponemos de remolques, furgonetas y camiones  totalmente revisados, preparados y equipados además de equipo profesional excelente a tu servicio para cualquier necesidad de transporte que necesites.",
         "keywords": "alquiler remolques Granada, alquiler de camiones Granada, alquiler de furgonetas Granada, remolques para coches Granada, remolques para motos Granada, remolques para quads Granada, mudanzas Granada"
       },
       "firstView": {
@@ -61,7 +61,7 @@
             "alt": "Imagen de Mercedes Sprinter 3500KG (caja)"
           }
         ],
-        "title": "Vehículos comerciales conducibles con carnet B",
+        "title": "Vehículos comerciales conducibles con permiso B",
         "paragraph": "<p>Etamos preparados, nuestros vehículos con y sin conductor están disponibles para culaquier servicio que necesites</p>",
         "actionButton": {
           "href": "/vehiculos-comerciales",
@@ -119,11 +119,11 @@
     "utilityVehicles": {
       "metadata": {
         "title": "Vehiculos comerciales",
-        "description": "Alquila furgonetas y camiones conducibles con carnet B en sobreruedasgranada, ubicado en Calle Ebro 36, Granada. ¡También realizamos portes por ti! HAcemos mudanzas, transporte de muebles, material deportivo, vehículos... Nuestros alquileres están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
-        "keywords": "alquiler furgonetas Granada, mudanzas Granada, portes Granada, camiones carnet B, transporte de muebles"
+        "description": "Alquila furgonetas y camiones conducibles con permiso B en sobreruedasgranada, ubicado en Calle Ebro 36, Granada. ¡También realizamos portes por ti! HAcemos mudanzas, transporte de muebles, material deportivo, vehículos... Nuestros alquileres están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura.",
+        "keywords": "alquiler furgonetas Granada, mudanzas Granada, portes Granada, camiones permiso B, transporte de muebles"
       },
       "firstView": {
-        "title": "Alquiler de vehículos comerciales conducibles con carnet B",
+        "title": "Alquiler de vehículos comerciales para conducir con permiso B",
         "subtitle": "Transporta tus pertenencias con total tranquilidad. Nuestros vehículos están revisados y preparados para garantizar tu seguridad.",
         "accionButton": {
           "text": "Ver vehículos",
@@ -135,14 +135,14 @@
         }
       },
       "intro": {
-        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas te ofrecerán la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con carnet B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
+        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas te ofrecerán la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con permiso B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
       },
       "faqs": {
         "title": "Preguntas frecuentes",
         "questions": [
           [
             "¿Tengo que cumplir algún requisito para alquilar?",
-            "<p class='!m-0'>Si, debes ser mayor de 25 años y un carnet de conducir tipo B con una antigüedad mínima de 2 años.</p>"
+            "<p class='!m-0'>Si, debes ser mayor de 25 años y un permiso de conducir tipo B con una antigüedad mínima de 2 años.</p>"
           ],
           [
             "¿Qué puedo y no puedo transportar?",
@@ -150,7 +150,7 @@
           ],
           [
             "¿Necesito tener seguro para alquilar?",
-            "<p class='!m-0'>El seguro está incluido en todos nuestros alquileres. Para poder asegurarte, debes ser mayor de 25 años y un carnet de conducir tipo B con una antigüedad mínima de 2 años.</p>"
+            "<p class='!m-0'>El seguro está incluido en todos nuestros alquileres. Para poder asegurarte, debes ser mayor de 25 años y un permiso de conducir tipo B con una antigüedad mínima de 2 años.</p>"
           ],
           [
             "¿Puedo ampliar el plazo de alquiler?",
