@@ -8,7 +8,7 @@
       },
       "firstView": {
         "title": "Especializados en alquiler de vehículos y remolques",
-        "subtitle": "Vehículos y remolques de primera calidad con un equipo a tu servicio, te ofrecemos la solución de transporte que necesitas.",
+        "subtitle": "Vehículos y remolques de primera calidad con un equipo a tu servicio, ofrecemos la solución de transporte que necesitas.",
         "accionButton": {
           "text": "Ver soluciones",
           "href": "/#soluciones"
@@ -135,7 +135,7 @@
         }
       },
       "intro": {
-        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas te ofrecerán la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con permiso B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
+        "text": "<p><span class='font-bold'>Viaja seguro y sin preocupaciones.</span> Nuestros camiones y furgonetas ofrecen la máxima seguridad y comodidad en tus traslados. <span class='font-bold'>Conducibles con permiso B y seguro incluido</span>, podrás transportar tus pertenencias con total tranquilidad. ¡Perfectos para mudanzas, transporte de muebles, material deportivo o cualquier otra necesidad!</p><p> Nuestros vehículos están en perfectas condiciones, con todas las revisiones mecánicas y eléctricas al día. La documentación está en regla y el seguro te cubre ante cualquier imprevisto. Si necesitas un conductor, contamos con conductores profesionales para llevar tus pertenencias a donde quieras.</p>"
       },
       "faqs": {
         "title": "Preguntas frecuentes",
@@ -452,7 +452,7 @@
   "modals": {
     "contact": {
       "title": "Contacta con nosotros",
-      "paragraph": "Si necesitas asistencia, resolver algún problema o simplemente deseas comunicarte con nosotros, te ofrecemos dos opciones de contacto:",
+      "paragraph": "Si necesitas asistencia, resolver algún problema o simplemente deseas comunicarte con nosotros, ofrecemos dos opciones de contacto:",
       "callButton": {
         "href": "tel:+34627139931",
         "text": "Llámanos: +34 627 139 931"
