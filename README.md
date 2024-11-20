@@ -101,12 +101,17 @@ When you run this development server, the changes you make in your frontend will
 | `LICENSE`            | License file for the project                             |
 | `public`             | Directory for static assets                              |
 | `src`                | Main source directory                                    |
-| `src/assets`         | Directory for project processed assets                   |
-| `src/components`     | Directory for UI components                              |
-| `src/icons`          | Directory for icon assets                                |
-| `src/layouts`        | Directory for layout components                          |
-| `src/pages`          | Directory for page components                            |
-| `src/styles`         | Directory for styling CSS files                          |
+| `src/assets`         | Directory of project processed assets                    |
+| `src/components`     | UI components directory                                  |
+| `src/emails`         | Template emails directory                                |
+| `src/icons`          | Icon assets directory                                    |
+| `src/interfaces`     | TypeScript interfaces directory                          |
+| `src/layouts`        | Layout components directory                              |
+| `src/locales`        | Locales files directory                                  |
+| `src/logic`          | Business logic directory                                 |
+| `src/pages`          | Page components directory                                |
+| `src/styles`         | CSS files directory                                      |
+| `src/tools`          | Helper tools directory                                   |
 
 ## Styling Framework
 
