@@ -65,6 +65,7 @@ const createLaPintaRentRequest: CreateLaPintaRentRequest = ({
     throw new TypeError("Some request data is not provided");
 
   const transporter = nodemailer.createTransport({
+    service: "gmail",
     host: SMTP_HOST,
     port: SMTP_PORT,
     secure: true,
