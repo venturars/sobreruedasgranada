@@ -792,7 +792,7 @@ import Whatsapp from "../icons/Whatsapp.astro";
     if (!isValid) return;
 
     const formData = new FormData(form);
-    fetch("/remolques/la-pinta", {
+    fetch("/api/remolques/la-pinta", {
       method: "POST",
       body: formData,
     })
