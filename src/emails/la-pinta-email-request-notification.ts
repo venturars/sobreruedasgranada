@@ -39,36 +39,42 @@ const createEmail: CreateLaPintaEmailRequestNotification = (
     date,
     rentalPrice,
     guarantee,
+    reservationAmount,
+    pickUpPaymentAmount,
+    contractAgreement,
+    webAgreement,
   }
 ) => ({
   from: sender,
   to: receiver,
-  subject: "[No responder]: Gracias por contactar con sobreruedasgranada",
+  subject: `Contacto remolque La Pinta de ${firstname}`,
   replyTo: email,
   html: `
 <div>
-  <p>Hola ${firstname},</p>
-  <p>Gracias por contactar con sobreruedasgranada. Hemos recibido tu solicitud y nos pondremos en contacto contigo lo antes posible.</p>
-  <p>Detalles de la solicitud:</p>
-  <ul>
-    <li>Nombre: ${firstname} ${lastname}</li>
-    <li>DNI: ${dni}</li>
-    <li>Email: ${email}</li>
-    <li>Teléfono de contacto: ${phone}</li>
-    <li>Tipo de alquiler: ${rentType}</li>
-    <li>Accesorios: ${accessories}</li>
-    <li>Horario de recogida: ${pickUpTime}</li>
-    <li>Horario de entrega: ${deliveryTime}</li>
-    <li>Fecha: ${JSON.parse(date.toString())[0]}${
+<p>Hola Noel,</p>
+        <p>Has recibido una nueva solicitud de alquiler de remolque:</p>
+        <ul>
+          <li>Nombre: ${firstname} ${lastname}</li>
+          <li>DNI: ${dni}</li>
+          <li>Email: ${email}</li>
+          <li>Teléfono de contacto: ${phone}</li>
+          <li>Tipo de alquiler: ${rentType}</li>
+          <li>Accesorios: ${accessories}</li>
+          <li>Horario de recogida: ${pickUpTime}</li>
+          <li>Horario de entrega: ${deliveryTime}</li>
+          <li>Fecha: ${JSON.parse(date.toString())[0]}${
     JSON.parse(date.toString()).length > 1
       ? " a " +
         JSON.parse(date.toString())[JSON.parse(date.toString()).length - 1]
       : ""
   }</li>
-    <li>Precio del alquiler: ${rentalPrice}</li>
-    <li>Fianza: ${guarantee}</li>
-  </ul>
-  <p>¡Gracias!</p>
+          <li>Precio del alquiler: ${rentalPrice}</li>
+          <li>Fianza: ${guarantee}</li>
+          <li>Importe de la reserva: ${reservationAmount}</li>
+          <li>Importe a pagar en la recogida: ${pickUpPaymentAmount}</li>
+          <li>Acuerdo del contrato: ${contractAgreement}</li>
+          <li>Acuerdo de la web: ${webAgreement}</li>
+        </ul>
 </div>
       `,
 });

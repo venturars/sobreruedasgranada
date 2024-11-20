@@ -1,12 +1,5 @@
 import type { LaPintaRentRequest } from "./LaPintaRentRequest";
 
-interface LaPintaEmailRequestNotificationData
-  extends Omit<
-    LaPintaRentRequest,
-    | "reservationAmount"
-    | "pickUpPaymentAmount"
-    | "contractAgreement"
-    | "webAgreement"
-  > {}
+interface LaPintaEmailRequestNotificationData extends LaPintaRentRequest {}
 
 export type { LaPintaEmailRequestNotificationData };

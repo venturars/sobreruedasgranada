@@ -75,7 +75,7 @@ const createLaPintaRentRequest: CreateLaPintaRentRequest = ({
     },
   });
 
-  (async () => {
+  return (async () => {
     const responseCreateRequestNotification = await transporter.sendMail(
       createRequestNotification(SMTP_USER, SMTP_USER, {
         firstname,
@@ -90,6 +90,10 @@ const createLaPintaRentRequest: CreateLaPintaRentRequest = ({
         date,
         rentalPrice,
         guarantee,
+        reservationAmount,
+        pickUpPaymentAmount,
+        contractAgreement,
+        webAgreement,
       })
     );
 
@@ -119,10 +123,8 @@ const createLaPintaRentRequest: CreateLaPintaRentRequest = ({
         "Something went wrong sending request confirmation email"
       );
 
-    return true;
+    return true as const;
   })();
-
-  return new Promise(() => {});
 };
 
 export default createLaPintaRentRequest;

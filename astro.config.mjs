@@ -14,5 +14,7 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [sitemap(), tailwind()],
-  adapter: vercel(),
+  adapter: vercel({
+    maxDuration: 20,
+  }),
 });
