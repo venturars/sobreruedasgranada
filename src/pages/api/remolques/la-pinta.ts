@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request }) => {
     const contractAgreement = Boolean(data.get("contractAgreement") as string);
     const webAgreement = Boolean(data.get("webAgreement") as string);
 
-    createLaPintaRentRequest({
+    const ok = await createLaPintaRentRequest({
       firstname,
       lastname,
       dni,
@@ -41,15 +41,15 @@ export const POST: APIRoute = async ({ request }) => {
       pickUpPaymentAmount,
       contractAgreement,
       webAgreement,
-    }).then((ok) => {
-      if (!ok)
-        throw new UnexpectedError(
-          "Something went wrong while creating La Pinta rent request."
-        );
-      return new Response(null, {
-        status: 200,
-        statusText: "OK",
-      });
+    });
+
+    if (!ok)
+      throw new UnexpectedError(
+        "Something went wrong while creating La Pinta rent request."
+      );
+    return new Response(null, {
+      status: 200,
+      statusText: "OK",
     });
   } catch (error) {
     if (error instanceof TypeError)
