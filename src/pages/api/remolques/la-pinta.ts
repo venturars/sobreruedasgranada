@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { SMTPServerError, UnexpectedError } from "../../../tools/errors";
 import createLaPintaRentRequest from "../../../logic/create-la-pinta-rent-request";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.formData();
