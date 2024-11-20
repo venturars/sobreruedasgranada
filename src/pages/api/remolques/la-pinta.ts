@@ -53,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   } catch (error) {
     if (error instanceof TypeError)
-      new Response(null, {
+      return new Response(null, {
         status: 400,
         statusText: "Bad Request: Some request data is not provided",
       });
