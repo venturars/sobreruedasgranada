@@ -3,24 +3,7 @@ import { Image } from "astro:assets";
 import KeyboardArrowLeft from "../icons/KeyboardArrowLeft.astro";
 import KeyboardArrowRight from "../icons/KeyboardArrowRight.astro";
 
-const images = [
-  {
-    src: "/assets/trailers/la-pinta.webp",
-    alt: "Foto principal del remolque La Pinta",
-  },
-  {
-    src: "/assets/trailers/la-pinta-2.webp",
-    alt: "Foto lateral del remolque La Pinta",
-  },
-  {
-    src: "/assets/trailers/la-pinta-3.webp",
-    alt: "Foto trasera del remolque La Pinta",
-  },
-  {
-    src: "/assets/trailers/la-pinta-4.webp",
-    alt: "Foto delantera del remolque La Pinta",
-  },
-];
+const { locales } = Astro.props;
 ---
 
 <section
@@ -32,12 +15,12 @@ const images = [
     <div
       class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
       id="carousel"
-      data-carousel-items={images.length}
+      data-carousel-items={locales.images.length}
       data-carousel-position={0}
       style={{ left: 0 }}
     >
       {
-        images.map((image) => (
+        locales.images.map((image) => (
           <Image
             src={image.src}
             alt={image.alt}
@@ -68,7 +51,7 @@ const images = [
         <div class="absolute bottom-0 left-0 w-full">
           <div class="mx-auto w-fit grid grid-flow-col gap-1 py-2">
             {
-              images.map((image, i) => (
+              locales.images.map((image, i) => (
                 <button
                   id={"carousel-image-selector-" + i}
                   style={i === 0 && { opacity: "50%" }}
@@ -86,53 +69,43 @@ const images = [
   <div
     class="prose md:prose-base mx-auto prose-sm prose-h1:text-2xl lg:prose-h1:text-3xl lg:py-9 max-xs:px-4"
   >
-    <h1>Remolque La Pinta</h1>
-    <p>
-      La Pinta es un remolque de medio tamaño diseñado para transportar motos,
-      quads, muebles o electrodomésticos. Con una capacidad de carga de 750 kg
-      de Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B y es
-      muy fácil de manejar y maniobrar.
-    </p>
-    <p>
-      <span class="font-bold block"
-        >Equipado para la Comodidad y la Seguridad</span
-      >
-      Este remolque cuenta con sistema de alumbrado, rampas de carga y descarga,
-      rueda jockey, rueda de repuesto, cinchas y bloqueo antirrobo. Todos estos elementos
-      están diseñados para brindar la máxima comodidad y seguridad durante la carga
-      y el transporte de tus pertenencias.
-    </p>
+    <h1>{locales.title}</h1>
+    <Fragment set:html={locales.text} />
     <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2 mt-9">
       <div class="grid grid-cols-2 gap-3 max-xs:w-fit">
         <a
-          href="#detalles"
-          rel="bookmark"
+          href={locales.links.information.href}
+          rel={locales.links.information.rel}
           class="btn btn-sm btn-accent min-w-max w-full"
         >
-          Ver detalles
+          {locales.links.information.text}
         </a>
-        <a href="#reserva" rel="bookmark" class="btn btn-sm btn-primary w-max">
-          Realizar reserva
+        <a
+          href={locales.links.booking.href}
+          rel={locales.links.booking.rel}
+          class="btn btn-sm btn-primary w-max"
+        >
+          {locales.links.booking.text}
         </a>
       </div>
       <div
         class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-xs h-6 mt-auto"
       >
-        <span>Permiso B</span>
+        <span>{locales.labels.license}</span>
       </div>
     </div>
   </div>
 </section>
 
-<script is:inline defer define:vars={{ images }}>
+<script is:inline defer>
   const carouselHTMLElement = document.getElementById("carousel");
+  const carouselItemsLength = Number(
+    carouselHTMLElement.getAttribute("data-carousel-items")
+  );
 
   document.getElementById("carousel").addEventListener("swiped", function (e) {
     const carouselPosition = Number(
       carouselHTMLElement.getAttribute("data-carousel-position")
-    );
-    const carouselItemsLength = Number(
-      carouselHTMLElement.getAttribute("data-carousel-items")
     );
 
     ({
@@ -177,13 +150,13 @@ const images = [
       carouselPosition + 1
     );
   });
-  images.forEach((image, i) => {
+  for (let i = 0; i < carouselItemsLength; i++)
     document
       .getElementById("carousel-image-selector-" + i)
       .addEventListener("click", () => {
         carouselHTMLElement.setAttribute("data-carousel-position", i);
       });
-  });
+
   const observer = new MutationObserver(() => {
     const carouselPosition = Number(
       document.getElementById("carousel").getAttribute("data-carousel-position")
@@ -201,14 +174,14 @@ const images = [
     carouselHTMLElement.style.left = carouselPosition * -100 + "%";
     carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
 
-    images.forEach((image, i) => {
+    for (let i = 0; i < carouselItemsLength; i++) {
       if (carouselPosition === i)
         document.getElementById("carousel-image-selector-" + i).style.opacity =
           "50%";
       else
         document.getElementById("carousel-image-selector-" + i).style.opacity =
           "";
-    });
+    }
   });
 
   observer.observe(document.getElementById("carousel"), {

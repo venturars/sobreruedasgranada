@@ -4,6 +4,38 @@ import createLaPintaRentRequest from "../../../logic/create-la-pinta-rent-reques
 
 export const prerender = false;
 
+/**
+ * Handles POST requests to create a new La Pinta rent request.
+ *
+ * This endpoint extracts rental request data from the incoming request body,
+ * creates a new rent request, and sends confirmation and notification emails.
+ *
+ * **Request Body:**
+ * - `firstname`: The customer's first name (required).
+ * - `lastname`: The customer's last name (required).
+ * - `dni`: The customer's National Identification Number (required).
+ * - `email`: The customer's email address (required).
+ * - `phone`: The customer's phone number (required).
+ * - `rentType`: The type of rental (required).
+ * - `accessories`: Whether accessories are requested (boolean, required).
+ * - `pickUpTime`: The scheduled pickup time (required).
+ * - `deliveryTime`: The scheduled delivery time (required).
+ * - `date`: The rental date (required).
+ * - `rentalPrice`: The total rental price (required).
+ * - `guarantee`: The required deposit or guarantee amount (required).
+ * - `reservationAmount`: The reservation amount paid (required).
+ * - `pickUpPaymentAmount`: The amount paid at pickup (required).
+ * - `contractAgreement`: Indicates if the contract agreement was accepted (boolean, required).
+ * - `webAgreement`: Indicates if the web agreement was accepted (boolean, required).
+ *
+ * **Response:**
+ * - **200 OK:** If the request is successful.
+ * - **400 Bad Request:** If the request data is invalid or missing.
+ * - **500 Server Error:** If an unexpected error occurs or email sending fails.
+ *
+ * @param request The Astro request object.
+ * @returns A Promise that resolves to an HTTP response.
+ */
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.formData();

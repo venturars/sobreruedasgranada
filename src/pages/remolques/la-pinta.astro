@@ -17,11 +17,9 @@ import ES from "../../locales/ES.json";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
-    <title>Remolque en alquier en Granada: La Pinta</title>
-    <meta
-      name="description"
-      content="Descubre la solución perfecta para transportar tus vehículos de medio tamaño. En sobreruedasgranada, ubicado en Calle Ebro 43, Granada, ofrecemos alquiler de remolques de hasta 750kg para motos, bicicletas, quads, karts y más. Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o enfrentarte a una mudanza o transporte de objetos voluminosos, nuestros remolques están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura."
-    />
+    <title>{ES.pages.laPinta.metadata.title}</title>
+    <meta name="description" content={ES.pages.laPinta.metadata.description} />
+    <meta name="keywords" content={ES.pages.laPinta.metadata.keywords} />
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     />
@@ -31,8 +29,8 @@ import ES from "../../locales/ES.json";
 
   <body>
     <MainLayout>
-      <ProductFirstView />
-      <ProductDetails />
+      <ProductFirstView locales={ES.pages.laPinta.firstView} />
+      <ProductDetails locales={ES.pages.laPinta.details} />
       <BookingForm />
     </MainLayout>
   </body>

@@ -1,22 +1,5 @@
 ---
-const rows = [
-  ["Número de bastidor", "VV9RC750SPP1xxxxx"],
-  ["MMA", "750kg"],
-  ["Peso en vacío", "172kg"],
-  ["Carga útil", "578kg"],
-
-  ["Dimesiones de neumáticos", "165/70 R13/79J"],
-  ["Dimensiones exteriores", "175 x 313 x 80 cm"],
-  ["Dimensiones interiores", "130 x 215 cm"],
-  ["Número de ejes", "1 eje"],
-  ["Tipo de iluminación", "Alógenos"],
-  ["Tipo de conector", "7 pines"],
-  ["Extras", "Rueda jockey, rueda repuesto y rampa de carga y descarga"],
-  [
-    "Opciones",
-    "Juego de 8 cinchas, adaptador de 13 a 7 pines y 1 bloqueo antirrobo",
-  ],
-];
+const { locales } = Astro.props;
 ---
 
 <div class="w-full h-full">
@@ -30,7 +13,7 @@ const rows = [
         name="my_tabs_2"
         role="tab"
         class="tab [--tab-bg:#F1F5F9] [--tab-border-color:#a1c2f7] min-w-max"
-        aria-label="Ficha técnica"
+        aria-label={locales.specificationsSheet.tabTitle}
         checked
       />
       <div
@@ -41,7 +24,7 @@ const rows = [
           <table class="table">
             <tbody>
               {
-                rows.map((row, i) => (
+                locales.specificationsSheet.specifications.map((row, i) => (
                   <tr
                     class:list={[
                       "border-secondary",
@@ -58,11 +41,7 @@ const rows = [
             </tbody>
           </table>
           <p>
-            Este remolque es apto para ser conducido con el permiso B de
-            conducir y puede ser remolcado por cualquier vehículo tractor que
-            tenga una capacidad mínima de arrastre de 750 kg en su bola de
-            remolque. Si tienes cualquier duda sobre las especificaciones
-            técnicas, puedes ponerte en contacto con nosotros.
+            {locales.specificationsSheet.disclaimer}
           </p>
         </div>
       </div>
@@ -71,36 +50,20 @@ const rows = [
         name="my_tabs_2"
         role="tab"
         class="tab [--tab-bg:#F1F5F9] [--tab-border-color:#a1c2f7] min-w-max"
-        aria-label="Condiciones de reserva"
+        aria-label={locales.bookingConditions.tabTitle}
       />
       <div
         role="tabpanel"
         class="tab-content border-secondary rounded-box lg:p-6 p-4 prose prose-base max-md:prose-sm min-w-full bg-slate-100 max-xs:!rounded-none"
       >
-        <p class="font-bold">
-          Condiciones generales de alquiler de remolque La Pinta
-        </p>
-        <p>
-          Todos los acuerdos de alquiler de remolque de tipo "La Pinta" se
-          regirán por estas condiciones generales, con la posibilidad de ajustar
-          los detalles específicos como los datos del cliente, el precio, la
-          fecha, la hora y la duración del acuerdo. Es importante revisar
-          detenidamente estas condiciones antes de solicitar una reserva, para
-          comprender los términos de uso del remolque, así como las obligaciones
-          y derechos de ambas partes.
-        </p>
-        <p>
-          Por favor, asegúrate de aclarar todas tus dudas antes de proceder con
-          la reserva del remolque. Al realizar la reserva, como se te indicará
-          durante el proceso de solicitud, estarás aceptando estas condiciones.
-          Posteriormente, no se admitirán reclamaciones sobre lo estipulado en
-          el acuerdo.
-        </p>
+        <Fragment set:html={locales.bookingConditions.text} />
         <a
-          href="/assets/la-pinta-documento-de-reserva.pdf"
-          target="_blank"
-          class="btn btn-primary btn-sm mr-2">Ver documento</a
+          href={locales.bookingConditions.action.href}
+          target={locales.bookingConditions.action.target}
+          class="btn btn-primary btn-sm mr-2"
         >
+          {locales.bookingConditions.action.text}
+        </a>
       </div>
     </div>
   </section>

@@ -1,161 +1,10 @@
 ---
-import nodemailer from "nodemailer";
 import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 import MainLayout from "../../layouts/Main.astro";
 import ProductFirstView from "../../components/ProductFirstView.astro";
 import ProductDetails from "../../components/ProductDetails.astro";
 import BookingForm from "../../components/BookingForm.astro";
 import ES from "../../locales/ES.json";
-
-export const prerender = false;
-
-const SMTP_USER = import.meta.env.SMTP_USER;
-const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
-
-const { product } = Astro.params;
-
-export async function getStaticPaths() {
-  return [{ params: { product: "la-pinta" } }];
-}
-
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const firstname = data.get("firstname");
-    const lastname = data.get("lastname");
-    const dni = data.get("dni");
-    const email = data.get("email");
-    const phone = data.get("phone");
-    const rentType = data.get("rentType");
-    const accessories = data.get("accessories");
-    const pickUpTime = data.get("pickUpTime");
-    const deliveryTime = data.get("deliveryTime");
-    const date = data.get("date");
-    const rentalPrice = data.get("rentalPrice");
-    const guarantee = data.get("guarantee");
-    const reservationAmount = data.get("reservationAmount");
-    const pickUpPaymentAmount = data.get("pickUpPaymentAmount");
-    const contractAgreement = data.get("contractAgreement");
-    const webAgreement = data.get("webAgreement");
-
-    if (
-      !firstname ||
-      !lastname ||
-      !dni ||
-      !email ||
-      !phone ||
-      !rentType ||
-      !accessories ||
-      !pickUpTime ||
-      !deliveryTime ||
-      !date ||
-      !rentalPrice ||
-      !guarantee ||
-      !reservationAmount ||
-      !pickUpPaymentAmount ||
-      !contractAgreement ||
-      !webAgreement
-    ) {
-      return new Response(null, {
-        status: 400,
-      });
-    }
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASSWORD,
-      },
-    });
-
-    const response = await transporter.sendMail({
-      from: "ventu@kudu.design",
-      to: "stipka99@gmail.com",
-      subject: `Contacto remolque La Pinta de ${firstname}`,
-      replyTo: email,
-      html: `
-        <p>Hola Noel,</p>
-        <p>Has recibido una nueva solicitud de alquiler de remolque:</p>
-        <ul>
-          <li>Nombre: ${firstname} ${lastname}</li>
-          <li>DNI: ${dni}</li>
-          <li>Email: ${email}</li>
-          <li>Teléfono de contacto: ${phone}</li>
-          <li>Tipo de alquiler: ${rentType}</li>
-          <li>Accesorios: ${accessories}</li>
-          <li>Horario de recogida: ${pickUpTime}</li>
-          <li>Horario de entrega: ${deliveryTime}</li>
-          <li>Fecha: ${JSON.parse(date.toString())[0]}${
-            JSON.parse(date.toString()).length > 1
-              ? " a " +
-                JSON.parse(date.toString())[
-                  JSON.parse(date.toString()).length - 1
-                ]
-              : ""
-          }</li>
-          <li>Precio del alquiler: ${rentalPrice}</li>
-          <li>Fianza: ${guarantee}</li>
-          <li>Importe de la reserva: ${reservationAmount}</li>
-          <li>Importe a pagar en la recogida: ${pickUpPaymentAmount}</li>
-          <li>Acuerdo del contrato: ${contractAgreement}</li>
-          <li>Acuerdo de la web: ${webAgreement}</li>
-        </ul>
-      `,
-    });
-    if (!response.accepted[0])
-      return new Response(null, {
-        status: 500,
-        statusText: "Server Error",
-      });
-
-    await transporter.sendMail({
-      from: "ventu@kudu.design",
-      to: email,
-      subject: "[No responder]: Gracias por contactar con sobreruedasgranada",
-      html: `
-        <p>Hola ${firstname},</p>
-        <p>Gracias por contactar con sobreruedasgranada. Hemos recibido tu solicitud y nos pondremos en contacto contigo lo antes posible.</p>
-        <p>Detalles de la solicitud:</p>
-        <ul>
-          <li>Nombre: ${firstname} ${lastname}</li>
-          <li>DNI: ${dni}</li>
-          <li>Email: ${email}</li>
-          <li>Teléfono de contacto: ${phone}</li>
-          <li>Tipo de alquiler: ${rentType}</li>
-          <li>Accesorios: ${accessories}</li>
-          <li>Horario de recogida: ${pickUpTime}</li>
-          <li>Horario de entrega: ${deliveryTime}</li>
-          <li>Fecha: ${JSON.parse(date.toString())[0]}${
-            JSON.parse(date.toString()).length > 1
-              ? " a " +
-                JSON.parse(date.toString())[
-                  JSON.parse(date.toString()).length - 1
-                ]
-              : ""
-          }</li>
-          <li>Precio del alquiler: ${rentalPrice}</li>
-          <li>Fianza: ${guarantee}</li>
-        </ul>
-        <p>¡Gracias!</p>
-      `,
-    });
-    return new Response(null, {
-      status: 200,
-      statusText: "OK",
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    } else console.error("ERROR: ", error);
-    return new Response(null, {
-      status: 500,
-      statusText: "Server Error",
-    });
-  }
-}
 ---
 
 <html
@@ -168,11 +17,12 @@ if (Astro.request.method === "POST") {
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="viewport" content="width=device-width" />
-    <title>Remolque en alquier en Granada: La Pinta</title>
+    <title>{ES.pages.sprinterCaja.metadata.title}</title>
     <meta
       name="description"
-      content="Descubre la solución perfecta para transportar tus vehículos de medio tamaño. En sobreruedasgranada, ubicado en Calle Ebro 43, Granada, ofrecemos alquiler de remolques de hasta 750kg para motos, bicicletas, quads, karts y más. Si buscas trasladar una moto recién adquirida, dirigirte al campo o a un circuito con un vehículo no matriculado, o enfrentarte a una mudanza o transporte de objetos voluminosos, nuestros remolques están completamente preparados y equipados para llevar a cabo cada una de estas tareas de manera eficiente y segura."
+      content={ES.pages.sprinterCaja.metadata.description}
     />
+    <meta name="keywords" content={ES.pages.sprinterCaja.metadata.keywords} />
     <GoogleFontsOptimizer
       url="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     />
@@ -182,8 +32,8 @@ if (Astro.request.method === "POST") {
 
   <body>
     <MainLayout>
-      <ProductFirstView />
-      <ProductDetails />
+      <ProductFirstView locales={ES.pages.sprinterCaja.firstView} />
+      <ProductDetails locales={ES.pages.sprinterCaja.details} />
       <BookingForm />
     </MainLayout>
   </body>
