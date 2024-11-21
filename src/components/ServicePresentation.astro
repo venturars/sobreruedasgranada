@@ -8,7 +8,7 @@ const { locales, id, class: _class } = Astro.props;
   <div class="mx-auto w-fit mb-8 max-xs:mb-6">
     <div class="carousel carousel-center md:rounded-lg">
       {
-        locales.images.map((image, i) => (
+        locales.images.map((image) => (
           <div class="carousel-item">
             <Image
               src={image.src}

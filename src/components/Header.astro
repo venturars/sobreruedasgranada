@@ -6,13 +6,13 @@ import Whatsapp from "../icons/Whatsapp.astro";
 const { locales } = Astro.props;
 ---
 
-<div
+<header
   class="bg-base-100 drop-shadow-md sticky top-[-1px] z-50"
   transition:persist
 >
   <div class="navbar max-w-screen-xl mx-auto">
     <div class="navbar-start max-md:w-full">
-      <div class="dropdown dropdown-open">
+      <nav class="dropdown dropdown-open">
         <button tabindex="0" class="btn btn-ghost md:hidden" id="dropdown-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const { locales } = Astro.props;
             ))
           }
         </ul>
-      </div>
+      </nav>
       <a
         class="md:btn md:btn-ghost md:block md:btn-square md:btn-md md:p-1.5"
         href="/"
@@ -58,7 +58,7 @@ const { locales } = Astro.props;
         ></a
       >
     </div>
-    <div class="navbar-center hidden md:flex">
+    <nav class="navbar-center hidden md:flex">
       <ul class="menu menu-horizontal px-1">
         {
           locales.navItems.map((item) => (
@@ -74,7 +74,7 @@ const { locales } = Astro.props;
           ))
         }
       </ul>
-    </div>
+    </nav>
     <div class="navbar-end">
       <button
         class="btn btn-sm btn-primary mr-1.5"
@@ -86,10 +86,9 @@ const { locales } = Astro.props;
       </button>
     </div>
   </div>
-</div>
+</header>
 
 <script lang="js" type="module">
-  console.log("launched");
   document.getElementById("dropdown-btn").addEventListener(
     "click",
     (event) => {

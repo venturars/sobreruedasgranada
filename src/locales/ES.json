@@ -355,7 +355,7 @@
   "sections": {
     "trailers": {
       "title": "Nuestra flota de remolques",
-      "trailers": [
+      "products": [
         {
           "title": "La Pinta (remolque ligero)",
           "description": "<p>La Pinta es un remolque de medio tamaño diseñado para transportar motos, quads, muebles o electrodomésticos. Con una capacidad de carga de 750kg, Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B, fácil de manejar y maniobrar. Este remolque cuenta con sistema de alumbrado, rampa, rueda jockey, rueda de repuesto, cinchas y bloqueo antirrobo.</p>",
@@ -471,7 +471,7 @@
     },
     "utilityVehicles": {
       "title": "Nuestra oferta de vehículos",
-      "trailers": [
+      "products": [
         {
           "title": "Mercedes Sprinter 3500kg (caja)",
           "description": "<p>Camión de 130 cv con cambio manual de 5 velocidades. Su caja tiene 14m3 de capacidad, dispone de doble portón trasero y puerta de paso en el lateral derecho. Homologa una capacidad de carga de 3500kg, Masa Máxima Autorizada (MMA), puede ser conducido con el permiso B, fácil de manejar y maniobrar. Cuenta con aire acondicionado, elevalunas elécricos, pantalla bluetooth, Android Auto, Apple Carplay, sensores de proximidad y cámara de aparcamiento.</p>",

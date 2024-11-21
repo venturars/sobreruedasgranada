@@ -10,9 +10,9 @@ const { locales, id } = Astro.props;
   <h2 class="xs:text-4xl text-2xl text-center mb-8">
     {locales.title}
   </h2>
-  <div class="max-w-screen-lg mx-auto grid gap-8">
+  <div id="productList" class="max-w-screen-lg mx-auto grid gap-8">
     {
-      locales.trailers.map((trailer, i) => (
+      locales.products.map((trailer, i) => (
         <article
           class:list={[
             "sm:max-lg:max-w-[480px] max-lg:mx-auto relative grid lg:gap-8 overflow-hidden sm:rounded-xl bg-white sm:shadow sm:shadow-lg sm:border-slate-50 sm:border-[1px]",
@@ -113,8 +113,12 @@ const { locales, id } = Astro.props;
   </div>
 </section>
 
-<script is:inline defer define:vars={{ locales }}>
-  locales.trailers.forEach((trailer, i) => {
+<script lang="js" type="module">
+  for (
+    let i = 0;
+    i < document.getElementById("productList").children.length;
+    i++
+  ) {
     const carouselHTMLElement = document.getElementById("carousel-" + i);
 
     document
@@ -199,5 +203,5 @@ const { locales, id } = Astro.props;
     observer.observe(document.getElementById("carousel-" + i), {
       attributes: true,
     });
-  });
+  }
 </script>
