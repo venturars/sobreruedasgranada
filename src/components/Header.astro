@@ -86,21 +86,20 @@ const { locales } = Astro.props;
       </button>
     </div>
   </div>
-
-  <script is:inline defer>
-    document.getElementById("dropdown-btn").addEventListener(
-      "click",
-      (event) => {
-        event.stopPropagation();
-        document.getElementById("dropdown-panel").classList.toggle("hidden");
-      },
-      { capture: true }
-    );
-    document.addEventListener("click", (event) => {
-      if (
-        !document.getElementById("dropdown-panel").classList.contains("hidden")
-      )
-        document.getElementById("dropdown-panel").classList.add("hidden");
-    });
-  </script>
 </div>
+
+<script lang="js" type="module">
+  console.log("launched");
+  document.getElementById("dropdown-btn").addEventListener(
+    "click",
+    (event) => {
+      event.stopPropagation();
+      document.getElementById("dropdown-panel").classList.toggle("hidden");
+    },
+    { capture: true }
+  );
+  document.addEventListener("click", (event) => {
+    if (!document.getElementById("dropdown-panel").classList.contains("hidden"))
+      document.getElementById("dropdown-panel").classList.add("hidden");
+  });
+</script>

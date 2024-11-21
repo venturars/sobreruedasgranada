@@ -97,7 +97,7 @@ const { locales } = Astro.props;
   </div>
 </section>
 
-<script is:inline defer>
+<script lang="js" type="module">
   const carouselHTMLElement = document.getElementById("carousel");
   const carouselItemsLength = Number(
     carouselHTMLElement.getAttribute("data-carousel-items")
