@@ -114,94 +114,102 @@ const { locales, id } = Astro.props;
 </section>
 
 <script lang="js">
-  for (
-    let i = 0;
-    i < document.getElementById("productList").children.length;
-    i++
-  ) {
-    const carouselHTMLElement = document.getElementById("carousel-" + i);
-
-    document
-      .getElementById("carousel-" + i)
-      .addEventListener("swiped", function (e) {
-        const carouselPosition = Number(
-          carouselHTMLElement.getAttribute("data-carousel-position")
-        );
-        const carouselItemsLength = Number(
-          carouselHTMLElement.getAttribute("data-carousel-items")
-        );
-
-        ({
-          right: () => {
-            if (carouselPosition < 1) return;
-            carouselHTMLElement.setAttribute(
-              "data-carousel-position",
-              carouselPosition - 1
-            );
-          },
-          left: () => {
-            if (carouselPosition + 1 >= carouselItemsLength) return;
-            carouselHTMLElement.setAttribute(
-              "data-carousel-position",
-              carouselPosition + 1
-            );
-          },
-        })[e.detail.dir]();
-      });
-
-    document
-      .getElementById("control-previous-" + i)
-      .addEventListener("click", () => {
-        const carouselPosition = Number(
-          carouselHTMLElement.getAttribute("data-carousel-position")
-        );
-        if (carouselPosition < 1) return;
-        carouselHTMLElement.setAttribute(
-          "data-carousel-position",
-          carouselPosition - 1
-        );
-      });
-
-    document
-      .getElementById("control-next-" + i)
-      .addEventListener("click", () => {
-        const carouselPosition = Number(
-          carouselHTMLElement.getAttribute("data-carousel-position")
-        );
-        const carouselItemsLength = Number(
-          carouselHTMLElement.getAttribute("data-carousel-items")
-        );
-        if (carouselPosition + 1 >= carouselItemsLength) return;
-        carouselHTMLElement.setAttribute(
-          "data-carousel-position",
-          carouselPosition + 1
-        );
-      });
-
+  const whenDOMChangesDo = (callback) => {
+    const body = document.body;
     const observer = new MutationObserver(() => {
-      const carouselPosition = Number(
-        document
-          .getElementById("carousel-" + i)
-          .getAttribute("data-carousel-position")
-      );
-      const carouselItemsLength = Number(
-        carouselHTMLElement.getAttribute("data-carousel-items")
-      );
-      const carouselControlsHTMLElement = document.getElementById(
-        "carousel-controls-" + i
-      );
-
-      document.getElementById("control-previous-" + i).disabled =
-        carouselPosition < 1;
-      document.getElementById("control-next-" + i).disabled =
-        carouselPosition + 1 >= carouselItemsLength;
-
-      carouselHTMLElement.style.left = carouselPosition * -100 + "%";
-      carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
+      callback();
     });
+    const config = { childList: true, attributes: true };
+    observer.observe(body, config);
+  };
 
-    observer.observe(document.getElementById("carousel-" + i), {
-      attributes: true,
-    });
-  }
+  const createCarousel = (id) => {
+    for (let i = 0; i < document.getElementById(id).children.length; i++) {
+      const carouselHTMLElement = document.getElementById("carousel-" + i);
+
+      document
+        .getElementById("carousel-" + i)
+        .addEventListener("swiped", function (e) {
+          const carouselPosition = Number(
+            carouselHTMLElement.getAttribute("data-carousel-position")
+          );
+          const carouselItemsLength = Number(
+            carouselHTMLElement.getAttribute("data-carousel-items")
+          );
+
+          ({
+            right: () => {
+              if (carouselPosition < 1) return;
+              carouselHTMLElement.setAttribute(
+                "data-carousel-position",
+                carouselPosition - 1
+              );
+            },
+            left: () => {
+              if (carouselPosition + 1 >= carouselItemsLength) return;
+              carouselHTMLElement.setAttribute(
+                "data-carousel-position",
+                carouselPosition + 1
+              );
+            },
+          })[e.detail.dir]();
+        });
+
+      document
+        .getElementById("control-previous-" + i)
+        .addEventListener("click", () => {
+          const carouselPosition = Number(
+            carouselHTMLElement.getAttribute("data-carousel-position")
+          );
+          if (carouselPosition < 1) return;
+          carouselHTMLElement.setAttribute(
+            "data-carousel-position",
+            carouselPosition - 1
+          );
+        });
+
+      document
+        .getElementById("control-next-" + i)
+        .addEventListener("click", () => {
+          const carouselPosition = Number(
+            carouselHTMLElement.getAttribute("data-carousel-position")
+          );
+          const carouselItemsLength = Number(
+            carouselHTMLElement.getAttribute("data-carousel-items")
+          );
+          if (carouselPosition + 1 >= carouselItemsLength) return;
+          carouselHTMLElement.setAttribute(
+            "data-carousel-position",
+            carouselPosition + 1
+          );
+        });
+
+      const observer = new MutationObserver(() => {
+        const carouselPosition = Number(
+          document
+            .getElementById("carousel-" + i)
+            .getAttribute("data-carousel-position")
+        );
+        const carouselItemsLength = Number(
+          carouselHTMLElement.getAttribute("data-carousel-items")
+        );
+        const carouselControlsHTMLElement = document.getElementById(
+          "carousel-controls-" + i
+        );
+
+        document.getElementById("control-previous-" + i).disabled =
+          carouselPosition < 1;
+        document.getElementById("control-next-" + i).disabled =
+          carouselPosition + 1 >= carouselItemsLength;
+
+        carouselHTMLElement.style.left = carouselPosition * -100 + "%";
+        carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
+      });
+
+      observer.observe(document.getElementById("carousel-" + i), {
+        attributes: true,
+      });
+    }
+  };
+  createCarousel("productList");
 </script>
