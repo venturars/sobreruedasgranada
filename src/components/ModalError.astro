@@ -1,0 +1,46 @@
+---
+import Phone from "../icons/Phone.astro";
+import Whatsapp from "../icons/Whatsapp.astro";
+import type { Locales } from "../interface";
+
+const { locales } = Astro.props as { locales: Locales.ModalError };
+---
+
+<dialog id="modalError" class="modal">
+  <div class="modal-box text-black">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        >✕</button
+      >
+    </form>
+    <div class="prose prose-base">
+      <h4 class="font-bold mb-4 text-lg">{locales.title}</h4>
+      <Fragment set:html={locales.text} />
+      <ul class="list-none !pl-0">
+        <li class="!pl-0 !mb-4">
+          <a
+            href={locales.contactButtons.call.href}
+            class="btn btn-block btn-primary justify-start !m-0"
+          >
+            <Phone class="w-5 h-5 mr-1.5" />
+            <span>{locales.contactButtons.call.text}</span>
+          </a>
+        </li>
+        <li class="!pl-0">
+          <a
+            href={locales.contactButtons.whatsapp.href}
+            target={locales.contactButtons.whatsapp.target}
+            rel={locales.contactButtons.whatsapp.rel}
+            class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
+          >
+            <Whatsapp class="w-5 h-5 mr-1.5" />
+            <span>{locales.contactButtons.whatsapp.text}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button></button>
+  </form>
+</dialog>

@@ -1,0 +1,63 @@
+---
+import type { Locales } from "../../interface";
+
+interface Props {
+  locales: Locales.BookingForm["bookingConditions"];
+}
+
+const { locales } = Astro.props;
+---
+
+<fieldset class="form-control py-6">
+  <legend class="text-base font-bold mb-6 float-left">{locales.title}</legend>
+  <div
+    class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
+  >
+    {
+      Object.entries(locales.fields).map(([key, field]) => (
+        <label class="form-control md:w-72 xs:w-96">
+          <div class="label">
+            <span class="label-text">{field.label}</span>
+          </div>
+          <input
+            type="text"
+            value="- €"
+            class="input input-bordered w-full text-right disabled"
+            readonly
+            name={key}
+            id={key}
+          />
+        </label>
+      ))
+    }
+  </div>
+  <div class="form-control max-w-screen-md w-fit text-sm mt-6">
+    <label class="label cursor-pointer max-md:pr-2">
+      <input
+        type="checkbox"
+        class="checkbox checkbox-sm mr-2"
+        name="contractAgreement"
+        id="contractAgreement"
+      />
+      <span class="label-text">
+        <Fragment set:html={locales.agreements.contract.text} />
+      </span>
+    </label>
+  </div>
+  <div class="form-control max-w-screen-md w-fit text-sm">
+    <label class="label cursor-pointer max-md:pr-2">
+      <input
+        type="checkbox"
+        class="checkbox checkbox-sm mr-2"
+        name="webAgreement"
+        id="webAgreement"
+      />
+      <span class="label-text">
+        <Fragment set:html={locales.agreements.web.text} />
+      </span>
+    </label>
+  </div>
+  <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+    <Fragment set:html={locales.disclaimer} />
+  </div>
+</fieldset>

@@ -3,7 +3,7 @@ import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
 import MainLayout from "../../layouts/Main.astro";
 import ProductFirstView from "../../components/ProductFirstView.astro";
 import ProductDetails from "../../components/ProductDetails.astro";
-import BookingForm from "../../components/BookingForm.astro";
+import LaPintaBookingForm from "../../components/LaPintaBookingForm/index.astro";
 import ES from "../../locales/ES.json";
 ---
 
@@ -31,9 +31,7 @@ import ES from "../../locales/ES.json";
     <MainLayout>
       <ProductFirstView locales={ES.pages.laPinta.firstView} />
       <ProductDetails locales={ES.pages.laPinta.details} />
-      <BookingForm />
+      <LaPintaBookingForm locales={ES.pages.laPinta.bookingForm} />
     </MainLayout>
   </body>
 </html>
-
-<!-- arreglar página de reserva de la pinta y la calculadora de precio -->

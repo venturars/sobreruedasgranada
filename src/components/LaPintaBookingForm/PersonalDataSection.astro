@@ -1,0 +1,44 @@
+---
+import type { Locales } from "../../interface";
+
+interface Props {
+  locales: Locales.BookingForm["personalData"];
+}
+
+const { locales } = Astro.props;
+---
+
+<fieldset class="form-control py-6">
+  <legend class="text-base font-bold mb-6 float-left">{locales.title}</legend>
+  <div
+    class="grid md:grid-cols-[auto,auto] md:grid-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
+  >
+    {
+      Object.entries(locales.fields).map(([key, field]) => (
+        <label
+          class:list={[
+            "form-control",
+            key === "firstname" || key === "dni" || key === "phone"
+              ? "md:w-60 xs:w-96"
+              : "xs:w-96",
+          ]}
+        >
+          <div class="label">
+            <span class="label-text">{field.label}</span>
+          </div>
+          <input
+            type="text"
+            placeholder={field.placeholder}
+            class="input input-bordered w-full"
+            name={key}
+            id={key}
+            data-ispristine="true"
+          />
+        </label>
+      ))
+    }
+  </div>
+  <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+    <Fragment set:html={locales.disclaimer} />
+  </div>
+</fieldset>

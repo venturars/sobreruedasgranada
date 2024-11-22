@@ -99,6 +99,79 @@ export interface FirstView {
   images?: Image[];
 }
 
+export interface BookingForm {
+  title: string;
+  personalData: {
+    title: string;
+    fields: {
+      firstname: FormField;
+      lastname: FormField;
+      dni: FormField;
+      email: FormField;
+      phone: FormField;
+    };
+    disclaimer: string;
+  };
+  bookingType: {
+    title: string;
+    fields: {
+      rentType: FormFieldWithOptions;
+      accessories: FormFieldWithOptions;
+    };
+  };
+  dateTime: {
+    title: string;
+    fields: {
+      pickUpTime: {
+        label: string;
+      };
+      deliveryTime: {
+        label: string;
+      };
+    };
+    disclaimer: string;
+  };
+  bookingConditions: {
+    title: string;
+    fields: {
+      rentalPrice: {
+        label: string;
+      };
+      guarantee: {
+        label: string;
+      };
+      reservationAmount: {
+        label: string;
+      };
+      pickUpPaymentAmount: {
+        label: string;
+      };
+    };
+    agreements: {
+      contract: {
+        text: string;
+      };
+      web: {
+        text: string;
+      };
+    };
+    disclaimer: string;
+  };
+  errorMessage: string;
+  submitButton: string;
+  modalSuccess: ModalSuccess;
+  modalError: ModalError;
+}
+
+interface FormField {
+  label: string;
+  placeholder: string;
+}
+
+interface FormFieldWithOptions extends FormField {
+  options: string[];
+}
+
 export interface LandingPage {
   metadata: Metadata;
   firstView: FirstView;
@@ -126,11 +199,7 @@ export interface ProductPage {
   metadata: Metadata;
   firstView: FirstView;
   details: ProductDetails;
-  bookingConditions: {
-    tabTitle: string;
-    text: string;
-    action: Link;
-  };
+  bookingForm: BookingForm;
 }
 
 export interface Product {
@@ -190,4 +259,17 @@ export interface ModalContact {
   paragraph: string;
   callButton: Link;
   whatsappButton: Link;
+}
+export interface ModalSuccess {
+  title: string;
+  text: string;
+}
+
+export interface ModalError {
+  title: string;
+  text: string;
+  contactButtons: {
+    call: Link;
+    whatsapp: Link;
+  };
 }

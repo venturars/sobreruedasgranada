@@ -1,391 +1,15 @@
 ---
-import "../styles/vanilla-calendar.css";
-import Phone from "../icons/Phone.astro";
-import Whatsapp from "../icons/Whatsapp.astro";
+import "../../styles/vanilla-calendar.css";
+import type { Locales } from "../../interface";
+import PersonalDataSection from "./PersonalDataSection.astro";
+import BookingTypeSection from "./BookingTypeSection.astro";
+import DateTimeSection from "./DateTimeSection.astro";
+import BookingConditionsSection from "./BookingConditionsSection.astro";
+
+const { locales } = Astro.props as { locales: Locales.BookingForm };
 ---
 
-<div class="w-full h-full">
-  <section class="lg:py-8 lg:px-16 bg-slate-100" id="reserva">
-    <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
-      <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
-        <h2 class="xs:text-4xl text-2xl text-center mb-8">
-          Solicitud de reserva
-        </h2>
-        <fieldset class="form-control py-6">
-          <legend class="text-base font-bold mb-6 float-left"
-            >Datos personales</legend
-          >
-          <div
-            class="grid md:grid-cols-[auto,auto] md:grid-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
-          >
-            <label class="form-control md:w-60 xs:w-96">
-              <div class="label">
-                <span class="label-text">Nombre</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Introduzca su nombre"
-                class="input input-bordered w-full"
-                name="firstname"
-                id="firstname"
-                data-ispristine="true"
-              />
-            </label>
-            <label class="form-control xs:w-96">
-              <div class="label">
-                <span class="label-text">Apellidos</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Introduzca sus apellidos"
-                class="input input-bordered w-full"
-                name="lastname"
-                id="lastname"
-                data-ispristine="true"
-              />
-            </label>
-            <label class="form-control md:w-60 xs:w-96">
-              <div class="label">
-                <span class="label-text">DNI</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Introduzca su DNI"
-                class="input input-bordered w-full"
-                name="dni"
-                id="dni"
-                data-ispristine="true"
-              />
-            </label>
-            <label class="form-control xs:w-96">
-              <div class="label">
-                <span class="label-text">Correo electrónico</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Introduzca su correo electrónico"
-                class="input input-bordered w-full"
-                name="email"
-                id="email"
-                data-ispristine="true"
-              />
-            </label>
-            <label class="form-control xs:w-96 md:w-60">
-              <div class="label">
-                <span class="label-text">Móvil de contacto</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Introduzca su móvil"
-                class="input input-bordered w-full"
-                name="phone"
-                id="phone"
-                data-ispristine="true"
-              />
-            </label>
-          </div>
-          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
-            <span class="w-4">*</span>
-            <span class="">
-              Los datos proporcionados serán utilizados para generar el acuerdo
-              de reserva. El remolque se entregará únicamente a la persona que
-              haya realizado la reserva, previa presentación de su DNI.
-            </span>
-          </div>
-        </fieldset>
-        <fieldset class="form-control py-6">
-          <legend class="text-base font-bold mb-6 float-left">
-            Tipo de reserva</legend
-          >
-          <div class="grid md:grid-cols-[auto,auto] gap-6 xs:w-max">
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text">Moldalidad de alquiler</span>
-              </div>
-              <select
-                class="select select-md select-bordered select-ghost"
-                name="rentType"
-                id="rentType"
-              >
-                <option disabled selected>Seleccione una opción</option>
-                <option>Alquiler por días</option>
-                <option>Alquiler por horas</option>
-              </select>
-            </label>
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text"
-                  >¿Necesita cinchas y bloqueo antirrobo?</span
-                >
-              </div>
-              <select
-                class="select select-md select-bordered"
-                name="accessories"
-                id="accessories"
-              >
-                <option disabled selected>Seleccione una opción</option>
-                <option>Sí</option>
-                <option>No</option>
-              </select>
-            </label>
-          </div>
-        </fieldset>
-        <fieldset class="form-control py-6">
-          <legend class="text-base font-bold mb-6 float-left"
-            >Fecha y hora</legend
-          >
-          <div
-            class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-8 gap-y-4 xs:w-max"
-          >
-            <label
-              class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-span-1 md:self-end"
-            >
-              <div class="label">
-                <span class="label-text">Hora de recogida</span>
-              </div>
-              <input
-                type="time"
-                min="08:00"
-                max="20:00"
-                class="input input-bordered w-full"
-                name="pickUpTime"
-                id="pickUpTime"
-              />
-            </label>
-            <label
-              class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-start-2 md:row-span-1"
-            >
-              <div class="label">
-                <span class="label-text">Hora de entrega</span>
-              </div>
-              <input
-                type="time"
-                min="08:00"
-                max="20:00"
-                class="input input-bordered w-full"
-                name="deliveryTime"
-                id="deliveryTime"
-              />
-            </label>
-            <div
-              id="calendar"
-              class="md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-2 row-start-1 !w-full !p-0"
-            >
-            </div>
-            <input type="text" class="hidden" name="date" id="date" />
-          </div>
-          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
-            <span class="w-4">*</span>
-            <span class="">
-              Si desea alquilar por días, por favor seleccione un rango de
-              fechas en el calendario. En el caso de alquiler por horas,
-              seleccione el día deseado en el calendario. Para reservas que
-              excedan los 7 días, nos pondremos en contacto para ofrecerle una
-              oferta personalizada. Nuestro horario de atención es de 08:00 a
-              20:00 horas.
-            </span>
-          </div>
-        </fieldset>
-        <fieldset class="form-control py-6">
-          <legend class="text-base font-bold mb-6 float-left"
-            >Condiciones de reserva</legend
-          >
-          <div
-            class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-6 gap-y-4 xs:w-max"
-          >
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text">Precio del servicio de alquiler</span>
-              </div>
-              <input
-                type="text"
-                value="- €"
-                class="input input-bordered w-full text-right disabled"
-                readonly
-                name="rentalPrice"
-                id="rentalPrice"
-              />
-            </label>
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text">Fianza a depositar</span>
-              </div>
-              <input
-                type="text"
-                value="- €"
-                class="input input-bordered w-full text-right"
-                readonly
-                name="guarantee"
-                id="guarantee"
-              />
-            </label>
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text">Depósito de reserva</span>
-              </div>
-              <input
-                type="text"
-                value="- €"
-                class="input input-bordered w-full text-right disabled"
-                readonly
-                name="reservationAmount"
-                id="reservationAmount"
-              />
-            </label>
-            <label class="form-control md:w-72 xs:w-96">
-              <div class="label">
-                <span class="label-text"
-                  >Abono a la recogida (fianza incluida)</span
-                >
-              </div>
-              <input
-                type="text"
-                value="- €"
-                class="input input-bordered w-full text-right"
-                readonly
-                name="pickUpPaymentAmount"
-                id="pickUpPaymentAmount"
-              />
-            </label>
-          </div>
-          <div class="form-control max-w-screen-md w-fit text-sm mt-6">
-            <label class="label cursor-pointer max-md:pr-2">
-              <input
-                type="checkbox"
-                class="checkbox checkbox-sm mr-2"
-                name="contractAgreement"
-                id="contractAgreement"
-              />
-              <span class="label-text">
-                He leído y estoy de acuerdo con las <a
-                  href="/assets/la-pinta-documento-de-reserva.pdf"
-                  target="_blank"
-                  rel="bookmark"
-                  class="link link-primary"
-                  >Condiciones Generales del Acuerdo de Alquiler</a
-                > del remolque La Pinta.</span
-              >
-            </label>
-          </div>
-          <div class="form-control max-w-screen-md w-fit text-sm">
-            <label class="label cursor-pointer max-md:pr-2">
-              <input
-                type="checkbox"
-                class="checkbox checkbox-sm mr-2"
-                name="webAgreement"
-                id="webAgreement"
-              />
-              <span class="label-text">
-                He leído y estoy de acuerdo con los <a
-                  href="/terminos-de-uso"
-                  target="_blank"
-                  class="link link-primary"
-                  rel="bookmark">Términos de Uso</a
-                > y la
-                <a
-                  href="/politica-de-privacidad"
-                  target="_blank"
-                  rel="bookmark"
-                  class="link link-primary">Política de Privacidad</a
-                > de la web.</span
-              >
-            </label>
-          </div>
-          <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
-            <span class="w-4">*</span>
-            <span class="">
-              Por favor, tenga en cuenta que esta es una solicitud de reserva.
-              Nos comunicaremos con usted lo antes posible para confirmar la
-              disponibilidad del remolque y proporcionarle una forma de pago
-              para realizar el depósito y completar la reserva.
-            </span>
-          </div>
-        </fieldset>
-        <div
-          id="errorMessage"
-          class="hidden py-6 max-w-screen-md text-base text-error"
-        >
-          <span
-            >Algunos campos contienen errores. Por favor, revise los datos
-            introducidos en el formulario.</span
-          >
-        </div>
-        <div class="py-6 block">
-          <button class="btn btn-md btn-primary" type="submit"
-            >Enviar solicitud de reserva</button
-          >
-        </div>
-      </div>
-    </form>
-  </section>
-  <dialog id="modal_form" class="modal">
-    <div class="modal-box text-black">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          >✕</button
-        >
-      </form>
-      <div class="prose prose-base">
-        <h4 class="font-bold mb-4 text-lg">Solicitud de Reserva enviada</h4>
-        <p>
-          Gracias por enviar su solicitud de reserva del remolque La Pinta. En
-          breve, recibirá un correo de confirmación con los datos proporcionados
-          en el formulario.
-        </p>
-        <p>
-          Nos pondremos en contacto con usted muy pronto para confirmar la
-          reserva.
-        </p>
-      </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button></button>
-    </form>
-  </dialog>
-  <dialog id="modal_form_error" class="modal">
-    <div class="modal-box text-black">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          >✕</button
-        >
-      </form>
-      <div class="prose prose-base">
-        <h4 class="font-bold mb-4 text-lg">Error de Solicitud de Reserva</h4>
-        <p>
-          Se ha producido un error al enviar la solicitud de reserva del
-          remolque La Pinta. Por favor, inténtelo de nuevo. Si el problema
-          persiste, póngase en contacto con nosotros.
-        </p>
-        <ul class="list-none !pl-0">
-          <li class="!pl-0 !mb-4">
-            <a
-              href="tel:+34627139931"
-              class="btn btn-block btn-primary justify-start !m-0"
-            >
-              <Phone class="w-5 h-5 mr-1.5" />
-              <span> Llámanos: +34 627 139 931</span>
-            </a>
-          </li>
-          <li class="!pl-0">
-            <a
-              href="https://wa.me/627139931"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-block bg-green-500 text-white hover:bg-green-600 justify-start !m-0"
-            >
-              <Whatsapp class="w-5 h-5 mr-1.5" />
-              <span> WhatsApp: +34 627 139 931</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button></button>
-    </form>
-  </dialog>
-</div>
-
+<!-- calculadora de precio -->
 <script lang="js">
   const firstnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,30}$/;
   const lastnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,50}$/;
@@ -798,13 +422,13 @@ import Whatsapp from "../icons/Whatsapp.astro";
     })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
-        modal_form.showModal();
+        modalSuccess.showModal();
         form.reset();
         window.scrollTo(0, 0);
       })
       .catch((error) => {
         console.error(error);
-        modal_form_error.showModal();
+        modalError.showModal();
       });
   };
 </script>
@@ -987,3 +611,31 @@ import Whatsapp from "../icons/Whatsapp.astro";
         calendar.init();
       });
 `}></script>
+
+<div class="w-full h-full">
+  <section class="lg:py-8 lg:px-16 bg-slate-100" id="reserva">
+    <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
+      <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
+        <h2 class="xs:text-4xl text-2xl text-center mb-8">
+          {locales.title}
+        </h2>
+        <PersonalDataSection locales={locales.personalData} />
+        <BookingTypeSection locales={locales.bookingType} />
+        <DateTimeSection locales={locales.dateTime} />
+        <BookingConditionsSection locales={locales.bookingConditions} />
+        <div
+          id="errorMessage"
+          class="hidden py-6 max-w-screen-md text-base text-error"
+        >
+          <span>{locales.errorMessage}</span>
+        </div>
+
+        <div class="py-6 block">
+          <button class="btn btn-md btn-primary" type="submit"
+            >{locales.submitButton}</button
+          >
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

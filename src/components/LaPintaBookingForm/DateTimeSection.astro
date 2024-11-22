@@ -1,0 +1,57 @@
+---
+import type { Locales } from "../../interface";
+
+interface Props {
+  locales: Locales.BookingForm["dateTime"];
+}
+
+const { locales } = Astro.props;
+---
+
+<fieldset class="form-control py-6">
+  <legend class="text-base font-bold mb-6 float-left">{locales.title}</legend>
+  <div
+    class="grid md:grid-cols-[auto,auto] md:grod-rows-[auto,auto] gap-x-8 gap-y-4 xs:w-max"
+  >
+    <label
+      class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-span-1 md:self-end"
+    >
+      <div class="label">
+        <span class="label-text">{locales.fields.pickUpTime.label}</span>
+      </div>
+      <input
+        type="time"
+        min="08:00"
+        max="20:00"
+        class="input input-bordered w-full"
+        name="pickUpTime"
+        id="pickUpTime"
+      />
+    </label>
+    <label
+      class="form-control lg:w-72 md:w-40 xs:w-96 md:col-start-1 md:row-start-2 md:row-span-1"
+    >
+      <div class="label">
+        <span class="label-text">{locales.fields.deliveryTime.label}</span>
+      </div>
+      <input
+        type="time"
+        min="08:00"
+        max="20:00"
+        class="input input-bordered w-full"
+        name="deliveryTime"
+        id="deliveryTime"
+      />
+    </label>
+    <div
+      id="calendar"
+      class="md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-2 row-start-1 !w-full !p-0"
+    >
+    </div>
+    <input type="text" class="hidden" name="date" id="date" />
+  </div>
+  <div class="max-w-screen-md mt-6 flex text-sm max-md:pr-2">
+    <Fragment set:html={locales.disclaimer} />
+  </div>
+</fieldset>
+

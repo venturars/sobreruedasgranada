@@ -1,0 +1,24 @@
+---
+import type { Locales } from "../interface";
+
+const { locales } = Astro.props as { locales: Locales.ModalSuccess };
+---
+
+<dialog id="modalSuccess" class="modal">
+  <div class="modal-box text-black">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        >✕</button
+      >
+    </form>
+    <div class="prose prose-base">
+      <h4 class="font-bold mb-4 text-lg">
+        {locales.title}
+      </h4>
+      <Fragment set:html={locales.text} />
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button></button>
+  </form>
+</dialog>
