@@ -1,8 +1,9 @@
 ---
 import Phone from "../icons/Phone.astro";
 import Whatsapp from "../icons/Whatsapp.astro";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.ModalContact };
 ---
 
 <dialog id="modal_contact" class="modal">

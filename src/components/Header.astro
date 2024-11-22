@@ -2,14 +2,56 @@
 import { Image } from "astro:assets";
 import Phone from "../icons/Phone.astro";
 import Whatsapp from "../icons/Whatsapp.astro";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.Header };
 ---
 
-<header
-  class="bg-base-100 drop-shadow-md sticky top-[-1px] z-50"
-  transition:persist
->
+<script>
+  class AstroHeader extends HTMLElement {
+    private dropdownButton: HTMLElement;
+    private dropdownPanel: HTMLElement;
+
+    constructor() {
+      super();
+      this.handleDropdownClick = this.handleDropdownClick.bind(this);
+      this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    }
+
+    private handleDropdownClick(event: Event): void {
+      event.stopPropagation();
+      this.dropdownPanel.classList.toggle("hidden");
+    }
+
+    private handleDocumentClick(): void {
+      if (!this.dropdownPanel.classList.contains("hidden")) {
+        this.dropdownPanel.classList.add("hidden");
+      }
+    }
+
+    connectedCallback(): void {
+      this.dropdownButton = this.querySelector("#dropdown-btn");
+      this.dropdownPanel = this.querySelector("#dropdown-panel");
+
+      this.dropdownButton.addEventListener("click", this.handleDropdownClick, {
+        capture: true,
+      });
+      document.addEventListener("click", this.handleDocumentClick);
+    }
+
+    disconnectedCallback(): void {
+      this.dropdownButton.removeEventListener(
+        "click",
+        this.handleDropdownClick
+      );
+      document.removeEventListener("click", this.handleDocumentClick);
+    }
+  }
+
+  customElements.define("astro-header", AstroHeader);
+</script>
+
+<astro-header>
   <div class="navbar max-w-screen-xl mx-auto">
     <div class="navbar-start max-md:w-full">
       <nav class="dropdown dropdown-open">
@@ -46,17 +88,18 @@ const { locales } = Astro.props;
       <a
         class="md:btn md:btn-ghost md:block md:btn-square md:btn-md md:p-1.5"
         href="/"
-        ><Image
+      >
+        <Image
           src="/assets/logo.webp"
           alt="Logo de sobreruedasgranada"
           width="200"
           height="200"
           class="max-md:hidden"
         />
-        <span class="md:hidden max-2xs:hidden pl-1.5 block"
-          >{locales.mobileTitle}</span
-        ></a
-      >
+        <span class="md:hidden max-2xs:hidden pl-1.5 block">
+          {locales.mobileTitle}
+        </span>
+      </a>
     </div>
     <nav class="navbar-center hidden md:flex">
       <ul class="menu menu-horizontal px-1">
@@ -86,19 +129,4 @@ const { locales } = Astro.props;
       </button>
     </div>
   </div>
-</header>
-
-<script lang="js" type="module">
-  document.getElementById("dropdown-btn").addEventListener(
-    "click",
-    (event) => {
-      event.stopPropagation();
-      document.getElementById("dropdown-panel").classList.toggle("hidden");
-    },
-    { capture: true }
-  );
-  document.addEventListener("click", (event) => {
-    if (!document.getElementById("dropdown-panel").classList.contains("hidden"))
-      document.getElementById("dropdown-panel").classList.add("hidden");
-  });
-</script>
+</astro-header>

@@ -1,8 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import ArrowRight from "../icons/ArrowRight.astro";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.FirstView };
 ---
 
 <section

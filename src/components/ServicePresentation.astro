@@ -1,7 +1,16 @@
 ---
 import { Image } from "astro:assets";
+import type { Locales } from "../interface";
 
-const { locales, id, class: _class } = Astro.props;
+const {
+  locales,
+  id,
+  class: _class,
+} = Astro.props as {
+  locales: Locales.ServicePresentation;
+  id: string;
+  class: string;
+};
 ---
 
 <section id={id} class:list={["py-20 lg:px-16", _class]}>

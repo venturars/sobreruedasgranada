@@ -1,8 +1,46 @@
 ---
 import "leaflet/dist/leaflet.css";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.LocationSection };
 ---
+
+<script>
+  // @ts-ignore
+  import L from "leaflet";
+
+  class LeafletMap extends HTMLElement {
+    constructor() {
+      super();
+
+      const latlng = [
+        Number(this.dataset.latitude),
+        Number(this.dataset.longitude),
+      ];
+
+      var map = L.map(this.dataset.container, {
+        dragging: !L.Browser.mobile,
+        tap: !L.Browser.mobile,
+        scrollWheelZoom: false,
+      }).setView(latlng, Number(this.dataset.zoom));
+      L.tileLayer(this.dataset.tiles, {
+        attribution: this.dataset.attribution,
+      }).addTo(map);
+
+      L.circle(
+        [Number(this.dataset.latitude), Number(this.dataset.longitude)],
+        {
+          color: "red",
+          fillColor: "#f03",
+          fillOpacity: 0.5,
+          radius: 200,
+        }
+      ).addTo(map);
+    }
+  }
+
+  customElements.define("leaflet-map", LeafletMap);
+</script>
 
 <section class="xs:py-20 py-8 sm:px-16 bg-slate-100">
   <h2 class="xs:text-4xl text-2xl text-center mb-8">
@@ -35,40 +73,4 @@ const { locales } = Astro.props;
     >
     </div>
   </leaflet-map>
-  <script>
-    // @ts-ignore
-    import L from "leaflet";
-
-    class LeafletMap extends HTMLElement {
-      constructor() {
-        super();
-
-        const latlng = [
-          Number(this.dataset.latitude),
-          Number(this.dataset.longitude),
-        ];
-
-        var map = L.map(this.dataset.container, {
-          dragging: !L.Browser.mobile,
-          tap: !L.Browser.mobile,
-          scrollWheelZoom: false,
-        }).setView(latlng, Number(this.dataset.zoom));
-        L.tileLayer(this.dataset.tiles, {
-          attribution: this.dataset.attribution,
-        }).addTo(map);
-
-        L.circle(
-          [Number(this.dataset.latitude), Number(this.dataset.longitude)],
-          {
-            color: "red",
-            fillColor: "#f03",
-            fillOpacity: 0.5,
-            radius: 200,
-          }
-        ).addTo(map);
-      }
-    }
-
-    customElements.define("leaflet-map", LeafletMap);
-  </script>
 </section>

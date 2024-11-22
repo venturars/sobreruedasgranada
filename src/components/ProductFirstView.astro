@@ -2,189 +2,223 @@
 import { Image } from "astro:assets";
 import KeyboardArrowLeft from "../icons/KeyboardArrowLeft.astro";
 import KeyboardArrowRight from "../icons/KeyboardArrowRight.astro";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.FirstView };
 ---
 
-<section
-  class="py-9 max-xs:pt-0 2xl:px-0 px-16 max-md:px-4 max-xs:px-0 lg:h-[calc(100vh-68px)] lg:grid max-w-screen-xl mx-auto lg:grid-cols-2 md:gap-12 xl:gap-16"
->
-  <picture
-    class="grid place-content-center overflow-hidden max-lg:max-w-xl mx-auto max-lg:mb-9"
+<script>
+  class AstroProductFirstView extends HTMLElement {
+    private carousel: HTMLElement;
+    private carouselControls: HTMLElement;
+    private previousButton: HTMLButtonElement;
+    private nextButton: HTMLButtonElement;
+    private carouselItemsLength: number;
+    private imageSelectors: HTMLButtonElement[];
+    private observer: MutationObserver;
+
+    constructor() {
+      super();
+      this.handleSwipe = this.handleSwipe.bind(this);
+      this.handlePreviousClick = this.handlePreviousClick.bind(this);
+      this.handleNextClick = this.handleNextClick.bind(this);
+      this.handleCarouselChange = this.handleCarouselChange.bind(this);
+    }
+
+    private getCarouselPosition(): number {
+      return Number(this.carousel.getAttribute("data-carousel-position"));
+    }
+
+    private setCarouselPosition(position: number): void {
+      this.carousel.setAttribute("data-carousel-position", position.toString());
+    }
+
+    private handleSwipe(event: CustomEvent): void {
+      const position = this.getCarouselPosition();
+      const actions = {
+        right: () => {
+          if (position < 1) return;
+          this.setCarouselPosition(position - 1);
+        },
+        left: () => {
+          if (position + 1 >= this.carouselItemsLength) return;
+          this.setCarouselPosition(position + 1);
+        },
+      };
+
+      const action = actions[event.detail.dir];
+      if (action) action();
+    }
+
+    private handlePreviousClick(): void {
+      const position = this.getCarouselPosition();
+      if (position < 1) return;
+      this.setCarouselPosition(position - 1);
+    }
+
+    private handleNextClick(): void {
+      const position = this.getCarouselPosition();
+      if (position + 1 >= this.carouselItemsLength) return;
+      this.setCarouselPosition(position + 1);
+    }
+
+    private handleCarouselChange(): void {
+      const position = this.getCarouselPosition();
+
+      this.previousButton.disabled = position < 1;
+      this.nextButton.disabled = position + 1 >= this.carouselItemsLength;
+
+      this.carousel.style.left = `${position * -100}%`;
+      this.carouselControls.style.left = `${position * 100}%`;
+
+      this.imageSelectors.forEach((selector, index) => {
+        selector.style.opacity = position === index ? "50%" : "";
+      });
+    }
+
+    connectedCallback(): void {
+      // Initialize elements
+      this.carousel = this.querySelector("#carousel");
+      this.carouselControls = this.querySelector("#carousel-controls");
+      this.previousButton = this.querySelector("#control-previous");
+      this.nextButton = this.querySelector("#control-next");
+      this.carouselItemsLength = Number(
+        this.carousel.getAttribute("data-carousel-items")
+      );
+      this.imageSelectors = Array.from(
+        this.querySelectorAll("[id^='carousel-image-selector-']")
+      );
+
+      this.carousel.addEventListener(
+        "swiped",
+        this.handleSwipe as EventListener
+      );
+      this.previousButton.addEventListener("click", this.handlePreviousClick);
+      this.nextButton.addEventListener("click", this.handleNextClick);
+
+      this.imageSelectors.forEach((selector, index) => {
+        selector.addEventListener("click", () =>
+          this.setCarouselPosition(index)
+        );
+      });
+
+      this.observer = new MutationObserver(this.handleCarouselChange);
+      this.observer.observe(this.carousel, { attributes: true });
+    }
+
+    disconnectedCallback(): void {
+      this.carousel.removeEventListener(
+        "swiped",
+        this.handleSwipe as EventListener
+      );
+      this.previousButton.removeEventListener(
+        "click",
+        this.handlePreviousClick
+      );
+      this.nextButton.removeEventListener("click", this.handleNextClick);
+
+      this.imageSelectors.forEach((selector, index) => {
+        selector.removeEventListener("click", () =>
+          this.setCarouselPosition(index)
+        );
+      });
+
+      this.observer.disconnect();
+    }
+  }
+
+  customElements.define("astro-product-first-view", AstroProductFirstView);
+</script>
+
+<astro-product-first-view>
+  <section
+    class="py-9 max-xs:pt-0 2xl:px-0 px-16 max-md:px-4 max-xs:px-0 lg:h-[calc(100vh-68px)] lg:grid max-w-screen-xl mx-auto lg:grid-cols-2 md:gap-12 xl:gap-16"
   >
-    <div
-      class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
-      id="carousel"
-      data-carousel-items={locales.images.length}
-      data-carousel-position={0}
-      style={{ left: 0 }}
+    <picture
+      class="grid place-content-center overflow-hidden max-lg:max-w-xl mx-auto max-lg:mb-9"
     >
-      {
-        locales.images.map((image) => (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            width="3200"
-            height="3200"
-            class="aspect-1/1 xs:rounded-2xl"
-          />
-        ))
-      }
       <div
-        class="absolute bottom-0 w-full h-full flex justify-between items-center xs:px-3 px-2 transition-all duration-500 ease-in-out"
-        id="carousel-controls"
+        class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
+        id="carousel"
+        data-carousel-items={locales.images.length}
+        data-carousel-position={0}
         style={{ left: 0 }}
       >
-        <button
-          id="control-previous"
-          class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:opacity-35 transition-opacity"
-          disabled
+        {
+          locales.images.map((image) => (
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width="3200"
+              height="3200"
+              class="aspect-1/1 xs:rounded-2xl"
+            />
+          ))
+        }
+        <div
+          class="absolute bottom-0 w-full h-full flex justify-between items-center xs:px-3 px-2 transition-all duration-500 ease-in-out"
+          id="carousel-controls"
+          style={{ left: 0 }}
         >
-          <KeyboardArrowLeft class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
-        </button>
-        <button
-          id="control-next"
-          class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:!opacity-35 transition-opacity"
-        >
-          <KeyboardArrowRight class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
-        </button>
-        <div class="absolute bottom-0 left-0 w-full">
-          <div class="mx-auto w-fit grid grid-flow-col gap-1 py-2">
-            {
-              locales.images.map((image, i) => (
-                <button
-                  id={"carousel-image-selector-" + i}
-                  style={i === 0 && { opacity: "50%" }}
-                  class="w-6 h-6 bg-black opacity-35 hover:opacity-50 active:opacity-50 mask mask-squircle grid place-items-center transition-all"
-                >
-                  <div class="w-3 h-3 bg-white rounded-full" />
-                </button>
-              ))
-            }
+          <button
+            id="control-previous"
+            class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:opacity-35 transition-opacity"
+            disabled
+          >
+            <KeyboardArrowLeft class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+          </button>
+          <button
+            id="control-next"
+            class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:!opacity-35 transition-opacity"
+          >
+            <KeyboardArrowRight class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+          </button>
+          <div class="absolute bottom-0 left-0 w-full">
+            <div class="mx-auto w-fit grid grid-flow-col gap-1 py-2">
+              {
+                locales.images.map((image, i) => (
+                  <button
+                    id={"carousel-image-selector-" + i}
+                    style={i === 0 && { opacity: "50%" }}
+                    class="w-6 h-6 bg-black opacity-35 hover:opacity-50 active:opacity-50 mask mask-squircle grid place-items-center transition-all"
+                  >
+                    <div class="w-3 h-3 bg-white rounded-full" />
+                  </button>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </picture>
-  <div
-    class="prose md:prose-base mx-auto prose-sm prose-h1:text-2xl lg:prose-h1:text-3xl lg:py-9 max-xs:px-4"
-  >
-    <h1>{locales.title}</h1>
-    <Fragment set:html={locales.text} />
-    <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2 mt-9">
-      <div class="grid grid-cols-2 gap-3 max-xs:w-fit">
-        <a
-          href={locales.links.information.href}
-          rel={locales.links.information.rel}
-          class="btn btn-sm btn-accent min-w-max w-full"
+    </picture>
+    <div
+      class="prose md:prose-base mx-auto prose-sm prose-h1:text-2xl lg:prose-h1:text-3xl lg:py-9 max-xs:px-4"
+    >
+      <h1>{locales.title}</h1>
+      <Fragment set:html={locales.text} />
+      <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2 mt-9">
+        <div class="grid grid-cols-2 gap-3 max-xs:w-fit">
+          <a
+            href={locales.links.information.href}
+            rel={locales.links.information.rel}
+            class="btn btn-sm btn-accent min-w-max w-full"
+          >
+            {locales.links.information.text}
+          </a>
+          <a
+            href={locales.links.booking.href}
+            rel={locales.links.booking.rel}
+            class="btn btn-sm btn-primary w-max"
+          >
+            {locales.links.booking.text}
+          </a>
+        </div>
+        <div
+          class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-xs h-6 mt-auto"
         >
-          {locales.links.information.text}
-        </a>
-        <a
-          href={locales.links.booking.href}
-          rel={locales.links.booking.rel}
-          class="btn btn-sm btn-primary w-max"
-        >
-          {locales.links.booking.text}
-        </a>
-      </div>
-      <div
-        class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-xs h-6 mt-auto"
-      >
-        <span>{locales.labels.license}</span>
+          <span>{locales.labels.license}</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<script lang="js">
-  const carouselHTMLElement = document.getElementById("carousel");
-  const carouselItemsLength = Number(
-    carouselHTMLElement.getAttribute("data-carousel-items")
-  );
-
-  document.getElementById("carousel").addEventListener("swiped", function (e) {
-    const carouselPosition = Number(
-      carouselHTMLElement.getAttribute("data-carousel-position")
-    );
-
-    ({
-      right: () => {
-        if (carouselPosition < 1) return;
-        carouselHTMLElement.setAttribute(
-          "data-carousel-position",
-          carouselPosition - 1
-        );
-      },
-      left: () => {
-        if (carouselPosition + 1 >= carouselItemsLength) return;
-        carouselHTMLElement.setAttribute(
-          "data-carousel-position",
-          carouselPosition + 1
-        );
-      },
-    })[e.detail.dir]();
-  });
-
-  document.getElementById("control-previous").addEventListener("click", () => {
-    const carouselPosition = Number(
-      carouselHTMLElement.getAttribute("data-carousel-position")
-    );
-    if (carouselPosition < 1) return;
-    carouselHTMLElement.setAttribute(
-      "data-carousel-position",
-      carouselPosition - 1
-    );
-  });
-
-  document.getElementById("control-next").addEventListener("click", () => {
-    const carouselPosition = Number(
-      carouselHTMLElement.getAttribute("data-carousel-position")
-    );
-    const carouselItemsLength = Number(
-      carouselHTMLElement.getAttribute("data-carousel-items")
-    );
-    if (carouselPosition + 1 >= carouselItemsLength) return;
-    carouselHTMLElement.setAttribute(
-      "data-carousel-position",
-      carouselPosition + 1
-    );
-  });
-  for (let i = 0; i < carouselItemsLength; i++)
-    document
-      .getElementById("carousel-image-selector-" + i)
-      .addEventListener("click", () => {
-        carouselHTMLElement.setAttribute("data-carousel-position", i);
-      });
-
-  const observer = new MutationObserver(() => {
-    const carouselPosition = Number(
-      document.getElementById("carousel").getAttribute("data-carousel-position")
-    );
-    const carouselItemsLength = Number(
-      carouselHTMLElement.getAttribute("data-carousel-items")
-    );
-    const carouselControlsHTMLElement =
-      document.getElementById("carousel-controls");
-
-    document.getElementById("control-previous").disabled = carouselPosition < 1;
-    document.getElementById("control-next").disabled =
-      carouselPosition + 1 >= carouselItemsLength;
-
-    carouselHTMLElement.style.left = carouselPosition * -100 + "%";
-    carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
-
-    for (let i = 0; i < carouselItemsLength; i++) {
-      if (carouselPosition === i)
-        document.getElementById("carousel-image-selector-" + i).style.opacity =
-          "50%";
-      else
-        document.getElementById("carousel-image-selector-" + i).style.opacity =
-          "";
-    }
-  });
-
-  observer.observe(document.getElementById("carousel"), {
-    attributes: true,
-  });
-</script>
+  </section>
+</astro-product-first-view>

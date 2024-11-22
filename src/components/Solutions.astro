@@ -1,7 +1,11 @@
 ---
 import { Image } from "astro:assets";
+import type { Locales } from "../interface";
 
-const { locales, id } = Astro.props;
+const { locales, id } = Astro.props as {
+  locales: Locales.SolutionsSection;
+  id: string;
+};
 ---
 
 <section id={id} class="py-20 lg:px-16">

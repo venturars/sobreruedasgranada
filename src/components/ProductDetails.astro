@@ -1,5 +1,7 @@
 ---
-const { locales } = Astro.props;
+import type { Locales } from "../interface";
+
+const { locales } = Astro.props as { locales: Locales.ProductDetails };
 ---
 
 <div class="w-full h-full">

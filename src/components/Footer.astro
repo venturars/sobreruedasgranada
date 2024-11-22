@@ -1,8 +1,9 @@
 ---
 import Phone from "../icons/Phone.astro";
 import Email from "../icons/Email.astro";
+import type { Locales } from "../interface";
 
-const { locales } = Astro.props;
+const { locales } = Astro.props as { locales: Locales.Footer };
 ---
 
 <footer

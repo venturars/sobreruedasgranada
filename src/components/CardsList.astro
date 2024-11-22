@@ -2,214 +2,258 @@
 import { Image } from "astro:assets";
 import KeyboardArrowLeft from "../icons/KeyboardArrowLeft.astro";
 import KeyboardArrowRight from "../icons/KeyboardArrowRight.astro";
+import type { Locales } from "../interface";
 
-const { locales, id } = Astro.props;
+const { locales, id } = Astro.props as {
+  locales: Locales.ProductsSection;
+  id: string;
+};
 ---
 
-<section id={id} class="py-20 sm:px-16">
-  <h2 class="xs:text-4xl text-2xl text-center mb-8">
-    {locales.title}
-  </h2>
-  <div id="productList" class="max-w-screen-lg mx-auto grid gap-8">
-    {
-      locales.products.map((trailer, i) => (
-        <article
-          class:list={[
-            "sm:max-lg:max-w-[480px] max-lg:mx-auto relative grid lg:gap-8 overflow-hidden sm:rounded-xl bg-white sm:shadow sm:shadow-lg sm:border-slate-50 sm:border-[1px]",
-            i % 2 === 0
-              ? "lg:grid-cols-[calc(40%-16px),calc(60%-16px)]"
-              : "lg:grid-cols-[calc(60%-16px),calc(40%-16px)]",
-          ]}
-        >
-          {!(i === 0) && (
-            <div class="z-10 bg-slate-100 h-full w-full absolute top-0 left-0 grid content-center">
-              <span class="text-green-700 text-4xl text-center underline underline-offset-8 -rotate-12 px-3">
-                Próximamente disponible
-              </span>
-            </div>
-          )}
-          <div
+<script>
+  class AstroCardsList extends HTMLElement {
+    private carousels: HTMLElement[] = [];
+    private carouselControls: HTMLElement[] = [];
+    private previousButtons: HTMLButtonElement[] = [];
+    private nextButtons: HTMLButtonElement[] = [];
+    private carouselItemsLengths: number[] = [];
+    private observers: MutationObserver[] = [];
+
+    constructor() {
+      super();
+      this.handleSwipe = this.handleSwipe.bind(this);
+      this.handlePreviousClick = this.handlePreviousClick.bind(this);
+      this.handleNextClick = this.handleNextClick.bind(this);
+      this.handleCarouselChange = this.handleCarouselChange.bind(this);
+    }
+
+    private getCarouselPosition(index: number): number {
+      return Number(
+        this.carousels[index].getAttribute("data-carousel-position")
+      );
+    }
+
+    private setCarouselPosition(index: number, position: number): void {
+      this.carousels[index].setAttribute(
+        "data-carousel-position",
+        position.toString()
+      );
+    }
+
+    private handleSwipe(event: CustomEvent, index: number): void {
+      const position = this.getCarouselPosition(index);
+      const actions = {
+        right: () => {
+          if (position < 1) return;
+          this.setCarouselPosition(index, position - 1);
+        },
+        left: () => {
+          if (position + 1 >= this.carouselItemsLengths[index]) return;
+          this.setCarouselPosition(index, position + 1);
+        },
+      };
+
+      const action = actions[event.detail.dir];
+      if (action) action();
+    }
+
+    private handlePreviousClick(index: number): void {
+      const position = this.getCarouselPosition(index);
+      if (position < 1) return;
+      this.setCarouselPosition(index, position - 1);
+    }
+
+    private handleNextClick(index: number): void {
+      const position = this.getCarouselPosition(index);
+      if (position + 1 >= this.carouselItemsLengths[index]) return;
+      this.setCarouselPosition(index, position + 1);
+    }
+
+    private handleCarouselChange(index: number): void {
+      const position = this.getCarouselPosition(index);
+      const itemsLength = this.carouselItemsLengths[index];
+
+      if (this.previousButtons[index]) {
+        this.previousButtons[index].disabled = position < 1;
+      }
+      if (this.nextButtons[index]) {
+        this.nextButtons[index].disabled = position + 1 >= itemsLength;
+      }
+
+      if (this.carousels[index]) {
+        this.carousels[index].style.left = `${position * -100}%`;
+      }
+      if (this.carouselControls[index]) {
+        this.carouselControls[index].style.left = `${position * 100}%`;
+      }
+    }
+
+    connectedCallback(): void {
+      const productList = this.querySelector("#productList");
+      const carouselCount = productList.children.length;
+
+      for (let index = 0; index < carouselCount; index++) {
+        this.carousels[index] = this.querySelector(`#carousel-${index}`);
+        this.carouselControls[index] = this.querySelector(
+          `#carousel-controls-${index}`
+        );
+        this.previousButtons[index] = this.querySelector(
+          `#control-previous-${index}`
+        );
+        this.nextButtons[index] = this.querySelector(`#control-next-${index}`);
+
+        this.carouselItemsLengths[index] = Number(
+          this.carousels[index].getAttribute("data-carousel-items")
+        );
+
+        this.carousels[index].addEventListener("swiped", (event) =>
+          this.handleSwipe(event as CustomEvent, index)
+        );
+
+        this.previousButtons[index].addEventListener("click", () =>
+          this.handlePreviousClick(index)
+        );
+
+        this.nextButtons[index].addEventListener("click", () =>
+          this.handleNextClick(index)
+        );
+
+        const observer = new MutationObserver(() =>
+          this.handleCarouselChange(index)
+        );
+        observer.observe(this.carousels[index], { attributes: true });
+        this.observers.push(observer);
+      }
+    }
+
+    disconnectedCallback(): void {
+      this.carousels.forEach((carousel, index) => {
+        carousel?.removeEventListener("swiped", (e) =>
+          this.handleSwipe(e as CustomEvent, index)
+        );
+        this.previousButtons[index]?.removeEventListener("click", () =>
+          this.handlePreviousClick(index)
+        );
+        this.nextButtons[index]?.removeEventListener("click", () =>
+          this.handleNextClick(index)
+        );
+      });
+
+      this.observers.forEach((observer) => observer.disconnect());
+      this.observers = [];
+    }
+  }
+
+  customElements.define("astro-cards-list", AstroCardsList);
+</script>
+
+<astro-cards-list>
+  <section id={id} class="py-20 sm:px-16">
+    <h2 class="xs:text-4xl text-2xl text-center mb-8">
+      {locales.title}
+    </h2>
+    <div id="productList" class="max-w-screen-lg mx-auto grid gap-8">
+      {
+        locales.products.map((trailer, i) => (
+          <article
             class:list={[
-              "lg:row-start-1 row-start-2 pt-6 lg:pb-8 pb-4 px-4 flex flex-col justify-between max-md:bg-slate-100",
-              i % 2 === 0 ? "lg:col-start-2 lg:pr-6" : "lg:col-start-1 lg:pl-6",
-            ]}
-          >
-            <div class="lg:prose prose-sm">
-              <h3>{trailer.title}</h3>
-              <div>
-                <Fragment set:html={trailer.description} />
-              </div>
-            </div>
-            <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2">
-              <div class="grid grid-cols-2 gap-3 max-xs:row-start-2 max-xs:w-fit">
-                <a
-                  href={trailer.links.information.href}
-                  rel={trailer.links.information.rel}
-                  class="btn btn-sm btn-accent w-max"
-                >
-                  {trailer.links.information.text}
-                </a>
-                <a
-                  href={trailer.links.booking.href}
-                  rel={trailer.links.booking.rel}
-                  class="btn btn-sm btn-primary w-max"
-                >
-                  {trailer.links.booking.text}
-                </a>
-              </div>
-              <div class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-xs h-6 mt-auto">
-                <span>{trailer.labels.license}</span>
-              </div>
-            </div>
-          </div>
-          <picture
-            class:list={[
-              "row-start-1 h-full bg-slate-200 overflow-hidden grid place-content-center",
+              "sm:max-lg:max-w-[480px] max-lg:mx-auto relative grid lg:gap-8 overflow-hidden sm:rounded-xl bg-white sm:shadow sm:shadow-lg sm:border-slate-50 sm:border-[1px]",
               i % 2 === 0
-                ? "lg:col-start-1 lg:rounded-tl-xl lg:rounded-bl-xl sm:max-lg:rounded-xl"
-                : "lg:col-start-2 lg:rounded-tr-xl lg:rounded-br-xl sm:max-lg:rounded-xl",
+                ? "lg:grid-cols-[calc(40%-16px),calc(60%-16px)]"
+                : "lg:grid-cols-[calc(60%-16px),calc(40%-16px)]",
             ]}
           >
+            {!(i === 0) && (
+              <div class="z-10 bg-slate-100 h-full w-full absolute top-0 left-0 grid content-center">
+                <span class="text-green-700 text-4xl text-center underline underline-offset-8 -rotate-12 px-3">
+                  Próximamente disponible
+                </span>
+              </div>
+            )}
             <div
-              class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
-              id={"carousel-" + i}
-              data-carousel-items={trailer.images.length}
-              data-carousel-position={0}
-              style={{ left: 0 }}
+              class:list={[
+                "lg:row-start-1 row-start-2 pt-6 lg:pb-8 pb-4 px-4 flex flex-col justify-between max-md:bg-slate-100",
+                i % 2 === 0
+                  ? "lg:col-start-2 lg:pr-6"
+                  : "lg:col-start-1 lg:pl-6",
+              ]}
             >
-              {trailer.images.map((image) => (
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  class="aspect-1/1"
-                  width="3024"
-                  height="3024"
-                />
-              ))}
+              <div class="lg:prose prose-sm">
+                <h3>{trailer.title}</h3>
+                <div>
+                  <Fragment set:html={trailer.description} />
+                </div>
+              </div>
+              <div class="grid xs:grid-cols-[auto,1fr] gap-3 max-xs:grid-rows-2">
+                <div class="grid grid-cols-2 gap-3 max-xs:row-start-2 max-xs:w-fit">
+                  <a
+                    href={trailer.links.information.href}
+                    rel={trailer.links.information.rel}
+                    class="btn btn-sm btn-accent w-max"
+                  >
+                    {trailer.links.information.text}
+                  </a>
+                  <a
+                    href={trailer.links.booking.href}
+                    rel={trailer.links.booking.rel}
+                    class="btn btn-sm btn-primary w-max"
+                  >
+                    {trailer.links.booking.text}
+                  </a>
+                </div>
+                <div class="grid place-content-center border-green-300 border-2 bg-green-100 px-2 rounded-md w-fit xs:ml-auto text-xs h-6 mt-auto">
+                  <span>{trailer.labels.license}</span>
+                </div>
+              </div>
+            </div>
+            <picture
+              class:list={[
+                "row-start-1 h-full bg-slate-200 overflow-hidden grid place-content-center",
+                i % 2 === 0
+                  ? "lg:col-start-1 lg:rounded-tl-xl lg:rounded-bl-xl sm:max-lg:rounded-xl"
+                  : "lg:col-start-2 lg:rounded-tr-xl lg:rounded-br-xl sm:max-lg:rounded-xl",
+              ]}
+            >
               <div
-                class="absolute bottom-0 w-full h-full flex justify-between items-center xs:px-3 px-2 transition-all duration-500 ease-in-out"
-                id={"carousel-controls-" + i}
+                class="lg:min-w-96 place-self-center flex relative transition-all duration-500 ease-in-out"
+                id={"carousel-" + i}
+                data-carousel-items={trailer.images.length}
+                data-carousel-position={0}
                 style={{ left: 0 }}
               >
-                <button
-                  id={"control-previous-" + i}
-                  class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:opacity-35 transition-opacity"
-                  disabled
+                {trailer.images.map((image) => (
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    class="aspect-1/1"
+                    width="3024"
+                    height="3024"
+                  />
+                ))}
+                <div
+                  class="absolute bottom-0 w-full h-full flex justify-between items-center xs:px-3 px-2 transition-all duration-500 ease-in-out"
+                  id={"carousel-controls-" + i}
+                  style={{ left: 0 }}
                 >
-                  <KeyboardArrowLeft class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
-                </button>
-                <button
-                  id={"control-next-" + i}
-                  class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:!opacity-35 transition-opacity"
-                >
-                  <KeyboardArrowRight class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
-                </button>
+                  <button
+                    id={"control-previous-" + i}
+                    class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:opacity-35 transition-opacity"
+                    disabled
+                  >
+                    <KeyboardArrowLeft class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+                  </button>
+                  <button
+                    id={"control-next-" + i}
+                    class="h-fit bg-black opacity-35 mask mask-squircle hover:opacity-50 active:opacity-50 disabled:!opacity-35 transition-opacity"
+                  >
+                    <KeyboardArrowRight class="xs:w-12 xs:h-12 w-10 h-10 fill-white" />
+                  </button>
+                </div>
               </div>
-            </div>
-          </picture>
-        </article>
-      ))
-    }
-  </div>
-</section>
-
-<script lang="js">
-  const whenDOMChangesDo = (callback) => {
-    const body = document.body;
-    const observer = new MutationObserver(() => {
-      callback();
-    });
-    const config = { childList: true, attributes: true };
-    observer.observe(body, config);
-  };
-
-  const createCarousel = (id) => {
-    for (let i = 0; i < document.getElementById(id).children.length; i++) {
-      const carouselHTMLElement = document.getElementById("carousel-" + i);
-
-      document
-        .getElementById("carousel-" + i)
-        .addEventListener("swiped", function (e) {
-          const carouselPosition = Number(
-            carouselHTMLElement.getAttribute("data-carousel-position")
-          );
-          const carouselItemsLength = Number(
-            carouselHTMLElement.getAttribute("data-carousel-items")
-          );
-
-          ({
-            right: () => {
-              if (carouselPosition < 1) return;
-              carouselHTMLElement.setAttribute(
-                "data-carousel-position",
-                carouselPosition - 1
-              );
-            },
-            left: () => {
-              if (carouselPosition + 1 >= carouselItemsLength) return;
-              carouselHTMLElement.setAttribute(
-                "data-carousel-position",
-                carouselPosition + 1
-              );
-            },
-          })[e.detail.dir]();
-        });
-
-      document
-        .getElementById("control-previous-" + i)
-        .addEventListener("click", () => {
-          const carouselPosition = Number(
-            carouselHTMLElement.getAttribute("data-carousel-position")
-          );
-          if (carouselPosition < 1) return;
-          carouselHTMLElement.setAttribute(
-            "data-carousel-position",
-            carouselPosition - 1
-          );
-        });
-
-      document
-        .getElementById("control-next-" + i)
-        .addEventListener("click", () => {
-          const carouselPosition = Number(
-            carouselHTMLElement.getAttribute("data-carousel-position")
-          );
-          const carouselItemsLength = Number(
-            carouselHTMLElement.getAttribute("data-carousel-items")
-          );
-          if (carouselPosition + 1 >= carouselItemsLength) return;
-          carouselHTMLElement.setAttribute(
-            "data-carousel-position",
-            carouselPosition + 1
-          );
-        });
-
-      const observer = new MutationObserver(() => {
-        const carouselPosition = Number(
-          document
-            .getElementById("carousel-" + i)
-            .getAttribute("data-carousel-position")
-        );
-        const carouselItemsLength = Number(
-          carouselHTMLElement.getAttribute("data-carousel-items")
-        );
-        const carouselControlsHTMLElement = document.getElementById(
-          "carousel-controls-" + i
-        );
-
-        document.getElementById("control-previous-" + i).disabled =
-          carouselPosition < 1;
-        document.getElementById("control-next-" + i).disabled =
-          carouselPosition + 1 >= carouselItemsLength;
-
-        carouselHTMLElement.style.left = carouselPosition * -100 + "%";
-        carouselControlsHTMLElement.style.left = carouselPosition * 100 + "%";
-      });
-
-      observer.observe(document.getElementById("carousel-" + i), {
-        attributes: true,
-      });
-    }
-  };
-  createCarousel("productList");
-</script>
+            </picture>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</astro-cards-list>
