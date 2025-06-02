@@ -1,0 +1,518 @@
+---
+import "../../styles/vanilla-calendar.css";
+import type { Locales } from "../../interface";
+import PersonalDataSection from "./PersonalDataSection.astro";
+import BookingTypeSection from "./BookingTypeSection.astro";
+import DateTimeSection from "./DateTimeSection.astro";
+import BookingConditionsSection from "./BookingConditionsSection.astro";
+
+const { locales } = Astro.props as { locales: Locales.BookingForm };
+---
+
+<!-- calculadora de precio -->
+<script lang="js">
+  const firstnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,30}$/;
+  const lastnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,50}$/;
+  const dniRegex = /^\d{8}[a-zA-Z]$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[6|7][0-9]{8}$/;
+
+  const form = document.getElementById("bookingForm");
+
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === "data-rent-is-calculable") {
+        const form = document.getElementById("bookingForm");
+        const newValue = form.getAttribute("data-rent-is-calculable");
+        if (newValue === "true") {
+          const accessories = form.accessories.value === "Sí";
+          const days = JSON.parse(form.date.value);
+          const festDays = [
+            "2024-11-01",
+            "2024-12-06",
+            "2024-12-07",
+            "2024-12-08",
+            "2024-12-09",
+            "2024-12-24",
+            "2024-12-25",
+            "2024-12-26",
+            "2024-12-27",
+            "2024-12-28",
+            "2024-12-29",
+            "2024-12-30",
+            "2024-12-31",
+            "2025-01-01",
+            "2025-01-02",
+            "2025-01-03",
+            "2025-01-04",
+            "2025-01-05",
+            "2025-01-06",
+            "2025-02-28",
+            "2025-03-01",
+            "2025-03-02",
+            "2025-04-17",
+            "2025-04-18",
+            "2025-04-19",
+            "2025-04-20",
+            "2025-05-01",
+            "2025-05-02",
+            "2025-05-03",
+            "2025-05-04",
+            "2025-06-16",
+            "2025-06-17",
+            "2025-06-18",
+            "2025-06-19",
+            "2025-06-20",
+            "2025-06-21",
+            "2025-06-20",
+            "2025-06-21",
+            "2025-06-22",
+            "2025-08-15",
+            "2025-08-16",
+            "2025-08-17",
+            "2025-10-12",
+            "2025-11-01",
+            "2025-11-02",
+            "2025-12-06",
+            "2025-12-07",
+            "2025-12-08",
+            "2025-12-24",
+            "2025-12-25",
+            "2025-12-26",
+            "2025-12-27",
+            "2025-12-28",
+            "2025-12-29",
+            "2025-12-30",
+            "2025-12-31",
+          ];
+
+          let totalRentalPrice = 0;
+
+          if (form.rentType.value === "Alquiler por horas") {
+            const firstDay = days[0];
+            const isHoliday = festDays.includes(firstDay);
+            const isWeekend =
+              new Date(firstDay).getDay() === 0 ||
+              new Date(firstDay).getDay() === 6;
+
+            if (
+              (isHoliday || isWeekend) &&
+              hasFiveHoursDifference(
+                form.pickUpTime.value,
+                form.deliveryTime.value
+              )
+            ) {
+              totalRentalPrice = 35;
+            } else if (isHoliday || isWeekend) {
+              totalRentalPrice = 30;
+            } else if (
+              hasFiveHoursDifference(
+                form.pickUpTime.value,
+                form.deliveryTime.value
+              )
+            ) {
+              totalRentalPrice = 25;
+            } else {
+              totalRentalPrice = 25;
+            }
+          } else if (
+            form.rentType.value === "Alquiler por días" &&
+            days.length <= 8
+          ) {
+            const pickUpTime = form.pickUpTime.value;
+            const deliveryTime = form.deliveryTime.value;
+            const pickUpDate = new Date(`2000-01-01T${pickUpTime}`);
+            const deliveryDate = new Date(`2000-01-01T${deliveryTime}`);
+
+            const daysDifference = Math.max(
+              1,
+              Math.ceil(
+                (new Date(days[days.length - 1]).getTime() -
+                  new Date(days[0]).getTime()) /
+                  (1000 * 60 * 60 * 24)
+              )
+            );
+
+            const isFullWeekend =
+              new Date(days[0]).getDay() === 5 &&
+              (new Date(days[days.length - 1]).getDay() === 0 ||
+                (new Date(days[days.length - 1]).getDay() === 1 &&
+                  deliveryDate.getHours() <= 10));
+            const isFullWeek =
+              (daysDifference === 6 && deliveryDate.getHours() > 10) ||
+              daysDifference === 7;
+            const countHolidays = days.filter(
+              (day) =>
+                festDays.includes(day) ||
+                new Date(day).getDay() === 6 ||
+                new Date(day).getDay() === 0
+            ).length;
+
+            if (isFullWeek) {
+              totalRentalPrice =
+                (new Date(days[0]).getDay() === 5 ||
+                new Date(days[0]).getDay() === 6
+                  ? 130
+                  : 120) +
+                days.filter((day) => festDays.includes(day)).length * 10;
+            } else if (isFullWeekend) {
+              totalRentalPrice = 60;
+            } else {
+              let firstDayPrice = countHolidays ? 35 : 25;
+              if (daysDifference === 1 && deliveryDate.getHours() <= 10)
+                totalRentalPrice = firstDayPrice;
+              else if (deliveryDate.getHours() <= 10)
+                totalRentalPrice =
+                  firstDayPrice + 15 * (daysDifference - 1) + 5 * countHolidays;
+              else
+                totalRentalPrice =
+                  firstDayPrice + 15 * daysDifference + 5 * countHolidays;
+            }
+          }
+
+          const rentalPrice = totalRentalPrice + (accessories ? 5 : 0);
+          const guarantee = days.length > 8 ? 200 : 150;
+          const reservationAmount = rentalPrice > 100 ? 100 : rentalPrice;
+          const pickUpPaymentAmount =
+            rentalPrice + guarantee - reservationAmount;
+
+          form.rentalPrice.value =
+            days.length > 8 ? "Precio personalizado" : `${rentalPrice} €`;
+          form.guarantee.value = `${guarantee} €`;
+          form.reservationAmount.value =
+            days.length > 8 ? "Precio personalizado" : `${reservationAmount} €`;
+          form.pickUpPaymentAmount.value =
+            days.length > 8
+              ? "Precio personalizado"
+              : `${pickUpPaymentAmount} €`;
+        }
+        if (newValue === "false") {
+          form.rentalPrice.value = "- €";
+          form.guarantee.value = "- €";
+          form.reservationAmount.value = "- €";
+          form.pickUpPaymentAmount.value = "- €";
+        }
+      }
+    }
+  });
+
+  observer.observe(form, { attributes: true });
+
+  form.onsubmit = (event) => {
+    event.preventDefault();
+
+    let isValid = true;
+
+    document.getElementById("errorMessage").classList.add("hidden");
+
+    if (!firstnameRegex.test(event.target.firstname.value)) {
+      event.target.firstname.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (!lastnameRegex.test(event.target.lastname.value)) {
+      event.target.lastname.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (!emailRegex.test(event.target.email.value)) {
+      event.target.email.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (!dniRegex.test(event.target.dni.value)) {
+      event.target.dni.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (!phoneRegex.test(event.target.phone.value)) {
+      event.target.phone.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (event.target.rentType.value === "Seleccione una opción") {
+      event.target.rentType.classList.add("select-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (event.target.accessories.value === "Seleccione una opción") {
+      event.target.accessories.classList.add("select-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (
+      !(
+        event.target.pickUpTime.value >= "08:00" &&
+        event.target.pickUpTime.value <= "20:00" &&
+        (event.target.rentType.value === "Alquiler por horas"
+          ? event.target.pickUpTime.value <
+            (event.target.deliveryTime.value || "20:00")
+          : true)
+      )
+    ) {
+      event.target.pickUpTime.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (
+      !(
+        event.target.deliveryTime.value >= "08:00" &&
+        event.target.deliveryTime.value <= "20:00" &&
+        (event.target.rentType.value === "Alquiler por horas"
+          ? event.target.pickUpTime.value < event.target.deliveryTime.value
+          : true)
+      )
+    ) {
+      event.target.deliveryTime.classList.add("input-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (
+      event.target.date.value === "" ||
+      (event.target.rentType.value === "Alquiler por días" &&
+        JSON.parse(event.target.date.value).length < 2)
+    ) {
+      document
+        .getElementById("calendar")
+        .classList.add("outline", "outline-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      event.target.date.value = " ";
+      isValid = false;
+    }
+    if (!event.target.contractAgreement.checked) {
+      event.target.contractAgreement.classList.add("checkbox-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+    if (!event.target.webAgreement.checked) {
+      event.target.webAgreement.classList.add("checkbox-error");
+      document.getElementById("errorMessage").classList.remove("hidden");
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    const formData = new FormData(form);
+    fetch("/api/remolques/la-pinta", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        modalSuccess.showModal();
+        form.reset();
+        window.scrollTo(0, 0);
+      })
+      .catch((error) => {
+        console.error(error);
+        modalError.showModal();
+      });
+  };
+</script>
+
+<script
+  src="/scripts/vanilla-calendar.js"
+  defer
+  onload={`
+    function getDate(date) {
+      const today = new Date();
+      const futureDate = new Date(today);
+      if (date === "tommorrow") futureDate.setDate(today.getDate() + 1);
+      else futureDate.setMonth(today.getMonth() + 3);
+    
+      const dd = String(futureDate.getDate()).padStart(2, "0");
+      const mm = String(futureDate.getMonth() + 1).padStart(2, "0"); // January is 0!
+      const yyyy = futureDate.getFullYear();
+    
+      return yyyy + "-" + mm + "-" + dd;
+    }
+    
+    function isMobile() {
+      return window.innerWidth < 640 ;
+    }
+
+    const festDays = [
+            "2024-05-29",
+            "2024-05-30",
+            "2024-05-31",
+            "2024-06-01",
+            "2024-06-02",
+            "2024-08-15",
+            "2024-08-16",
+            "2024-10-11",
+            "2024-10-12",
+            "2024-11-01",
+            "2024-12-06",
+            "2024-12-07",
+            "2024-12-08",
+            "2024-12-09",
+            "2024-12-24",
+            "2024-12-25",
+            "2024-12-26",
+            "2024-12-27",
+            "2024-12-28",
+            "2024-12-29",
+            "2024-12-30",
+            "2024-12-31",
+            "2025-01-01",
+            "2025-01-02",
+            "2025-01-03",
+            "2025-01-04",
+            "2025-01-05",
+            "2025-01-06",
+            "2025-02-28",
+            "2025-03-01",
+            "2025-03-02",
+            "2025-04-17",
+            "2025-04-18",
+            "2025-04-19",
+            "2025-04-20",
+            "2025-05-01",
+            "2025-05-02",
+            "2025-05-03",
+            "2025-05-04",
+            "2025-06-16",
+            "2025-06-17",
+            "2025-06-18",
+            "2025-06-19",
+            "2025-06-20",
+            "2025-06-21",
+            "2025-06-20",
+            "2025-06-21",
+            "2025-06-22",
+            "2025-08-15",
+            "2025-08-16",
+            "2025-08-17",
+            "2025-10-12",
+            "2025-11-01",
+            "2025-11-02",
+            "2025-12-06",
+            "2025-12-07",
+            "2025-12-08",
+            "2025-12-24",
+            "2025-12-25",
+            "2025-12-26",
+            "2025-12-27",
+            "2025-12-28",
+            "2025-12-29",
+            "2025-12-30",
+            "2025-12-31",
+          ];
+    
+    const notAvailableDays = ["2024-05-12", "2024-05-13"];
+    
+    const calendar = new VanillaCalendar("#calendar", {
+      type: isMobile() ? 'default' : "multiple",
+      months: isMobile() ? 1 : 2,
+      jumpMonths: isMobile() ? 1 : 2,
+      date: {
+        min: getDate("tommorrow"),
+        max: getDate("3MonthsAhead"),
+      },
+      settings: {
+        range: {
+          disableGaps: true,
+          disabled: notAvailableDays,
+        },
+        selected: {
+          holidays: festDays,
+        },
+        selection: {
+          day: "single",
+        },
+        visibility: {
+          theme: "light",
+          today: false,
+          daysOutside: false,
+        },
+      },
+      actions: {
+        clickDay(e, self) {
+          const form = document.getElementById("bookingForm")
+          const tryToCalcRentPrice = () => {
+            if (
+              form.accessories.value === "Seleccione una opción" ||
+              form.pickUpTime.value === "" ||
+              form.deliveryTime.value === "" ||
+              form.date.value === "" ||
+              form.date.value === " " ||
+              form.rentType.value === "Seleccione una opción" ||
+              form.pickUpTime.value < "08:00" ||
+              form.pickUpTime.value > "20:00" ||
+              form.deliveryTime.value < "08:00" ||
+              form.deliveryTime.value > "20:00" ||
+              (form.rentType.value === "Alquiler por horas" &&
+                form.pickUpTime.value > form.deliveryTime.value) ||
+              (form.rentType.value === "Alquiler por días" &&
+                JSON.parse(form.date.value).length < 2)
+            )
+              form.dataset.rentIsCalculable = false;
+            else form.dataset.rentIsCalculable = true;
+          };
+
+          if (form.rentType.value === 'Alquiler por horas'){
+            form.date.value = self.selectedDates.length > 0 ? JSON.stringify(self.selectedDates) : ''
+            document.getElementById("calendar").classList.remove('outline', 'outline-error')
+          }
+          if (form.rentType.value === 'Alquiler por días') {
+            form.date.value = self.selectedDates.length > 1 ? JSON.stringify(self.selectedDates) : ''
+            document.getElementById("calendar").classList.remove('outline', 'outline-error')
+          }
+
+          tryToCalcRentPrice()
+        },
+      },
+    });
+
+    calendar.init();
+    
+    window.addEventListener("resize", () => {
+      calendar.type = isMobile() ? 'default' : "multiple";
+      calendar.months= isMobile() ? 1 : 2;
+      calendar.jumpMonths= isMobile() ? 1 : 2;
+      calendar.update()
+    });
+
+    document
+      .getElementById("bookingForm")
+      .rentType.addEventListener("change", (event) => {
+        calendar.destroy();
+        if(document.getElementById("bookingForm").date.value !== '') {
+          document.getElementById("bookingForm").date.value = ''
+          document.getElementById("calendar").classList.add('outline', 'outline-error')
+        }
+        if (event.target.value === "Alquiler por horas")
+          calendar.settings.selection.day = "single";
+        if (event.target.value === "Alquiler por días")
+          calendar.settings.selection.day = "multiple-ranged";
+        calendar.init();
+      });
+`}></script>
+
+<div class="w-full h-full">
+  <section class="lg:py-8 lg:px-16 bg-slate-100" id="reserva">
+    <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
+      <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
+        <h2 class="xs:text-4xl text-2xl text-center mb-8">
+          {locales.title}
+        </h2>
+        <PersonalDataSection locales={locales.personalData} />
+        <BookingTypeSection locales={locales.bookingType} />
+        <DateTimeSection locales={locales.dateTime} />
+        <BookingConditionsSection locales={locales.bookingConditions} />
+        <div
+          id="errorMessage"
+          class="hidden py-6 max-w-screen-md text-base text-error"
+        >
+          <span>{locales.errorMessage}</span>
+        </div>
+
+        <div class="py-6 block">
+          <button class="btn btn-md btn-primary" type="submit"
+            >{locales.submitButton}</button
+          >
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

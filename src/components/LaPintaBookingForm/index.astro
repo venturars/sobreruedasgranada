@@ -9,428 +9,390 @@ import BookingConditionsSection from "./BookingConditionsSection.astro";
 const { locales } = Astro.props as { locales: Locales.BookingForm };
 ---
 
-<!-- calculadora de precio -->
-<script lang="js">
-  const firstnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,30}$/;
-  const lastnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,50}$/;
-  const dniRegex = /^\d{8}[a-zA-Z]$/;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[6|7][0-9]{8}$/;
+<script>
+  class AstroLaPintaBookingForm extends HTMLElement {
+    private form: HTMLFormElement;
+    private observer: MutationObserver;
 
-  const tryToCalcRentPrice = () => {
-    if (
-      form.accessories.value === "Seleccione una opción" ||
-      form.pickUpTime.value === "" ||
-      form.deliveryTime.value === "" ||
-      form.date.value === "" ||
-      form.date.value === " " ||
-      form.rentType.value === "Seleccione una opción" ||
-      form.pickUpTime.value < "08:00" ||
-      form.pickUpTime.value > "20:00" ||
-      form.deliveryTime.value < "08:00" ||
-      form.deliveryTime.value > "20:00" ||
-      (form.rentType.value === "Alquiler por horas" &&
-        form.pickUpTime.value >= form.deliveryTime.value) ||
-      (form.rentType.value === "Alquiler por días" &&
-        JSON.parse(form.date.value).length < 2)
-    )
-      form.dataset.rentIsCalculable = false;
-    else form.dataset.rentIsCalculable = true;
-  };
+    private readonly firstnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,30}$/;
+    private readonly lastnameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜ\- ]{2,50}$/;
+    private readonly dniRegex = /^\d{8}[a-zA-Z]$/;
+    private readonly emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    private readonly phoneRegex = /^[6|7][0-9]{8}$/;
+    private readonly validations: Record<
+      string,
+      (target: HTMLInputElement | HTMLSelectElement) => boolean
+    > = {
+      firstname: (target) => this.firstnameRegex.test(target.value),
+      lastname: (target) => this.lastnameRegex.test(target.value),
+      email: (target) => this.emailRegex.test(target.value),
+      dni: (target) => this.dniRegex.test(target.value),
+      phone: (target) => this.phoneRegex.test(target.value),
+      rentType: (target) => {
+        const isValid = target.value !== "Seleccione una opción";
+        if (this.form.pickUpTime.value !== "") {
+          this.form.pickUpTime.classList.add("input-error");
+          this.form.pickUpTime.value = "";
+        }
+        if (this.form.deliveryTime.value !== "") {
+          this.form.deliveryTime.value = "";
+          this.form.deliveryTime.classList.add("input-error");
+        }
+        return isValid;
+      },
+      accessories: (target) => target.value !== "Seleccione una opción",
+      pickUpTime: (target) => {
+        return (
+          target.value >= "08:00" &&
+          target.value <= "20:00" &&
+          (this.form.rentType.value === "Alquiler por horas"
+            ? target.value < (this.form.deliveryTime.value || "20:00")
+            : true)
+        );
+      },
+      deliveryTime: (target) => {
+        return (
+          target.value >= "08:00" &&
+          target.value <= "20:00" &&
+          (this.form.rentType.value === "Alquiler por horas"
+            ? this.form.pickUpTime.value < target.value
+            : true)
+        );
+      },
+      contractAgreement: (target) => (target as HTMLInputElement).checked,
+      webAgreement: (target) => (target as HTMLInputElement).checked,
+    };
 
-  function hasFiveHoursDifference(pickUpTimeValue, deliveryTimeValue) {
-    const [pickUpHours, pickUpMinutes] = pickUpTimeValue.split(":").map(Number);
-    const [deliveryHours, deliveryMinutes] = deliveryTimeValue
-      .split(":")
-      .map(Number);
+    constructor() {
+      super();
+      this.handleFormSubmit = this.handleFormSubmit.bind(this);
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.isRentPriceCalculable = this.isRentPriceCalculable.bind(this);
+      // this.foo = this.foo.bind(this);
+    }
 
-    const pickUpTotalMinutes = pickUpHours * 60 + pickUpMinutes;
-    const deliveryTotalMinutes = deliveryHours * 60 + deliveryMinutes;
+    private hasFiveHoursDifference(
+      pickUpTimeValue: string,
+      deliveryTimeValue: string
+    ): boolean {
+      const [pickUpHours, pickUpMinutes] = pickUpTimeValue
+        .split(":")
+        .map(Number);
+      const [deliveryHours, deliveryMinutes] = deliveryTimeValue
+        .split(":")
+        .map(Number);
 
-    const minutesDifference = Math.abs(
-      deliveryTotalMinutes - pickUpTotalMinutes
-    );
+      const pickUpTotalMinutes = pickUpHours * 60 + pickUpMinutes;
+      const deliveryTotalMinutes = deliveryHours * 60 + deliveryMinutes;
 
-    return minutesDifference >= 300;
+      return Math.abs(deliveryTotalMinutes - pickUpTotalMinutes) >= 300;
+    }
+
+    private isRentPriceCalculable(): void {
+      const isCalculable = !(
+        this.form.accessories.value === "Seleccione una opción" ||
+        this.form.pickUpTime.value === "" ||
+        this.form.deliveryTime.value === "" ||
+        this.form.date.value === "" ||
+        this.form.date.value === " " ||
+        this.form.rentType.value === "Seleccione una opción" ||
+        this.form.pickUpTime.value < "08:00" ||
+        this.form.pickUpTime.value > "20:00" ||
+        this.form.deliveryTime.value < "08:00" ||
+        this.form.deliveryTime.value > "20:00" ||
+        (this.form.rentType.value === "Alquiler por horas" &&
+          this.form.pickUpTime.value >= this.form.deliveryTime.value) ||
+        (this.form.rentType.value === "Alquiler por días" &&
+          JSON.parse(this.form.date.value).length < 2)
+      );
+
+      this.form.dataset.rentIsCalculable = isCalculable.toString();
+    }
+
+    private handleInputChange(event: Event): void {
+      const target = event.target as HTMLInputElement | HTMLSelectElement;
+      const inputType = target.getAttribute("name");
+
+      const errorClass =
+        target.type === "checkbox"
+          ? "checkbox-error"
+          : target.tagName === "SELECT"
+            ? "select-error"
+            : "input-error";
+      target.classList[this.validations[inputType](target) ? "remove" : "add"](
+        errorClass
+      );
+
+      if (
+        ["rentType", "accessories", "pickUpTime", "deliveryTime"].includes(
+          inputType
+        )
+      ) {
+        this.isRentPriceCalculable();
+      } // falta meter el calendario
+    }
+
+    private handleFormSubmit(event: Event): void {
+      event.preventDefault();
+
+      let isValid = true;
+      this.querySelector("#errorMessage").classList.add("hidden");
+      const form = event.target as HTMLFormElement;
+
+      Object.entries(this.validations).forEach(([field, validation]) => {
+        const element = form[field];
+        let isValid = validation(element);
+
+        if (!isValid) {
+          if (field === "date") {
+            document
+              .getElementById("calendar")
+              .classList.add("outline", "outline-error");
+            element.value = " ";
+          } else {
+            const errorClass =
+              element.type === "checkbox"
+                ? "checkbox-error"
+                : element.tagName === "SELECT"
+                  ? "select-error"
+                  : "input-error";
+            element.classList.add(errorClass);
+          }
+          document.getElementById("errorMessage").classList.remove("hidden");
+          isValid = false;
+        }
+      });
+
+      if (!isValid) return;
+
+      const formData = new FormData(this.form);
+      fetch("/api/remolques/la-pinta", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error(response.statusText);
+          (
+            document.getElementById("modalSuccess") as HTMLDialogElement
+          ).showModal();
+          this.form.reset();
+          window.scrollTo(0, 0);
+        })
+        .catch((error) => {
+          console.error(error);
+          (
+            document.getElementById("modalError") as HTMLDialogElement
+          ).showModal();
+        });
+    }
+
+    // private foo(mutationsList, observer) {
+    //   for (const mutation of mutationsList) {
+    //     if (mutation.attributeName === "data-rent-is-calculable") {
+    //       const form = document.getElementById("bookingForm");
+    //       const newValue = form.getAttribute("data-rent-is-calculable");
+    //       if (newValue === "true") {
+    //         const accessories = form.accessories.value === "Sí";
+    //         const days = JSON.parse(form.date.value);
+    //         const festDays = [
+    //           "2024-11-01",
+    //           "2024-12-06",
+    //           "2024-12-07",
+    //           "2024-12-08",
+    //           "2024-12-09",
+    //           "2024-12-24",
+    //           "2024-12-25",
+    //           "2024-12-26",
+    //           "2024-12-27",
+    //           "2024-12-28",
+    //           "2024-12-29",
+    //           "2024-12-30",
+    //           "2024-12-31",
+    //           "2025-01-01",
+    //           "2025-01-02",
+    //           "2025-01-03",
+    //           "2025-01-04",
+    //           "2025-01-05",
+    //           "2025-01-06",
+    //           "2025-02-28",
+    //           "2025-03-01",
+    //           "2025-03-02",
+    //           "2025-04-17",
+    //           "2025-04-18",
+    //           "2025-04-19",
+    //           "2025-04-20",
+    //           "2025-05-01",
+    //           "2025-05-02",
+    //           "2025-05-03",
+    //           "2025-05-04",
+    //           "2025-06-16",
+    //           "2025-06-17",
+    //           "2025-06-18",
+    //           "2025-06-19",
+    //           "2025-06-20",
+    //           "2025-06-21",
+    //           "2025-06-20",
+    //           "2025-06-21",
+    //           "2025-06-22",
+    //           "2025-08-15",
+    //           "2025-08-16",
+    //           "2025-08-17",
+    //           "2025-10-12",
+    //           "2025-11-01",
+    //           "2025-11-02",
+    //           "2025-12-06",
+    //           "2025-12-07",
+    //           "2025-12-08",
+    //           "2025-12-24",
+    //           "2025-12-25",
+    //           "2025-12-26",
+    //           "2025-12-27",
+    //           "2025-12-28",
+    //           "2025-12-29",
+    //           "2025-12-30",
+    //           "2025-12-31",
+    //         ];
+
+    //         let totalRentalPrice = 0;
+
+    //         if (form.rentType.value === "Alquiler por horas") {
+    //           const firstDay = days[0];
+    //           const isHoliday = festDays.includes(firstDay);
+    //           const isWeekend =
+    //             new Date(firstDay).getDay() === 0 ||
+    //             new Date(firstDay).getDay() === 6;
+
+    //           if (
+    //             (isHoliday || isWeekend) &&
+    //             hasFiveHoursDifference(
+    //               form.pickUpTime.value,
+    //               form.deliveryTime.value
+    //             )
+    //           ) {
+    //             totalRentalPrice = 35;
+    //           } else if (isHoliday || isWeekend) {
+    //             totalRentalPrice = 30;
+    //           } else if (
+    //             hasFiveHoursDifference(
+    //               form.pickUpTime.value,
+    //               form.deliveryTime.value
+    //             )
+    //           ) {
+    //             totalRentalPrice = 25;
+    //           } else {
+    //             totalRentalPrice = 25;
+    //           }
+    //         } else if (
+    //           form.rentType.value === "Alquiler por días" &&
+    //           days.length <= 8
+    //         ) {
+    //           const pickUpTime = form.pickUpTime.value;
+    //           const deliveryTime = form.deliveryTime.value;
+    //           const pickUpDate = new Date(`2000-01-01T${pickUpTime}`);
+    //           const deliveryDate = new Date(`2000-01-01T${deliveryTime}`);
+
+    //           const daysDifference = Math.max(
+    //             1,
+    //             Math.ceil(
+    //               (new Date(days[days.length - 1]).getTime() -
+    //                 new Date(days[0]).getTime()) /
+    //                 (1000 * 60 * 60 * 24)
+    //             )
+    //           );
+
+    //           const isFullWeekend =
+    //             new Date(days[0]).getDay() === 5 &&
+    //             (new Date(days[days.length - 1]).getDay() === 0 ||
+    //               (new Date(days[days.length - 1]).getDay() === 1 &&
+    //                 deliveryDate.getHours() <= 10));
+    //           const isFullWeek =
+    //             (daysDifference === 6 && deliveryDate.getHours() > 10) ||
+    //             daysDifference === 7;
+    //           const countHolidays = days.filter(
+    //             (day) =>
+    //               festDays.includes(day) ||
+    //               new Date(day).getDay() === 6 ||
+    //               new Date(day).getDay() === 0
+    //           ).length;
+
+    //           if (isFullWeek) {
+    //             totalRentalPrice =
+    //               (new Date(days[0]).getDay() === 5 ||
+    //               new Date(days[0]).getDay() === 6
+    //                 ? 130
+    //                 : 120) +
+    //               days.filter((day) => festDays.includes(day)).length * 10;
+    //           } else if (isFullWeekend) {
+    //             totalRentalPrice = 60;
+    //           } else {
+    //             let firstDayPrice = countHolidays ? 35 : 25;
+    //             if (daysDifference === 1 && deliveryDate.getHours() <= 10)
+    //               totalRentalPrice = firstDayPrice;
+    //             else if (deliveryDate.getHours() <= 10)
+    //               totalRentalPrice =
+    //                 firstDayPrice +
+    //                 15 * (daysDifference - 1) +
+    //                 5 * countHolidays;
+    //             else
+    //               totalRentalPrice =
+    //                 firstDayPrice + 15 * daysDifference + 5 * countHolidays;
+    //           }
+    //         }
+
+    //         const rentalPrice = totalRentalPrice + (accessories ? 5 : 0);
+    //         const guarantee = days.length > 8 ? 200 : 150;
+    //         const reservationAmount = rentalPrice > 100 ? 100 : rentalPrice;
+    //         const pickUpPaymentAmount =
+    //           rentalPrice + guarantee - reservationAmount;
+
+    //         form.rentalPrice.value =
+    //           days.length > 8 ? "Precio personalizado" : `${rentalPrice} €`;
+    //         form.guarantee.value = `${guarantee} €`;
+    //         form.reservationAmount.value =
+    //           days.length > 8
+    //             ? "Precio personalizado"
+    //             : `${reservationAmount} €`;
+    //         form.pickUpPaymentAmount.value =
+    //           days.length > 8
+    //             ? "Precio personalizado"
+    //             : `${pickUpPaymentAmount} €`;
+    //       }
+    //       if (newValue === "false") {
+    //         form.rentalPrice.value = "- €";
+    //         form.guarantee.value = "- €";
+    //         form.reservationAmount.value = "- €";
+    //         form.pickUpPaymentAmount.value = "- €";
+    //       }
+    //     }
+    //   }
+    // }
+
+    connectedCallback(): void {
+      this.form = this.querySelector("#bookingForm");
+
+      this.form.querySelectorAll("input, select").forEach((element) => {
+        element.addEventListener("change", this.handleInputChange);
+      });
+
+      this.form.addEventListener("submit", this.handleFormSubmit);
+
+      // Set up observer
+      // this.observer = new MutationObserver(this.foo);
+      // this.observer.observe(this.form, { attributes: true });
+    }
+
+    disconnectedCallback(): void {
+      this.form.querySelectorAll("input, select").forEach((element) => {
+        element.removeEventListener("change", this.handleInputChange);
+      });
+
+      this.form.removeEventListener("submit", this.handleFormSubmit);
+
+      // this.observer.disconnect();
+    }
   }
 
-  const form = document.getElementById("bookingForm");
-
-  const observer = new MutationObserver((mutationsList, observer) => {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === "data-rent-is-calculable") {
-        const form = document.getElementById("bookingForm");
-        const newValue = form.getAttribute("data-rent-is-calculable");
-        if (newValue === "true") {
-          const accessories = form.accessories.value === "Sí";
-          const days = JSON.parse(form.date.value);
-          const festDays = [
-            "2024-05-29",
-            "2024-05-30",
-            "2024-05-31",
-            "2024-06-01",
-            "2024-06-02",
-            "2024-08-15",
-            "2024-08-16",
-            "2024-10-11",
-            "2024-10-12",
-            "2024-11-01",
-            "2024-12-06",
-            "2024-12-07",
-            "2024-12-08",
-            "2024-12-09",
-            "2024-12-24",
-            "2024-12-25",
-            "2024-12-26",
-            "2024-12-27",
-            "2024-12-28",
-            "2024-12-29",
-            "2024-12-30",
-            "2024-12-31",
-            "2025-01-01",
-            "2025-01-02",
-            "2025-01-03",
-            "2025-01-04",
-            "2025-01-05",
-            "2025-01-06",
-            "2025-02-28",
-            "2025-03-01",
-            "2025-03-02",
-            "2025-04-17",
-            "2025-04-18",
-            "2025-04-19",
-            "2025-04-20",
-            "2025-05-01",
-            "2025-05-02",
-            "2025-05-03",
-            "2025-05-04",
-            "2025-06-16",
-            "2025-06-17",
-            "2025-06-18",
-            "2025-06-19",
-            "2025-06-20",
-            "2025-06-21",
-            "2025-06-20",
-            "2025-06-21",
-            "2025-06-22",
-            "2025-08-15",
-            "2025-08-16",
-            "2025-08-17",
-            "2025-10-12",
-            "2025-11-01",
-            "2025-11-02",
-            "2025-12-06",
-            "2025-12-07",
-            "2025-12-08",
-            "2025-12-24",
-            "2025-12-25",
-            "2025-12-26",
-            "2025-12-27",
-            "2025-12-28",
-            "2025-12-29",
-            "2025-12-30",
-            "2025-12-31",
-          ];
-
-          let totalRentalPrice = 0;
-
-          if (form.rentType.value === "Alquiler por horas") {
-            const firstDay = days[0];
-            const isHoliday = festDays.includes(firstDay);
-            const isWeekend =
-              new Date(firstDay).getDay() === 0 ||
-              new Date(firstDay).getDay() === 6;
-
-            if (
-              (isHoliday || isWeekend) &&
-              hasFiveHoursDifference(
-                form.pickUpTime.value,
-                form.deliveryTime.value
-              )
-            ) {
-              totalRentalPrice = 35;
-            } else if (isHoliday || isWeekend) {
-              totalRentalPrice = 30;
-            } else if (
-              hasFiveHoursDifference(
-                form.pickUpTime.value,
-                form.deliveryTime.value
-              )
-            ) {
-              totalRentalPrice = 25;
-            } else {
-              totalRentalPrice = 25;
-            }
-          } else if (
-            form.rentType.value === "Alquiler por días" &&
-            days.length <= 8
-          ) {
-            const pickUpTime = form.pickUpTime.value;
-            const deliveryTime = form.deliveryTime.value;
-            const pickUpDate = new Date(`2000-01-01T${pickUpTime}`);
-            const deliveryDate = new Date(`2000-01-01T${deliveryTime}`);
-
-            const daysDifference = Math.max(
-              1,
-              Math.ceil(
-                (new Date(days[days.length - 1]).getTime() -
-                  new Date(days[0]).getTime()) /
-                  (1000 * 60 * 60 * 24)
-              )
-            );
-
-            const isFullWeekend =
-              new Date(days[0]).getDay() === 5 &&
-              (new Date(days[days.length - 1]).getDay() === 0 ||
-                (new Date(days[days.length - 1]).getDay() === 1 &&
-                  deliveryDate.getHours() <= 10));
-            const isFullWeek =
-              (daysDifference === 6 && deliveryDate.getHours() > 10) ||
-              daysDifference === 7;
-            const countHolidays = days.filter(
-              (day) =>
-                festDays.includes(day) ||
-                new Date(day).getDay() === 6 ||
-                new Date(day).getDay() === 0
-            ).length;
-
-            if (isFullWeek) {
-              totalRentalPrice =
-                (new Date(days[0]).getDay() === 5 ||
-                new Date(days[0]).getDay() === 6
-                  ? 130
-                  : 120) +
-                days.filter((day) => festDays.includes(day)).length * 10;
-            } else if (isFullWeekend) {
-              totalRentalPrice = 60;
-            } else {
-              let firstDayPrice = countHolidays ? 35 : 25;
-              if (daysDifference === 1 && deliveryDate.getHours() <= 10)
-                totalRentalPrice = firstDayPrice;
-              else if (deliveryDate.getHours() <= 10)
-                totalRentalPrice =
-                  firstDayPrice + 15 * (daysDifference - 1) + 5 * countHolidays;
-              else
-                totalRentalPrice =
-                  firstDayPrice + 15 * daysDifference + 5 * countHolidays;
-            }
-          }
-
-          const rentalPrice = totalRentalPrice + (accessories ? 5 : 0);
-          const guarantee = days.length > 8 ? 200 : 150;
-          const reservationAmount = rentalPrice > 100 ? 100 : rentalPrice;
-          const pickUpPaymentAmount =
-            rentalPrice + guarantee - reservationAmount;
-
-          form.rentalPrice.value =
-            days.length > 8 ? "Precio personalizado" : `${rentalPrice} €`;
-          form.guarantee.value = `${guarantee} €`;
-          form.reservationAmount.value =
-            days.length > 8 ? "Precio personalizado" : `${reservationAmount} €`;
-          form.pickUpPaymentAmount.value =
-            days.length > 8
-              ? "Precio personalizado"
-              : `${pickUpPaymentAmount} €`;
-        }
-        if (newValue === "false") {
-          form.rentalPrice.value = "- €";
-          form.guarantee.value = "- €";
-          form.reservationAmount.value = "- €";
-          form.pickUpPaymentAmount.value = "- €";
-        }
-      }
-    }
-  });
-
-  observer.observe(form, { attributes: true });
-
-  form.firstname.addEventListener("change", (event) => {
-    const isValid = firstnameRegex.test(event.target.value);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-  });
-
-  form.lastname.addEventListener("change", (event) => {
-    const isValid = lastnameRegex.test(event.target.value);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-  });
-
-  form.email.addEventListener("change", (event) => {
-    const isValid = emailRegex.test(event.target.value);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-  });
-
-  form.dni.addEventListener("change", (event) => {
-    const isValid = dniRegex.test(event.target.value);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-  });
-
-  form.phone.addEventListener("change", (event) => {
-    const isValid = phoneRegex.test(event.target.value);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-  });
-
-  form.rentType.addEventListener("change", (event) => {
-    const isValid = event.target.value !== "Seleccione una opción";
-    event.target.classList[isValid ? "remove" : "add"]("select-error");
-    if (form.pickUpTime.value !== "") {
-      form.pickUpTime.classList.add("input-error");
-      form.pickUpTime.value = "";
-    }
-    if (form.deliveryTime.value !== "") {
-      form.deliveryTime.value = "";
-      form.deliveryTime.classList.add("input-error");
-    }
-    tryToCalcRentPrice();
-  });
-
-  form.accessories.addEventListener("change", (event) => {
-    const isValid = event.target.value !== "Seleccione una opción";
-    event.target.classList[isValid ? "remove" : "add"]("select-error");
-    tryToCalcRentPrice();
-  });
-
-  form.pickUpTime.addEventListener("change", (event) => {
-    const isValid =
-      event.target.value >= "08:00" &&
-      event.target.value <= "20:00" &&
-      (form.rentType.value === "Alquiler por horas"
-        ? event.target.value < (form.deliveryTime.value || "20:00")
-        : true);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-    tryToCalcRentPrice();
-  });
-
-  form.deliveryTime.addEventListener("change", (event) => {
-    const isValid =
-      event.target.value >= "08:00" &&
-      event.target.value <= "20:00" &&
-      (form.rentType.value === "Alquiler por horas"
-        ? form.pickUpTime.value < event.target.value
-        : true);
-    event.target.classList[isValid ? "remove" : "add"]("input-error");
-    tryToCalcRentPrice();
-  });
-
-  form.contractAgreement.addEventListener("change", (event) => {
-    const isValid = event.target.checked;
-    event.target.classList[isValid ? "remove" : "add"]("checkbox-error");
-  });
-
-  form.webAgreement.addEventListener("change", (event) => {
-    const isValid = event.target.checked;
-    event.target.classList[isValid ? "remove" : "add"]("checkbox-error");
-  });
-
-  form.onsubmit = (event) => {
-    event.preventDefault();
-
-    let isValid = true;
-
-    document.getElementById("errorMessage").classList.add("hidden");
-
-    if (!firstnameRegex.test(event.target.firstname.value)) {
-      event.target.firstname.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (!lastnameRegex.test(event.target.lastname.value)) {
-      event.target.lastname.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (!emailRegex.test(event.target.email.value)) {
-      event.target.email.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (!dniRegex.test(event.target.dni.value)) {
-      event.target.dni.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (!phoneRegex.test(event.target.phone.value)) {
-      event.target.phone.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (event.target.rentType.value === "Seleccione una opción") {
-      event.target.rentType.classList.add("select-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (event.target.accessories.value === "Seleccione una opción") {
-      event.target.accessories.classList.add("select-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (
-      !(
-        event.target.pickUpTime.value >= "08:00" &&
-        event.target.pickUpTime.value <= "20:00" &&
-        (event.target.rentType.value === "Alquiler por horas"
-          ? event.target.pickUpTime.value <
-            (event.target.deliveryTime.value || "20:00")
-          : true)
-      )
-    ) {
-      event.target.pickUpTime.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (
-      !(
-        event.target.deliveryTime.value >= "08:00" &&
-        event.target.deliveryTime.value <= "20:00" &&
-        (event.target.rentType.value === "Alquiler por horas"
-          ? event.target.pickUpTime.value < event.target.deliveryTime.value
-          : true)
-      )
-    ) {
-      event.target.deliveryTime.classList.add("input-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (
-      event.target.date.value === "" ||
-      (event.target.rentType.value === "Alquiler por días" &&
-        JSON.parse(event.target.date.value).length < 2)
-    ) {
-      document
-        .getElementById("calendar")
-        .classList.add("outline", "outline-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      event.target.date.value = " ";
-      isValid = false;
-    }
-    if (!event.target.contractAgreement.checked) {
-      event.target.contractAgreement.classList.add("checkbox-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-    if (!event.target.webAgreement.checked) {
-      event.target.webAgreement.classList.add("checkbox-error");
-      document.getElementById("errorMessage").classList.remove("hidden");
-      isValid = false;
-    }
-
-    if (!isValid) return;
-
-    const formData = new FormData(form);
-    fetch("/api/remolques/la-pinta", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error(response.statusText);
-        modalSuccess.showModal();
-        form.reset();
-        window.scrollTo(0, 0);
-      })
-      .catch((error) => {
-        console.error(error);
-        modalError.showModal();
-      });
-  };
+  customElements.define("astro-la-pinta-booking-form", AstroLaPintaBookingForm);
 </script>
 
 <script
@@ -612,30 +574,32 @@ const { locales } = Astro.props as { locales: Locales.BookingForm };
       });
 `}></script>
 
-<div class="w-full h-full">
-  <section class="lg:py-8 lg:px-16 bg-slate-100" id="reserva">
-    <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
-      <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
-        <h2 class="xs:text-4xl text-2xl text-center mb-8">
-          {locales.title}
-        </h2>
-        <PersonalDataSection locales={locales.personalData} />
-        <BookingTypeSection locales={locales.bookingType} />
-        <DateTimeSection locales={locales.dateTime} />
-        <BookingConditionsSection locales={locales.bookingConditions} />
-        <div
-          id="errorMessage"
-          class="hidden py-6 max-w-screen-md text-base text-error"
-        >
-          <span>{locales.errorMessage}</span>
-        </div>
-
-        <div class="py-6 block">
-          <button class="btn btn-md btn-primary" type="submit"
-            >{locales.submitButton}</button
+<astro-la-pinta-booking-form>
+  <div class="w-full h-full">
+    <section class="lg:py-8 lg:px-16 bg-slate-100" id="reserva">
+      <form id="bookingForm" class="max-w-screen-xl mx-auto" method="POST">
+        <div class="2xl:px-0 md:px-16 max-md:px-4 bg-white lg:rounded-xl py-8">
+          <h2 class="xs:text-4xl text-2xl text-center mb-8">
+            {locales.title}
+          </h2>
+          <PersonalDataSection locales={locales.personalData} />
+          <BookingTypeSection locales={locales.bookingType} />
+          <DateTimeSection locales={locales.dateTime} />
+          <BookingConditionsSection locales={locales.bookingConditions} />
+          <div
+            id="errorMessage"
+            class="hidden py-6 max-w-screen-md text-base text-error"
           >
+            <span>{locales.errorMessage}</span>
+          </div>
+
+          <div class="py-6 block">
+            <button class="btn btn-md btn-primary" type="submit"
+              >{locales.submitButton}</button
+            >
+          </div>
         </div>
-      </div>
-    </form>
-  </section>
-</div>
+      </form>
+    </section>
+  </div>
+</astro-la-pinta-booking-form>
